@@ -8,5 +8,9 @@ namespace SafewebFornecedores.Models
 {
     public class Role : IdentityRole<Guid, UsuarioRole>
     {
+        public Role()
+        {
+            Id = Guid.NewGuid();
+        }
     }
 }
