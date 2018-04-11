@@ -10,6 +10,7 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using SafewebFornecedores.Providers;
 using SafewebFornecedores.Models;
+using SafewebFornecedores.Managers;
 
 namespace SafewebFornecedores
 {
