@@ -237,11 +237,11 @@
     <Compile Include="Managers\ApplicationUserManager.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
-    <Compile Include="Models\Role.cs" />
-    <Compile Include="Models\Usuario.cs" />
-    <Compile Include="Models\UsuarioClaim.cs" />
-    <Compile Include="Models\UsuarioLogin.cs" />
-    <Compile Include="Models\UsuarioRole.cs" />
+    <Compile Include="Models\Identity\Role.cs" />
+    <Compile Include="Models\Identity\Usuario.cs" />
+    <Compile Include="Models\Identity\UsuarioClaim.cs" />
+    <Compile Include="Models\Identity\UsuarioLogin.cs" />
+    <Compile Include="Models\Identity\UsuarioRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
