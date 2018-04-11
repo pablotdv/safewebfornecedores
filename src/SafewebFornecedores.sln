@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafewebFornecedores", "SafewebFornecedores\SafewebFornecedores.csproj", "{DC89FC2B-1EAF-4C14-9023-F483EF0EA553}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafewebFornecedores.Tests", "SafewebFornecedores.Tests\SafewebFornecedores.Tests.csproj", "{5603DA44-4439-4332-A25D-596E06C77048}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DC89FC2B-1EAF-4C14-9023-F483EF0EA553}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC89FC2B-1EAF-4C14-9023-F483EF0EA553}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC89FC2B-1EAF-4C14-9023-F483EF0EA553}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC89FC2B-1EAF-4C14-9023-F483EF0EA553}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5603DA44-4439-4332-A25D-596E06C77048}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5603DA44-4439-4332-A25D-596E06C77048}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5603DA44-4439-4332-A25D-596E06C77048}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5603DA44-4439-4332-A25D-596E06C77048}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {72DF3D2D-A68D-408F-B668-2BEE7268A219}
+	EndGlobalSection
+EndGlobal
