@@ -16,6 +16,7 @@ using Microsoft.Owin.Security.OAuth;
 using SafewebFornecedores.Models;
 using SafewebFornecedores.Providers;
 using SafewebFornecedores.Results;
+using SafewebFornecedores.ViewModels;
 
 namespace SafewebFornecedores.Controllers
 {
