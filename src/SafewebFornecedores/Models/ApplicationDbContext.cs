@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using System;
+using System.Data.Entity;
 
 namespace SafewebFornecedores.Models
 {
@@ -10,10 +11,15 @@ namespace SafewebFornecedores.Models
             : base("DefaultConnection")
         {
         }
-        
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Categoria> Categorias { get; set; }
+        public DbSet<Fornecedor> Fornecedores { get; set; }
+        public DbSet<Proposta> Propostas { get; set; }
+        public DbSet<PropostaSituacao> PropostasSituacoes { get; set; }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -11,12 +13,18 @@ namespace SafewebFornecedores.Models
     public class Usuario : IdentityUser<Guid, UsuarioLogin, UsuarioRole, UsuarioClaim>
     {
         [Required]
+        [Index(IsUnique = true)]
+        [StringLength(11)]
         public string Cpf { get; set; }
 
         [Required]
+        [StringLength(200)]
         public string Nome { get; set; }
 
         public DateTime DataNascimento { get; set; }
+
+        [InverseProperty(nameof(PropostaSituacao.Usuario))]
+        public virtual ICollection<PropostaSituacao> PropostasSituacoes { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<Usuario, Guid> manager, string authenticationType)
         {
