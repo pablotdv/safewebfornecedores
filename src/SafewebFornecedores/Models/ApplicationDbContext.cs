@@ -2,6 +2,8 @@
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Data.Entity;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SafewebFornecedores.Models
 {
@@ -16,6 +18,12 @@ namespace SafewebFornecedores.Models
         {
             return new ApplicationDbContext();
         }
+
+        public override int SaveChanges() => base.SaveChanges();
+
+        public override Task<int> SaveChangesAsync() => base.SaveChangesAsync();
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken) => base.SaveChangesAsync(cancellationToken);
 
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Fornecedor> Fornecedores { get; set; }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
 namespace SafewebFornecedores.ViewModels
@@ -8,6 +9,16 @@ namespace SafewebFornecedores.ViewModels
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]        
+        [StringLength(11)]
+        public string Cpf { get; set; }
+
+        [Required]
+        [StringLength(200)]
+        public string Nome { get; set; }
+
+        public DateTime DataNascimento { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]

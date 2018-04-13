@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-md-6">
+        <h2>Por favor, entre com seus dados</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <form #f="ngForm" novalidate (ngSubmit)="register(f)">
+            <div class="form-group">
+                <label for="cpf">Cpf</label>
+                <input type="text" class="form-control" id="cpf" placeholder="Cpf" name="cpf" ngModel>
+            </div>
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" class="form-control" id="nome" placeholder="Nome" name="nome" ngModel>
+            </div>
+            <div class="form-group">
+                <label for="dataNascimento">Data de nascimento</label>
+                <input type="text" class="form-control" id="dataNascimento" placeholder="Data de nascimento" name="dataNascimento" ngModel>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" class="form-control" id="email" placeholder="Email" name="email" ngModel>
+            </div>
+            <div class="form-group">
+                <label for="password">Senha</label>
+                <input type="text" class="form-control" id="password" placeholder="password" name="password" ngModel>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirmação da senha</label>
+                <input type="text" class="form-control" id="confirmPassword" placeholder="confirmPassword" name="confirmPassword" ngModel>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+            </div>
+
+            <div *ngIf="errors" class="alert alert-danger" role="alert">
+                <strong>Oops!</strong> {{ errors }}
+            </div>
+        </form>
+    </div>
+</div>

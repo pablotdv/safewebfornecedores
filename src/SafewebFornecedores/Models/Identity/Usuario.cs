@@ -12,6 +12,11 @@ namespace SafewebFornecedores.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class Usuario : IdentityUser<Guid, UsuarioLogin, UsuarioRole, UsuarioClaim>
     {
+        public Usuario()
+        {
+            Id = Guid.NewGuid();
+        }
+
         [Required]
         [Index(IsUnique = true)]
         [StringLength(11)]
