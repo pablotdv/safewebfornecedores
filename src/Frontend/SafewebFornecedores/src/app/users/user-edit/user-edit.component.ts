@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UsersService } from '../../shared/services/users.service';
 import { Usuario } from '../../shared/models/usuario';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-user-edit',
@@ -30,18 +31,22 @@ export class UserEditComponent implements OnInit {
       });
   }
 
-  createForm(value: Usuario) {
+  createForm(value: Usuario) {    
     this.usuarioForm = this.fb.group({
       cpf: [value.Cpf, [Validators.required]],
-      nome: [value.Nome],
-      dataNascimento: [value.DataNascimento],
-      email: [value.Email],
+      nome: [value.Nome, [Validators.required]],
+      dataNascimento: [new Date(value.DataNascimento), [Validators.required]],
+      email: [value.Email, [Validators.required]],
       id: [value.Id],
-      userName: [value.UserName]
+      userName: [value.UserName, [Validators.required]]
     });
-    console.log(this.usuarioForm);
   }
 
   get cpf() { return this.usuarioForm.get('cpf'); }
+  get nome() { return this.usuarioForm.get('nome'); }
+  get dataNascimento() { return this.usuarioForm.get('dataNascimento'); }
+  get email() { return this.usuarioForm.get('email'); }
+  get id() { return this.usuarioForm.get('id'); }
+  get userName() { return this.usuarioForm.get('userName'); }
 
 }

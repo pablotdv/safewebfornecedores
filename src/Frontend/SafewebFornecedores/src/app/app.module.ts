@@ -1,6 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from '@angular/router';
+import localePt from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
+import { FormBuilder, FormsModule, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
+
+import { NgBrToolsModule } from 'ng-br-tools';
+import { TextMaskModule } from 'angular2-text-mask';
 
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./home/home.component";
@@ -12,14 +20,13 @@ import { UsersComponent } from './users/users.component';
 import { AccountRegisterComponent } from './account-register/account-register.component';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './shared/services/auth.service';
-import { FormBuilder, FormsModule, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UsersService } from './shared/services/users.service';
 import { TokenInterceptor } from './token.interceptor';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 
-import { NgBrToolsModule } from 'ng-br-tools';
-import { TextMaskModule } from 'angular2-text-mask';
+
+
+registerLocaleData(localePt, 'pt');
 
 @NgModule({
   declarations: [
