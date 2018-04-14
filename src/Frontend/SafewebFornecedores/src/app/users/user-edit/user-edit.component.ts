@@ -31,7 +31,7 @@ export class UserEditComponent implements OnInit {
       });
   }
 
-  createForm(value: Usuario) {    
+  createForm(value: Usuario) {
     this.usuarioForm = this.fb.group({
       cpf: [value.Cpf, [Validators.required]],
       nome: [value.Nome, [Validators.required]],
@@ -48,5 +48,9 @@ export class UserEditComponent implements OnInit {
   get email() { return this.usuarioForm.get('email'); }
   get id() { return this.usuarioForm.get('id'); }
   get userName() { return this.usuarioForm.get('userName'); }
+
+  teste(value) {
+    console.log(new Date(value.value).toISOString());
+  }
 
 }
