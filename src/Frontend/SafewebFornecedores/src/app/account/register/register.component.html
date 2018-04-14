@@ -5,30 +5,38 @@
 </div>
 <div class="row">
     <div class="col-md-6">
-        <form #f="ngForm" novalidate (ngSubmit)="register(f)">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" #formDir="ngForm">
             <div class="form-group">
-                <label for="cpf">Cpf</label>
-                <input type="text" class="form-control" id="cpf" placeholder="Cpf" name="cpf" ngModel>
+
+                <label for="cpf">CPF</label>
+                <input id="cpf" class="form-control" formControlName="cpf" required>                
+                <div *ngIf="cpf.invalid && (cpf.dirty || cpf.touched)" 
+                        class="alert alert-danger">
+
+                    <div *ngIf="cpf.errors.required">
+                        O campo CPF é obrigatório.
+                    </div>                    
+                </div>                
             </div>
             <div class="form-group">
                 <label for="nome">Nome</label>
-                <input type="text" class="form-control" id="nome" placeholder="Nome" name="nome" ngModel>
+                <input type="text" class="form-control" id="nome" placeholder="Nome" name="nome" formControlName="nome">
             </div>
             <div class="form-group">
                 <label for="dataNascimento">Data de nascimento</label>
-                <input type="text" class="form-control" id="dataNascimento" placeholder="Data de nascimento" name="dataNascimento" ngModel>
+                <input type="text" class="form-control" id="dataNascimento" placeholder="Data de nascimento" name="dataNascimento" formControlName="dataNascimento">
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="text" class="form-control" id="email" placeholder="Email" name="email" ngModel>
+                <input type="text" class="form-control" id="email" placeholder="Email" name="email" formControlName="email">
             </div>
             <div class="form-group">
                 <label for="password">Senha</label>
-                <input type="text" class="form-control" id="password" placeholder="password" name="password" ngModel>
+                <input type="text" class="form-control" id="password" placeholder="password" name="password" formControlName="password">
             </div>
             <div class="form-group">
                 <label for="confirmPassword">Confirmação da senha</label>
-                <input type="text" class="form-control" id="confirmPassword" placeholder="confirmPassword" name="confirmPassword" ngModel>
+                <input type="text" class="form-control" id="confirmPassword" placeholder="confirmPassword" name="confirmPassword" formControlName="confirmPassword">
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Sign Up</button>
@@ -40,3 +48,7 @@
         </form>
     </div>
 </div>
+
+<p>Form value: {{ registerForm.value | json }}</p>
+<p>Form status: {{ registerForm.status | json }}</p>
+<p>Form: {{ registerForm }}</p>

@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
 
 
 import { AppComponent } from './app.component';
@@ -22,7 +22,8 @@ import { HttpModule } from '@angular/http';
     AccountModule,
     routing,
     HttpModule,
-    FormsModule
+    FormsModule,  
+    ReactiveFormsModule  
   ],
   providers: [ConfigService],
   bootstrap: [AppComponent]
