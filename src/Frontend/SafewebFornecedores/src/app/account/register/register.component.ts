@@ -10,6 +10,7 @@ import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  mask = [/[0-9]/,/\d/,/\d/,'.',/\d/,/\d/,/\d/,'.',/\d/,/\d/,/\d/,'-',/\d/,/\d/];
   errors: string;
   isRequesting: boolean;
   submitted: boolean = false;

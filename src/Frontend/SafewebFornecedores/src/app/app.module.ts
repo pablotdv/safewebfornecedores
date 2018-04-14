@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TextMaskModule } from 'angular2-text-mask';
 
 
 import { AppComponent } from './app.component';
@@ -22,8 +23,9 @@ import { HttpModule } from '@angular/http';
     AccountModule,
     routing,
     HttpModule,
-    FormsModule,  
-    ReactiveFormsModule  
+    FormsModule,
+    ReactiveFormsModule,
+    TextMaskModule
   ],
   providers: [ConfigService],
   bootstrap: [AppComponent]

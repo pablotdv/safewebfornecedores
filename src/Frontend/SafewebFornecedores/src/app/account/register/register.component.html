@@ -9,7 +9,7 @@
             <div class="form-group">
 
                 <label for="cpf">CPF</label>
-                <input id="cpf" class="form-control" formControlName="cpf" required>                
+                <input id="cpf" class="form-control" formControlName="cpf" [textMask]="{mask: mask}" required>                
                 <div *ngIf="cpf.invalid && (cpf.dirty || cpf.touched)" 
                         class="alert alert-danger">
 
