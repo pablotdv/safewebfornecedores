@@ -1,45 +1,81 @@
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6 offset-md-3">
         <h2>Por favor, entre com seus dados</h2>
     </div>
 </div>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6 offset-md-3">
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" #formDir="ngForm">
             <div class="form-group">
-
                 <label for="cpf">CPF</label>
-                <input id="cpf" class="form-control" formControlName="cpf" [textMask]="{mask: mask}" required>                
-                <div *ngIf="cpf.invalid && (cpf.dirty || cpf.touched)" 
-                        class="alert alert-danger">
-
+                <input id="cpf" class="form-control" formControlName="cpf" [textMask]="{mask: mask}" ngBrToolsCpfPattern ngBrToolsCpfValidator
+                    required>
+                <div *ngIf="cpf.invalid && (cpf.dirty || cpf.touched)" class="alert alert-danger">
                     <div *ngIf="cpf.errors.required">
                         O campo CPF é obrigatório.
-                    </div>                    
-                </div>                
+                    </div>
+                    <div *ngIf="!cpf.errors.CPFValidator?.valid">
+                        O campo CPF {{ cpf.value }} não é válido.
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <label for="nome">Nome</label>
-                <input type="text" class="form-control" id="nome" placeholder="Nome" name="nome" formControlName="nome">
+                <input type="text" class="form-control" id="nome" placeholder="Nome" name="nome" formControlName="nome" required>
+                <div *ngIf="nome.invalid && (nome.dirty || nome.touched)" class="alert alert-danger">
+                    <div *ngIf="nome.errors.required">
+                        O campo Nome é obrigatório.
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <label for="dataNascimento">Data de nascimento</label>
-                <input type="text" class="form-control" id="dataNascimento" placeholder="Data de nascimento" name="dataNascimento" formControlName="dataNascimento">
+                <input type="date" class="form-control" id="dataNascimento" placeholder="Data de nascimento" name="dataNascimento" formControlName="dataNascimento"
+                    required>
+                <div *ngIf="dataNascimento.invalid && (dataNascimento.dirty || dataNascimento.touched)" class="alert alert-danger">
+                    <div *ngIf="dataNascimento.errors.required">
+                        O campo Data de nascimento é obrigatório.
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="text" class="form-control" id="email" placeholder="Email" name="email" formControlName="email">
+                <input type="email" class="form-control" id="email" placeholder="Email" name="email" formControlName="email" required>                
+                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+                    <div *ngIf="email.errors.required">
+                        O campo Email é obrigatório.
+                    </div>
+                    <div *ngIf="email.errors.email">
+                        O email {{ email.value }} não é válido.
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <label for="password">Senha</label>
-                <input type="text" class="form-control" id="password" placeholder="password" name="password" formControlName="password">
+                <input type="password" class="form-control" id="password" placeholder="Senha" name="password" formControlName="password"
+                    required>
+                <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+                    <div *ngIf="password.errors.required">
+                        O campo Senha é obrigatório.
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <label for="confirmPassword">Confirmação da senha</label>
-                <input type="text" class="form-control" id="confirmPassword" placeholder="confirmPassword" name="confirmPassword" formControlName="confirmPassword">
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirmação da senha" name="confirmPassword"
+                    formControlName="confirmPassword" required>
+                <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)" class="alert alert-danger">
+                    <div *ngIf="confirmPassword.errors.required">
+                        O campo Confirmação da senha é obrigatório.
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="registerForm.errors?.passwordsNotMatch" class="alert alert-danger">
+                As senhas digitadas não conferem.
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">Sign Up</button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i> Cadastrar-se</button>
             </div>
 
             <div *ngIf="errors" class="alert alert-danger" role="alert">
@@ -48,7 +84,3 @@
         </form>
     </div>
 </div>
-
-<p>Form value: {{ registerForm.value | json }}</p>
-<p>Form status: {{ registerForm.status | json }}</p>
-<p>Form: {{ registerForm }}</p>

@@ -27,12 +27,12 @@ export class RegisterComponent implements OnInit {
 
   createForm() {
     this.registerForm = this.fb.group({
-      email: new FormControl('pablotdvsm@gmail.com', Validators.required),
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required],
-      nome: ['Pablo Tôndolo de Vargas', Validators.required],
-      cpf: new FormControl('', Validators.required),
-      dataNascimento: ['12/12/1986', Validators.required],
+      nome: ['', Validators.required],
+      cpf: ['', Validators.required],
+      dataNascimento: ['', Validators.required],
     }, {
         validator: RegisterComponent.equalsTo
       });
