@@ -13,6 +13,7 @@ import { AccountRegisterComponent } from './account-register/account-register.co
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './shared/services/auth.service';
 import { FormBuilder, FormsModule, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { FormBuilder, FormsModule, FormGroup, ReactiveFormsModule } from '@angul
     AccountRegisterComponent,
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     RouterModule,
     ReactiveFormsModule,    

@@ -10,25 +10,13 @@ export class AuthGuard implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    console.log('AuthGuard#canActivate called');
-    let url: string = state.url;
-
-    return this.checkLogin(url);
+    return this.checkLogin();
   }
 
-  checkLogin(url: string): boolean {
+  checkLogin(): boolean {
     if (this.authService.isLoggedIn) { return true; }
 
-    this.authService.redirectUrl = url;
-
-    let seesionId = 123456789;
-
-    let navigationExtras: NavigationExtras = {
-      queryParams: { 'session_id': seesionId },
-      fragment: 'anchor'
-    };
-
-    this.router.navigate(['/account/login'], navigationExtras);
+    this.router.navigate(['/account/login']);
     return false;
   }
 }
