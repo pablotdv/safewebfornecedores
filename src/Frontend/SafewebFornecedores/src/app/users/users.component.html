@@ -1,0 +1,26 @@
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover table-sm">
+    <thead class="thead-dark">
+      <tr>
+        <th></th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>CPF</th>
+        <th>Data de nascimento</th>
+        <th>Perfil de usuário</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usuario of usuarios">
+        <th>
+          <a [routerLink]="['/user', usuario.Id]" class="btn"><i class="fa fa-edit"></i></a>
+        </th>
+        <td>{{ usuario.Nome }}</td>
+        <td>{{ usuario.Email }}</td>
+        <td>{{ usuario.Cpf }}</td>
+        <td>{{ usuario.DataNascimento }}</td>
+        <td>-</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -2,13 +2,21 @@ import { Routes, RouterModule } from "@angular/router";
 import { HomeComponent } from "./home/home.component";
 import { NgModule } from "@angular/core";
 import { PageNotFoundComponent } from "./not-found/not-found.component";
-import { AccountComponent } from "./account/account.component";
+import { UsersComponent } from "./users/users.component";
 import { AccountLoginComponent } from "./account-login/account-login.component";
 import { AccountRegisterComponent } from "./account-register/account-register.component";
 import { AuthGuard } from "./auth.guard";
+import { UserEditComponent } from "./users/user-edit/user-edit.component";
 
 const appRoutes: Routes = [
-    { path: 'account', component: AccountComponent },
+    {
+        path: 'users',
+        component: UsersComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'user/:id', component: UserEditComponent
+    },
     { path: 'account/login', component: AccountLoginComponent, },
     {
         path: 'account/register',

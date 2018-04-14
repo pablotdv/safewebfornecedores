@@ -10,15 +10,16 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/">Home</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/account/login"  *ngIf="!isLoggedIn; else logout">Entrar</a>
-        <ng-template #logout><a class="nav-link" routerLink="/account/login" (click)="sair()">Sair</a></ng-template>
+      <li class="nav-item" *ngIf="isLoggedIn">
+        <a class="nav-link" routerLink="/users/">Usuários</a>
       </li>
 
-      <li class="nav-item" *ngIf="isLoggedIn">
-        <a class="nav-link" routerLink="/account/register">Registrar-se</a>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/account/login" *ngIf="!isLoggedIn; else logout">Entrar</a>
+        <ng-template #logout>
+          <a class="nav-link" routerLink="/account/login" (click)="sair()">Sair</a>
+        </ng-template>
       </li>
-      
     </ul>
   </div>
 </nav>

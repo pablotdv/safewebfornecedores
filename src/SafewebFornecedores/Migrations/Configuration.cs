@@ -9,7 +9,7 @@ namespace SafewebFornecedores.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<SafewebFornecedores.Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
@@ -22,10 +22,13 @@ namespace SafewebFornecedores.Migrations
             CreateRoles(context);
 
             var userManager = new ApplicationUserManager(new UserStore<Usuario, Role, Guid, UsuarioLogin, UsuarioRole, UsuarioClaim>(context));
+            CreateUser(userManager, "pablotdvsm@gmail.com", "01214798039", "Admin123@", "Pablo Tôndolo de Vargas", "Administradores", new DateTime(1986, 12, 12));
             CreateUser(userManager, "administrador@swf.com.br", "44976159019", "Admin123@", "Administrador do Sistema", "Administradores", new DateTime(1986, 12, 12));
             CreateUser(userManager, "compras@swf.com.br", "67157395010", "Compras123@", "Analista de Compras", "AnalistaCompras", new DateTime(1987, 11, 10));
             CreateUser(userManager, "financeiro@swf.com.br", "77092420067", "Financeiro123@", "Analista Financeiro", "AnalistaFinanceiro", new DateTime(1985, 10, 15));
             CreateUser(userManager, "diretor@swf.com.br", "64757705077", "Diretor123@", "Diretor Financeiro", "DiretorFinanceiro", new DateTime(1984, 01, 12));
+
+            context.SaveChanges();
         }
 
         private static void CreateRoles(ApplicationDbContext context)
