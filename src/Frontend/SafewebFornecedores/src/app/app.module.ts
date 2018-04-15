@@ -33,8 +33,6 @@ import { FornecedorCadastrarComponent } from './fornecedores/fornecedor-cadastra
 import { FornecedorEditarComponent } from './fornecedores/fornecedor-editar/fornecedor-editar.component';
 import { FornecedorExcluirComponent } from './fornecedores/fornecedor-excluir/fornecedor-excluir.component';
 
-
-
 registerLocaleData(localePt, 'pt');
 
 @NgModule({
@@ -48,7 +46,11 @@ registerLocaleData(localePt, 'pt');
     UserEditComponent,
     UserDeleteComponent,
     UserRegisterComponent,
-    MessagesComponent, FornecedoresComponent, FornecedorCadastrarComponent, FornecedorEditarComponent, FornecedorExcluirComponent,
+    MessagesComponent,
+    FornecedoresComponent,
+    FornecedorCadastrarComponent,
+    FornecedorEditarComponent,
+    FornecedorExcluirComponent,
   ],
   imports: [
     HttpClientModule,

@@ -1,3 +1,71 @@
-<p>
-  fornecedor-editar works!
-</p>
+<div *ngIf="fornecedorForm">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h2>Por favor, entre com os dados do fornecedor</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <form [formGroup]="fornecedorForm" (ngSubmit)="onSubmit()" #formDir="ngForm">
+        <div class="form-group">
+          <label for="cpfCnpj">CNPJ/CPF</label>
+          <input id="cpfCnpj" class="form-control" formControlName="cpfCnpj" required>
+          <div *ngIf="cpfCnpj.invalid && (cpfCnpj.dirty || cpfCnpj.touched)" class="alert alert-danger">
+            <div *ngIf="cpfCnpj.errors.required">
+              O campo CNPJ/CPF é obrigatório.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="nome">Nome</label>
+          <input id="nome" class="form-control" formControlName="nome" required>
+          <div *ngIf="nome.invalid && (nome.dirty || nome.touched)" class="alert alert-danger">
+            <div *ngIf="nome.errors.required">
+              O campo Nome é obrigatório.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="telefone">Telefone</label>
+          <input id="telefone" class="form-control" formControlName="telefone" required>
+          <div *ngIf="telefone.invalid && (telefone.dirty || telefone.touched)" class="alert alert-danger">
+            <div *ngIf="telefone.errors.required">
+              O campo Telefone é obrigatório.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input id="email" class="form-control" formControlName="email" required>
+          <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+            <div *ngIf="email.errors.required">
+              O campo Email é obrigatório.
+            </div>
+            <div *ngIf="email.errors.email">
+              O campo Email é obrigatório.
+            </div>
+            <div *ngIf="email.errors.email">
+              O email {{ email.value }} não é válido.
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="errors && errors.length > 0" class="alert alert-danger" role="alert">
+          <strong>Falha ao processar sua requisição, verifique os erros e tente novamente!</strong>
+          <ul>
+            <li *ngFor="let error of errors">{{ error }}</li>
+          </ul>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">
+            <i class="fa fa-save"></i> Salvar</button>
+          <a [routerLink]="['/fornecedores']" class="btn">
+            <i class="fas fa-arrow-left"></i> Voltar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

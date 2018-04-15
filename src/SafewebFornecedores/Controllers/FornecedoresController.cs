@@ -82,6 +82,9 @@ namespace SafewebFornecedores.Controllers
                 return BadRequest(ModelState);
             }
 
+            if (fornecedor.FornecedorId == Guid.Empty)
+                fornecedor.FornecedorId = Guid.NewGuid();
+
             db.Fornecedores.Add(fornecedor);
 
             try

@@ -1,3 +1,36 @@
-<p>
-  fornecedor-excluir works!
-</p>
+<div *ngIf="fornecedor">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <h3>Excluir o fornecedor "{{ fornecedor.Nome }}"?
+        </h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <dl class="dl-horizontal">
+          <dt> CNPJ/CPF </dt>
+          <dd> {{ fornecedor.CpfCnpj }} </dd>
+  
+          <dt> Nome </dt>
+          <dd> {{ fornecedor.Nome }} </dd> 
+
+          <dt> Telefone </dt>
+          <dd> {{ fornecedor.Telefone }} </dd> 
+
+          <dt> Email </dt>
+          <dd> {{ fornecedor.Email }} </dd> 
+          
+        </dl>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="form-group">
+          <button type="button" class="btn btn-primary" (click)="excluir()">
+            <i class="fa fa-trash"></i> Excluir</button>
+          <a [routerLink]="['/fornecedores']" class="btn">
+            <i class="fas fa-arrow-left"></i> Voltar</a>
+        </div>
+      </div>
+    </div>
+  </div>
