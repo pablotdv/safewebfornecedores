@@ -33,9 +33,8 @@
                 </div>
                 <div class="form-group">
                     <label for="dataNascimento">Data de nascimento</label>
-                    <input type="text" class="form-control" id="dataNascimento" placeholder="Data de nascimento" name="dataNascimento" formControlName="dataNascimento"
-                        required>
-                    <p>Data Lançamento: {{ dataNascimento.value | date }}</p>
+                    <input type="text" [textMask]="{mask: maskDate}" class="form-control" id="dataNascimento" placeholder="Data de nascimento" name="dataNascimento" formControlName="dataNascimento"
+                        required>                    
                     <div *ngIf="dataNascimento.invalid && (dataNascimento.dirty || dataNascimento.touched)" class="alert alert-danger">
                         <div *ngIf="dataNascimento.errors.required">
                             O campo Data de nascimento é obrigatório.
@@ -56,7 +55,7 @@
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-sign-in-alt"></i> Cadastrar-se</button>
+                        <i class="fa fa-save"></i> Salvar</button>
                 </div>
             </form>
         </div>
