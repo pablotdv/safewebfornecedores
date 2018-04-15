@@ -36,6 +36,7 @@ import { CategoriasComponent } from './categorias/categorias.component';
 import { CategoriaCadastrarComponent } from './categorias/categoria-cadastrar/categoria-cadastrar.component';
 import { CategoriaEditarComponent } from './categorias/categoria-editar/categoria-editar.component';
 import { CategoriaExcluirComponent } from './categorias/categoria-excluir/categoria-excluir.component';
+import { CategoriasService } from './shared/services/categorias.service';
 
 registerLocaleData(localePt, 'pt');
 
@@ -82,7 +83,8 @@ registerLocaleData(localePt, 'pt');
     UsersService,
     { provide: LOCALE_ID, useValue: 'pt' },
     NotificationService,
-    FornecedoresService
+    FornecedoresService,
+    CategoriasService
   ],
   bootstrap: [AppComponent]
 })

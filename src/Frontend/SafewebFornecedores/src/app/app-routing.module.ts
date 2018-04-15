@@ -12,6 +12,10 @@ import { FornecedoresComponent } from "./fornecedores/fornecedores.component";
 import { FornecedorCadastrarComponent } from "./fornecedores/fornecedor-cadastrar/fornecedor-cadastrar.component";
 import { FornecedorEditarComponent } from "./fornecedores/fornecedor-editar/fornecedor-editar.component";
 import { FornecedorExcluirComponent } from "./fornecedores/fornecedor-excluir/fornecedor-excluir.component";
+import { CategoriasComponent } from "./categorias/categorias.component";
+import { CategoriaCadastrarComponent } from "./categorias/categoria-cadastrar/categoria-cadastrar.component";
+import { CategoriaEditarComponent } from "./categorias/categoria-editar/categoria-editar.component";
+import { CategoriaExcluirComponent } from "./categorias/categoria-excluir/categoria-excluir.component";
 
 const appRoutes: Routes = [
     {
@@ -39,6 +43,21 @@ const appRoutes: Routes = [
             { path: 'excluir/:id', component: FornecedorExcluirComponent },
         ]
     },
+
+    {
+        path: 'categorias', component: CategoriasComponent, canActivate: [AuthGuard]
+    },
+    {
+        path: 'categoria', canActivate: [AuthGuard],
+        children: [
+            { path: 'cadastrar', component: CategoriaCadastrarComponent },
+            { path: ':id', component: CategoriaEditarComponent },
+            { path: 'editar/:id', component: CategoriaEditarComponent },
+            { path: 'excluir/:id', component: CategoriaExcluirComponent },
+        ]
+    },
+
+    
     { path: 'account/login', component: AccountLoginComponent, },
     { path: 'home', component: HomeComponent },
     { path: '', redirectTo: '/home', pathMatch: 'full' },

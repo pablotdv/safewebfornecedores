@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { CategoriasService } from '../../shared/services/categorias.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Categoria, CategoriaEditar } from '../models/categoria.model';
 
 @Component({
   selector: 'app-categoria-editar',
@@ -6,10 +10,62 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./categoria-editar.component.css']
 })
 export class CategoriaEditarComponent implements OnInit {
+  categoriaForm: FormGroup;
+  errors: string[] = [];
 
-  constructor() { }
+  constructor(
+    private categoriasService: CategoriasService,
+    private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+  }
 
   ngOnInit() {
+    this.categoriasService.get(this.route.snapshot.params['id'])
+      .subscribe(categoria => {
+        this.createForm(categoria);
+      });
   }
+
+  createForm(categoria: Categoria) {
+    this.categoriaForm = this.fb.group({
+      descricao: [categoria.Descricao, Validators.required],      
+    });
+  }
+
+  get descricao() { return this.categoriaForm.get('descricao'); }
+
+  prepareToSave(): CategoriaEditar {
+    const formModel = this.categoriaForm.value;
+
+    const categoriaModel: CategoriaEditar = {
+      Descricao: formModel.descricao,
+      CategoriaId: this.route.snapshot.params['id']
+    };
+    return categoriaModel;
+  }
+
+  onSubmit() {
+    this.errors = [];
+
+    let categoria = this.prepareToSave();
+
+    this.categoriasService.put(categoria)
+      .subscribe(res => {
+        this.router.navigate(['/categorias']);
+      }, error => {
+        if (this.categoriasService.modelStateErrors && this.categoriasService.modelStateErrors.length > 0) {
+          this.errors = this.categoriasService.modelStateErrors;
+        }
+        else {
+          console.log(error);
+        }
+      });
+  }
+
+
+
+
 
 }

@@ -1,3 +1,18 @@
-<p>
-  categoria-excluir works!
-</p>
+<div *ngIf="categoria">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <h3>Excluir o categoria "{{ categoria.Descricao }}"?
+        </h3>
+      </div>
+    </div>    
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="form-group">
+          <button type="button" class="btn btn-primary" (click)="excluir()">
+            <i class="fa fa-trash"></i> Excluir</button>
+          <a [routerLink]="['/categorias']" class="btn">
+            <i class="fas fa-arrow-left"></i> Voltar</a>
+        </div>
+      </div>
+    </div>
+  </div>

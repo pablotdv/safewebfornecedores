@@ -11,7 +11,10 @@
         <a class="nav-link" routerLink="/">Home</a>
       </li>
       <li class="nav-item" *ngIf="isLoggedIn">
-          <a class="nav-link" routerLink="/fornecedores/">Fornecedores</a>
+        <a class="nav-link" routerLink="/fornecedores/">Fornecedores</a>
+      </li>
+      <li class="nav-item" *ngIf="isLoggedIn">
+          <a class="nav-link" routerLink="/categorias/">Categorias</a>
         </li>
       <li class="nav-item" *ngIf="isLoggedIn">
         <a class="nav-link" routerLink="/users/">Usuários</a>
@@ -20,7 +23,7 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/account/login" *ngIf="!isLoggedIn; else logout">Entrar</a>
         <ng-template #logout>
-          <button class="nav-link btn btn-link"(click)="sair()">Sair</button>
+          <button class="nav-link btn btn-link" (click)="sair()">Sair</button>
         </ng-template>
       </li>
     </ul>

@@ -8,19 +8,21 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using SafewebFornecedores.Models;
 
 namespace SafewebFornecedores.Controllers
 {
+    [EnableCors("*", "*", "*")]
     public class CategoriasController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/Categorias
-        public IQueryable<Categoria> GetCategorias()
+        public async Task<IList<Categoria>> GetCategorias()
         {
-            return db.Categorias;
+            return await db.Categorias.OrderBy(a=>a.Descricao).ToListAsync();
         }
 
         // GET: api/Categorias/5
@@ -79,6 +81,9 @@ namespace SafewebFornecedores.Controllers
             {
                 return BadRequest(ModelState);
             }
+
+            if (categoria.CategoriaId == Guid.Empty)
+                categoria.CategoriaId = Guid.NewGuid();
 
             db.Categorias.Add(categoria);
 
