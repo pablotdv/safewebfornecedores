@@ -16,6 +16,10 @@ import { CategoriasComponent } from "./categorias/categorias.component";
 import { CategoriaCadastrarComponent } from "./categorias/categoria-cadastrar/categoria-cadastrar.component";
 import { CategoriaEditarComponent } from "./categorias/categoria-editar/categoria-editar.component";
 import { CategoriaExcluirComponent } from "./categorias/categoria-excluir/categoria-excluir.component";
+import { PropostasComponent } from "./propostas/propostas.component";
+import { PropostaCadastrarComponent } from "./propostas/proposta-cadastrar/proposta-cadastrar.component";
+import { PropostaEditarComponent } from "./propostas/proposta-editar/proposta-editar.component";
+import { PropostaExcluirComponent } from "./propostas/proposta-excluir/proposta-excluir.component";
 
 const appRoutes: Routes = [
     {
@@ -54,6 +58,19 @@ const appRoutes: Routes = [
             { path: ':id', component: CategoriaEditarComponent },
             { path: 'editar/:id', component: CategoriaEditarComponent },
             { path: 'excluir/:id', component: CategoriaExcluirComponent },
+        ]
+    },
+
+    {
+        path: 'propostas', component: PropostasComponent, canActivate: [AuthGuard]
+    },
+    {
+        path: 'categoria', canActivate: [AuthGuard],
+        children: [
+            { path: 'cadastrar', component: PropostaCadastrarComponent },
+            { path: ':id', component: PropostaEditarComponent },
+            { path: 'editar/:id', component: PropostaEditarComponent },
+            { path: 'excluir/:id', component: PropostaExcluirComponent },
         ]
     },
 

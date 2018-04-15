@@ -37,6 +37,10 @@ import { CategoriaCadastrarComponent } from './categorias/categoria-cadastrar/ca
 import { CategoriaEditarComponent } from './categorias/categoria-editar/categoria-editar.component';
 import { CategoriaExcluirComponent } from './categorias/categoria-excluir/categoria-excluir.component';
 import { CategoriasService } from './shared/services/categorias.service';
+import { PropostasComponent } from './propostas/propostas.component';
+import { PropostaCadastrarComponent } from './propostas/proposta-cadastrar/proposta-cadastrar.component';
+import { PropostaEditarComponent } from './propostas/proposta-editar/proposta-editar.component';
+import { PropostaExcluirComponent } from './propostas/proposta-excluir/proposta-excluir.component';
 
 registerLocaleData(localePt, 'pt');
 
@@ -60,6 +64,10 @@ registerLocaleData(localePt, 'pt');
     CategoriaCadastrarComponent,
     CategoriaEditarComponent,
     CategoriaExcluirComponent,
+    PropostasComponent,
+    PropostaCadastrarComponent,
+    PropostaEditarComponent,
+    PropostaExcluirComponent,
   ],
   imports: [
     HttpClientModule,
