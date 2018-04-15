@@ -61,14 +61,21 @@ namespace SafewebFornecedores.Managers
         {
             var result = await base.ValidateAsync(item);
 
-            var user = await this._manager.FindByCpfAsync(item.Cpf);
+            var userCpf = await this._manager.FindByCpfAsync(item.Cpf);
 
-            if (user != null && user.Id != item.Id)
+            if (userCpf != null && userCpf.Id != item.Id)
             {
                 var errors = result.Errors.ToList();
                 errors.Add($"O Cpf {item.Cpf} já foi cadastrado para outro usuário!");
                 result = new IdentityResult(errors);
             }
+            //var userEmail = await this._manager.FindByEmailAsync(item.Email);
+            //if (userEmail != null && userEmail.Id != item.Id)
+            //{
+            //    var errors = result.Errors.ToList();
+            //    errors.Add($"O Email {item.Email} já foi cadastrado para outro usuário!");
+            //    result = new IdentityResult(errors);
+            //}
 
             return result;
         }

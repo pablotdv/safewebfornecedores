@@ -27,6 +27,7 @@ namespace SafewebFornecedores.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]
+    [EnableCors("*", "*", "*")]
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
@@ -331,8 +332,7 @@ namespace SafewebFornecedores.Controllers
             return logins;
         }
 
-        // POST api/Account/Register
-        [AllowAnonymous]
+        // POST api/Account/Register        
         [Route("Register")]
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)
         {
@@ -345,7 +345,7 @@ namespace SafewebFornecedores.Controllers
             try
             {
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
-                
+
                 if (!result.Succeeded)
                 {
                     return GetErrorResult(result);

@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import { NgModule, LOCALE_ID } from "@angular/core";
 import { RouterModule, Routes } from '@angular/router';
 import localePt from '@angular/common/locales/pt';
@@ -25,6 +26,8 @@ import { TokenInterceptor } from './token.interceptor';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UserDeleteComponent } from './users/user-delete/user-delete.component';
 import { UserRegisterComponent } from './users/user-register/user-register.component';
+import { MessagesComponent } from './shared/messages/messages.component';
+import { NotificationService } from './shared/notification.service';
 
 
 
@@ -41,11 +44,13 @@ registerLocaleData(localePt, 'pt');
     AccountRegisterComponent,
     UserEditComponent,
     UserDeleteComponent,
-    UserRegisterComponent,
+    UserRegisterComponent,    
+    MessagesComponent,
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
+    BrowserAnimationsModule,
     RouterModule,
     ReactiveFormsModule,
     AppRoutingModule,
@@ -62,7 +67,8 @@ registerLocaleData(localePt, 'pt');
     AuthGuard,
     AuthService,
     UsersService,
-    { provide: LOCALE_ID, useValue: 'pt' }
+    { provide: LOCALE_ID, useValue: 'pt' },
+    NotificationService
   ],
   bootstrap: [AppComponent]
 })
