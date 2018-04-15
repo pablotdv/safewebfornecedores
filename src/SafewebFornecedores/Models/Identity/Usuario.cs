@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Newtonsoft.Json;
 
 namespace SafewebFornecedores.Models
 {
@@ -29,6 +30,7 @@ namespace SafewebFornecedores.Models
         public DateTime DataNascimento { get; set; }
 
         [InverseProperty(nameof(PropostaSituacao.Usuario))]
+        [JsonIgnore]
         public virtual ICollection<PropostaSituacao> PropostasSituacoes { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<Usuario, Guid> manager, string authenticationType)

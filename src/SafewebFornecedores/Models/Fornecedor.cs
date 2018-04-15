@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -32,6 +33,7 @@ namespace SafewebFornecedores.Models
         public string Email { get; set; }
 
         [InverseProperty(nameof(Proposta.Fornecedor))]
+        [JsonIgnore]
         public virtual ICollection<Proposta> Propostas { get; set; }
     }
 }

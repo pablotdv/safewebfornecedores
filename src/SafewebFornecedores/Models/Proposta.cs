@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -40,7 +41,7 @@ namespace SafewebFornecedores.Models
         [ForeignKey(nameof(CategoriaId))]
         public virtual Categoria Categoria { get; set; }
 
-        [ForeignKey(nameof(FornecedorId))]
+        [ForeignKey(nameof(FornecedorId))]        
         public virtual Fornecedor Fornecedor { get; set; }
 
         public virtual ICollection<PropostaSituacao> PropostasSituacoes { get; set; }

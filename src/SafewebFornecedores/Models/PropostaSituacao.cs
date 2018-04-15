@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -19,6 +20,7 @@ namespace SafewebFornecedores.Models
         public Situacao Situacao { get; set; }
 
         [ForeignKey(nameof(PropostaId))]
+        [JsonIgnore]
         public virtual Proposta Proposta { get; set; }
 
         [ForeignKey(nameof(UsuarioId))]

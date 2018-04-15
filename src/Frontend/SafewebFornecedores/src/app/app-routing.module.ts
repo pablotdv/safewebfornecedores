@@ -65,7 +65,7 @@ const appRoutes: Routes = [
         path: 'propostas', component: PropostasComponent, canActivate: [AuthGuard]
     },
     {
-        path: 'categoria', canActivate: [AuthGuard],
+        path: 'proposta', canActivate: [AuthGuard],
         children: [
             { path: 'cadastrar', component: PropostaCadastrarComponent },
             { path: ':id', component: PropostaEditarComponent },
@@ -74,7 +74,7 @@ const appRoutes: Routes = [
         ]
     },
 
-    
+
     { path: 'account/login', component: AccountLoginComponent, },
     { path: 'home', component: HomeComponent },
     { path: '', redirectTo: '/home', pathMatch: 'full' },

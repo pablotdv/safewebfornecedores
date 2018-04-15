@@ -1,3 +1,78 @@
-<p>
-  proposta-cadastrar works!
-</p>
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <h2>Por favor, entre com os dados da proposta</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <form [formGroup]="propostaForm" (ngSubmit)="onSubmit()" #formDir="ngForm">
+      <div class="form-group">
+        <label for="nome">Nome</label>
+        <input id="nome" class="form-control" formControlName="nome" required>
+        <div *ngIf="nome.invalid && (nome.dirty || nome.touched)" class="alert alert-danger">
+          <div *ngIf="nome.errors.required">
+            O campo Nome é obrigatório.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="categoriaId">Categoria</label>
+        <select id="categoriaId" class="form-control" formControlName="categoriaId" required>
+          <option *ngFor="let categoria of categorias" value="{{ categoria.CategoriaId }}">{{ categoria.Descricao }}</option>
+        </select>
+        <div *ngIf="categoriaId.invalid && (categoriaId.dirty || categoriaId.touched)" class="alert alert-danger">
+          <div *ngIf="categoriaId.errors.required">
+            O campo Categoria é obrigatório.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="fornecedorId">Fornecedor</label>
+        <select id="fornecedorId" class="form-control" formControlName="fornecedorId" required>
+          <option *ngFor="let fornecedor of fornecedores" value="{{ fornecedor.FornecedorId }}">{{ fornecedor.Nome }}</option>
+        </select>
+        <div *ngIf="fornecedorId.invalid && (fornecedorId.dirty || fornecedorId.touched)" class="alert alert-danger">
+          <div *ngIf="fornecedorId.errors.required">
+            O campo Fornecedor é obrigatório.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="valor">Valor R$</label>
+        <input id="valor" class="form-control" formControlName="valor" required>
+        <div *ngIf="valor.invalid && (valor.dirty || valor.touched)" class="alert alert-danger">
+          <div *ngIf="valor.errors.required">
+            O campo Valor R$ é obrigatório.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+          <label for="descricao">Descrição</label>
+          <input id="descricao" class="form-control" formControlName="descricao">
+          <div *ngIf="descricao.invalid && (descricao.dirty || descricao.touched)" class="alert alert-danger">
+            <div *ngIf="descricao.errors.required">
+              O campo Descrição é obrigatório.
+            </div>
+          </div>
+        </div>
+
+
+      <div *ngIf="errors && errors.length > 0" class="alert alert-danger" role="alert">
+        <strong>Falha ao processar sua requisição, verifique os erros e tente novamente!</strong>
+        <ul>
+          <li *ngFor="let error of errors">{{ error }}</li>
+        </ul>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">
+          <i class="fa fa-save"></i> Salvar</button>
+        <a [routerLink]="['/propostas']" class="btn">
+          <i class="fas fa-arrow-left"></i> Voltar</a>
+      </div>
+    </form>
+  </div>
+</div>

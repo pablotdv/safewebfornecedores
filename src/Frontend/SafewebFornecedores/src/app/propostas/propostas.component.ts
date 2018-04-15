@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Proposta } from './model/proposta.model';
+import { PropostasService } from '../shared/services/propostas.service';
 
 @Component({
   selector: 'app-propostas',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PropostasComponent implements OnInit {
 
-  constructor() { }
+  propostas: Proposta[];
+
+  constructor(
+    private propostasService: PropostasService) { }
 
   ngOnInit() {
+    this.propostasService.getAll()
+      .subscribe(propostas => {
+        this.propostas = propostas;
+        console.log(this.propostas);
+      });
   }
 
 }

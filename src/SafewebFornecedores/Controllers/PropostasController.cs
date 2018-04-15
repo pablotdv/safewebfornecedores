@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
+using Microsoft.AspNet.Identity;
 using SafewebFornecedores.Models;
 
 namespace SafewebFornecedores.Controllers
@@ -20,9 +21,12 @@ namespace SafewebFornecedores.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/Propostas
-        public IQueryable<Proposta> GetPropostas()
+        public async Task<IList<Proposta>> GetPropostas()
         {
-            return db.Propostas;
+            return await db.Propostas
+                .Include(a => a.Fornecedor)
+                .Include(a => a.Categoria)
+                .OrderBy(a => a.Numero).ToListAsync();
         }
 
         // GET: api/Propostas/5
@@ -81,6 +85,21 @@ namespace SafewebFornecedores.Controllers
             {
                 return BadRequest(ModelState);
             }
+
+            if (proposta.PropostaId == Guid.Empty)
+                proposta.PropostaId = Guid.NewGuid();
+            proposta.Data = DateTime.Now;
+            if (proposta.PropostasSituacoes == null)
+                proposta.PropostasSituacoes = new List<PropostaSituacao>();
+            proposta.PropostasSituacoes.Add(new PropostaSituacao()
+            {
+                PropostaSituacaoId = Guid.NewGuid(),
+                Data = DateTime.Now,
+                Situacao = Situacao.Aberto,
+                UsuarioId = new Guid(User.Identity.GetUserId()),
+            });
+            proposta.Situacao = Situacao.Aberto;
+            proposta.DataSituacao = DateTime.Now;
 
             db.Propostas.Add(proposta);
 

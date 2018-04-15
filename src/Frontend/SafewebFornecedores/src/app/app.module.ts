@@ -41,6 +41,7 @@ import { PropostasComponent } from './propostas/propostas.component';
 import { PropostaCadastrarComponent } from './propostas/proposta-cadastrar/proposta-cadastrar.component';
 import { PropostaEditarComponent } from './propostas/proposta-editar/proposta-editar.component';
 import { PropostaExcluirComponent } from './propostas/proposta-excluir/proposta-excluir.component';
+import { PropostasService } from './shared/services/propostas.service';
 
 registerLocaleData(localePt, 'pt');
 
@@ -92,7 +93,8 @@ registerLocaleData(localePt, 'pt');
     { provide: LOCALE_ID, useValue: 'pt' },
     NotificationService,
     FornecedoresService,
-    CategoriasService
+    CategoriasService,
+    PropostasService
   ],
   bootstrap: [AppComponent]
 })
