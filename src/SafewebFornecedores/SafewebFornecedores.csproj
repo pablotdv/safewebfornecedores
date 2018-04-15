@@ -274,6 +274,7 @@
     <Compile Include="ViewModels\UserInfoViewModel.cs" />
     <Compile Include="ViewModels\UserLoginInfoViewModel.cs" />
     <Compile Include="ViewModels\Usuarios\UsuarioEditarModel.cs" />
+    <Compile Include="ViewModels\Usuarios\UsuarioModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />

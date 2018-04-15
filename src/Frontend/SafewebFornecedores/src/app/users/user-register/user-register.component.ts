@@ -31,12 +31,13 @@ export class UserRegisterComponent implements OnInit {
 
   createForm() {
     this.registerForm = this.fb.group({
-      email: ['pablotdv@gmail.com', [Validators.required, Validators.email]],
-      password: ['Pablo123@', Validators.required],
-      confirmPassword: ['Pablo123@', Validators.required],
-      nome: ['Pablo Tôndolo de Vargas', Validators.required],
-      cpf: ['01214798039', Validators.required],
-      dataNascimento: ['12/12/1986', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
+      nome: ['', Validators.required],
+      cpf: ['', Validators.required],
+      dataNascimento: ['', Validators.required],
+      perfil: ['', Validators.required],
     }, { validator: UserRegisterComponent.equalsTo });
 
   }
@@ -47,6 +48,7 @@ export class UserRegisterComponent implements OnInit {
   get nome() { return this.registerForm.get('nome'); }
   get cpf() { return this.registerForm.get('cpf'); }
   get dataNascimento() { return this.registerForm.get('dataNascimento'); }
+  get perfil() { return this.registerForm.get('perfil'); }
 
   static equalsTo(group: AbstractControl): { [key: string]: boolean } {
     const password = group.get('password')
@@ -70,12 +72,13 @@ export class UserRegisterComponent implements OnInit {
     let data = `${ano}-${mes}-${dia}`;
 
     const usuarioModel: RegisterBindingModel = {
-      cpf: formModel.cpf.replace(/\./g,'').replace('-', ''),
+      cpf: formModel.cpf.replace(/\./g, '').replace('-', ''),
       nome: formModel.nome,
       dataNascimento: data,
       email: formModel.email,
       password: formModel.password,
       confirmPassword: formModel.confirmPassword,
+      perfil: formModel.perfil
     };
     return usuarioModel;
   }
@@ -88,20 +91,12 @@ export class UserRegisterComponent implements OnInit {
       .subscribe(res => {
         this.router.navigate(['/users']);
       }, error => {
-        if (error instanceof HttpErrorResponse) {
-          let er = <HttpErrorResponse>error;
-
-          if (er.error.ModelState) {
-            for (var key in er.error.ModelState) {
-              var mensagens = er.error.ModelState[key];
-              for (var k in mensagens) {                
-                this.errors.push(mensagens[k]);
-              }
-            }
-
-          }
+        if (this.usersService.modelStateErrors && this.usersService.modelStateErrors.length > 0) {
+          this.errors = this.usersService.modelStateErrors;
         }
-
+        else {
+          console.log(error);
+        }
       });
   }
 

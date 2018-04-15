@@ -22,9 +22,21 @@ namespace SafewebFornecedores.Controllers
 
         // GET: api/users/
         [Authorize(Roles = "Administradores")]
-        public async Task<IList<Usuario>> GetUsers()
+        public async Task<IList<UsuarioModel>> GetUsers()
         {
-            return await db.Users.Include(a => a.Roles).OrderBy(a => a.Nome).ToListAsync();
+            return await db.Users
+                .Include(a => a.Roles)
+                .OrderBy(a => a.Nome)
+                .Select(a => new UsuarioModel
+                {
+                    Id = a.Id,
+                    Nome = a.Nome,
+                    Cpf = a.Cpf,
+                    DataNascimento = a.DataNascimento,
+                    Email = a.Email,
+                    Perfil = db.Roles.FirstOrDefault(b => a.Roles.Select(c => c.RoleId).Contains(b.Id)).Name
+                })
+                .ToListAsync();
         }
 
         // GET: api/users/5
@@ -51,7 +63,7 @@ namespace SafewebFornecedores.Controllers
                 return NotFound();
             }
 
-            if (await db.Users.AnyAsync(a=>a.Email == model.Email && a.Id != model.Id))
+            if (await db.Users.AnyAsync(a => a.Email == model.Email && a.Id != model.Id))
             {
                 ModelState.AddModelError("", "O email informado já está cadastrado para outro usuário.");
             }
@@ -60,12 +72,12 @@ namespace SafewebFornecedores.Controllers
             {
                 return BadRequest(ModelState);
             }
-            
+
             usuario.Cpf = model.Cpf;
             usuario.Nome = model.Nome;
             usuario.DataNascimento = model.DataNascimento;
-            usuario.Email = model.Email;            
-                        
+            usuario.Email = model.Email;
+
             try
             {
                 await db.SaveChangesAsync();
@@ -89,7 +101,7 @@ namespace SafewebFornecedores.Controllers
         [ResponseType(typeof(Usuario))]
         public async Task<IHttpActionResult> DeleteUsuario(Guid id)
         {
-            var usuario = await db.Users.SingleOrDefaultAsync(a=>a.Id == id);
+            var usuario = await db.Users.SingleOrDefaultAsync(a => a.Id == id);
             if (usuario == null)
             {
                 return NotFound();

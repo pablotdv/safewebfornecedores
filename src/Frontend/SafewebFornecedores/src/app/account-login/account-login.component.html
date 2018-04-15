@@ -32,8 +32,11 @@
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-sign-in-alt"></i> Login</button>
             </div>
-            <div *ngIf="errors" class="alert alert-danger" role="alert">
-                <strong>Oops!</strong> {{ errors }}
+            <div *ngIf="errors && errors.length > 0" class="alert alert-danger" role="alert">
+                <strong>Falha ao processar sua requisição, verifique os erros e tente novamente!</strong>
+                <ul>
+                    <li *ngFor="let error of errors">{{ error }}</li>
+                </ul>
             </div>
         </form>
     </div>

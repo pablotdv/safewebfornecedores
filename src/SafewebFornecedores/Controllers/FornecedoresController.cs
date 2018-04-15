@@ -8,19 +8,21 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using SafewebFornecedores.Models;
 
 namespace SafewebFornecedores.Controllers
 {
+    [EnableCors("*","*","*")]
     public class FornecedoresController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/Fornecedores
-        public IQueryable<Fornecedor> GetFornecedores()
+        public async Task<IList<Fornecedor>> GetFornecedores()
         {
-            return db.Fornecedores;
+            return await db.Fornecedores.OrderBy(a=>a.Nome).ToListAsync();
         }
 
         // GET: api/Fornecedores/5

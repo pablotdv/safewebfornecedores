@@ -32,8 +32,16 @@ export class AuthService extends BaseService {
       );
   }
 
-  logout() {
-    localStorage.removeItem('user_token');
+  logout(): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
+    };
+    return this.http.post(`${this.baseUrl}/api/account/Logout`, httpOptions)
+      .pipe(
+        tap(data => {
+          localStorage.removeItem('user_token');
+        },
+          error => this.handleError<any>('login')));
   }
 
   get isLoggedIn(): boolean {
@@ -46,7 +54,7 @@ export class AuthService extends BaseService {
 
   getToken(): string {
     let user_token = localStorage.getItem('user_token');
-    
+
 
     let userToken: UserToken = JSON.parse(user_token);
     return userToken.access_token;

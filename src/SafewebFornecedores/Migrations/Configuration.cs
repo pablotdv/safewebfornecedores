@@ -28,7 +28,24 @@ namespace SafewebFornecedores.Migrations
             CreateUser(userManager, "financeiro@swf.com.br", "77092420067", "Financeiro123@", "Analista Financeiro", "AnalistaFinanceiro", new DateTime(1985, 10, 15));
             CreateUser(userManager, "diretor@swf.com.br", "64757705077", "Diretor123@", "Diretor Financeiro", "DiretorFinanceiro", new DateTime(1984, 01, 12));
 
+            CreateFornecedores(context);
+
             context.SaveChanges();
+        }
+
+        private void CreateFornecedores(ApplicationDbContext context)
+        {
+            if (!context.Fornecedores.Any())
+            {
+                context.Fornecedores.Add(new Fornecedor()
+                {
+                    FornecedorId = Guid.NewGuid(),
+                    Email = "fornecedore1@email.com",
+                    Nome = "Fornecedore 1",
+                    Telefone = "55991515062",
+                    CpfCnpj = "01214798039",                    
+                });
+            }
         }
 
         private static void CreateRoles(ApplicationDbContext context)

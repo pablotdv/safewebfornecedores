@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./account-login.component.css']
 })
 export class AccountLoginComponent implements OnInit {
-
+  errors: string[] = [];
   loginForm: FormGroup;
 
   get email() { return this.loginForm.get('email'); }
@@ -22,8 +22,8 @@ export class AccountLoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.fb.group({
-      email: ['pablotdvsm@gmail.com', [Validators.required, Validators.email]],
-      password: ['Admin123@', Validators.required]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
     });
   }
 
@@ -39,10 +39,22 @@ export class AccountLoginComponent implements OnInit {
 
   onSubmit() {
     let loginModel = this.prepareToSave();
+    this.errors = [];
     this.authService.login(loginModel)
       .subscribe(res => {
         if (this.authService.isLoggedIn)
-          this.router.navigate(['/home']);        
+          this.router.navigate(['/home']);
+      }, error => {
+        if (error.error.error === 'invalid_grant') {
+          this.errors.push('Email ou senha estão incorretos.');
+        }
+        else
+          if (this.authService.modelStateErrors && this.authService.modelStateErrors.length > 0) {
+            this.errors = this.authService.modelStateErrors;
+          }
+          else {
+            console.log(error);
+          }
       });
   }
 

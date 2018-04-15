@@ -20,10 +20,12 @@ export class HeaderComponent implements OnInit {
   }
 
   sair() {
-    this.authService.logout();
-    if (!this.isLoggedIn) {
-      this.router.navigate(['/account/login']);
-    }
+    this.authService.logout()
+      .subscribe(res => {
+        if (!this.isLoggedIn) {
+          this.router.navigate(['/account/login']);
+        }
+      });
   }
 
 }

@@ -346,8 +346,11 @@ namespace SafewebFornecedores.Controllers
             {
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
+                if (result.Succeeded)
+                    result = UserManager.AddToRole(user.Id, model.Perfil);
+
                 if (!result.Succeeded)
-                {
+                {                    
                     return GetErrorResult(result);
                 }
             }

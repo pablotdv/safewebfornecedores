@@ -5,4 +5,5 @@ export interface RegisterBindingModel {
     dataNascimento: string;
     password: string;
     confirmPassword: string;
+    perfil: string,
 }

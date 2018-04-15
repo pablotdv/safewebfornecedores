@@ -1,0 +1,33 @@
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover table-sm">
+      <thead class="thead-dark">
+        <tr>
+          <th>
+            <a [routerLink]="['/fornecedor/cadastrar']" title="Criar fornecedor">
+              <i class="fas fa-plus"></i>
+            </a>
+          </th>
+          <th>CNPJ/CPF</th>
+          <th>Nome do Fornecedor</th>
+          <th>Telefone</th>
+          <th>Email</th>          
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of fornecedores">
+          <th>
+            <a [routerLink]="['/fornecedor', item.FornecedorId]">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a [routerLink]="['/fornecedor/excluir', item.FornecedorId]">
+              <i class="fa fa-trash"></i>
+            </a>
+          </th>
+          <td>{{ item.CpfCnpj }}</td>          
+          <td>{{ item.Nome }}</td>          
+          <td>{{ item.Telefone }}</td>          
+          <td>{{ item.Email }}</td>          
+        </tr>
+      </tbody>
+    </table>
+  </div>

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NgModule, LOCALE_ID } from "@angular/core";
 import { RouterModule, Routes } from '@angular/router';
 import localePt from '@angular/common/locales/pt';
@@ -18,7 +18,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './not-found/not-found.component';
 import { AccountLoginComponent } from './account-login/account-login.component';
 import { UsersComponent } from './users/users.component';
-import { AccountRegisterComponent } from './account-register/account-register.component';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './shared/services/auth.service';
 import { UsersService } from './shared/services/users.service';
@@ -28,6 +27,11 @@ import { UserDeleteComponent } from './users/user-delete/user-delete.component';
 import { UserRegisterComponent } from './users/user-register/user-register.component';
 import { MessagesComponent } from './shared/messages/messages.component';
 import { NotificationService } from './shared/notification.service';
+import { FornecedoresComponent } from './fornecedores/fornecedores.component';
+import { FornecedoresService } from './shared/services/fornecedores.service';
+import { FornecedorCadastrarComponent } from './fornecedores/fornecedor-cadastrar/fornecedor-cadastrar.component';
+import { FornecedorEditarComponent } from './fornecedores/fornecedor-editar/fornecedor-editar.component';
+import { FornecedorExcluirComponent } from './fornecedores/fornecedor-excluir/fornecedor-excluir.component';
 
 
 
@@ -41,11 +45,10 @@ registerLocaleData(localePt, 'pt');
     PageNotFoundComponent,
     AccountLoginComponent,
     UsersComponent,
-    AccountRegisterComponent,
     UserEditComponent,
     UserDeleteComponent,
-    UserRegisterComponent,    
-    MessagesComponent,
+    UserRegisterComponent,
+    MessagesComponent, FornecedoresComponent, FornecedorCadastrarComponent, FornecedorEditarComponent, FornecedorExcluirComponent,
   ],
   imports: [
     HttpClientModule,
@@ -68,7 +71,8 @@ registerLocaleData(localePt, 'pt');
     AuthService,
     UsersService,
     { provide: LOCALE_ID, useValue: 'pt' },
-    NotificationService
+    NotificationService,
+    FornecedoresService
   ],
   bootstrap: [AppComponent]
 })

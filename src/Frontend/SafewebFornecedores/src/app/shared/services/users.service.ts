@@ -15,7 +15,6 @@ import { NotificationService } from '../notification.service';
 export class UsersService extends BaseService {
 
   constructor(private http: HttpClient,
-    private authService: AuthService,
     private notificationService: NotificationService
   ) {
     super();
@@ -27,9 +26,9 @@ export class UsersService extends BaseService {
         tap(
           res => {
             this.notificationService.notify('Usuário salvo com sucesso!');
-          },
-          error => catchError(this.handleError<RegisterBindingModel>('account/register'))
-        )
+          }
+        ),
+        catchError(this.handleError<RegisterBindingModel>('account/register'))
       );
   }
 
@@ -51,7 +50,7 @@ export class UsersService extends BaseService {
     return this.http.put<UsuarioEditarModel>(`${this.baseUrl}/api/users/${usuario.Id}`, usuario)
       .pipe(
         tap(
-          res => console.log(res),
+          res => this.notificationService.notify('Usuário salvo com sucesso!'),
           error => catchError(this.handleError<UsuarioEditarModel>('put'))
         )
       );
@@ -61,7 +60,7 @@ export class UsersService extends BaseService {
     return this.http.delete<Usuario>(`${this.baseUrl}/api/users/${id}`)
       .pipe(
         tap(
-          res => console.log(res),
+          res => this.notificationService.notify('Usuário excluído com sucesso!'),
           error => catchError(this.handleError<UsuarioEditarModel>('put'))
         )
       );
