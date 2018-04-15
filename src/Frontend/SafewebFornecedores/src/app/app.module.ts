@@ -32,6 +32,10 @@ import { FornecedoresService } from './shared/services/fornecedores.service';
 import { FornecedorCadastrarComponent } from './fornecedores/fornecedor-cadastrar/fornecedor-cadastrar.component';
 import { FornecedorEditarComponent } from './fornecedores/fornecedor-editar/fornecedor-editar.component';
 import { FornecedorExcluirComponent } from './fornecedores/fornecedor-excluir/fornecedor-excluir.component';
+import { CategoriasComponent } from './categorias/categorias.component';
+import { CategoriaCadastrarComponent } from './categorias/categoria-cadastrar/categoria-cadastrar.component';
+import { CategoriaEditarComponent } from './categorias/categoria-editar/categoria-editar.component';
+import { CategoriaExcluirComponent } from './categorias/categoria-excluir/categoria-excluir.component';
 
 registerLocaleData(localePt, 'pt');
 
@@ -51,6 +55,10 @@ registerLocaleData(localePt, 'pt');
     FornecedorCadastrarComponent,
     FornecedorEditarComponent,
     FornecedorExcluirComponent,
+    CategoriasComponent,
+    CategoriaCadastrarComponent,
+    CategoriaEditarComponent,
+    CategoriaExcluirComponent,
   ],
   imports: [
     HttpClientModule,
