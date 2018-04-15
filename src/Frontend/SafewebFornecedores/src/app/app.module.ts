@@ -23,6 +23,8 @@ import { AuthService } from './shared/services/auth.service';
 import { UsersService } from './shared/services/users.service';
 import { TokenInterceptor } from './token.interceptor';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
+import { UserDeleteComponent } from './users/user-delete/user-delete.component';
+import { UserRegisterComponent } from './users/user-register/user-register.component';
 
 
 
@@ -38,6 +40,8 @@ registerLocaleData(localePt, 'pt');
     UsersComponent,
     AccountRegisterComponent,
     UserEditComponent,
+    UserDeleteComponent,
+    UserRegisterComponent,
   ],
   imports: [
     HttpClientModule,

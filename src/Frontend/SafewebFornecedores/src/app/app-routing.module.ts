@@ -7,6 +7,7 @@ import { AccountLoginComponent } from "./account-login/account-login.component";
 import { AccountRegisterComponent } from "./account-register/account-register.component";
 import { AuthGuard } from "./auth.guard";
 import { UserEditComponent } from "./users/user-edit/user-edit.component";
+import { UserDeleteComponent } from "./users/user-delete/user-delete.component";
 
 const appRoutes: Routes = [
     {
@@ -14,9 +15,8 @@ const appRoutes: Routes = [
         component: UsersComponent,
         canActivate: [AuthGuard]
     },
-    {
-        path: 'user/:id', component: UserEditComponent
-    },
+    { path: 'user/:id', component: UserEditComponent },
+    { path: 'user/delete/:id', component: UserDeleteComponent },
     { path: 'account/login', component: AccountLoginComponent, },
     {
         path: 'account/register',

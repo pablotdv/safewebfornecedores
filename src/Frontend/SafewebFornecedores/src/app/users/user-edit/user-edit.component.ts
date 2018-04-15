@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UsersService } from '../../shared/services/users.service';
 import { Usuario } from '../../shared/models/usuario';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { UsuarioEditarModel } from '../models/usuario-editar.model';
 
 @Component({
   selector: 'app-user-edit',
@@ -19,7 +20,8 @@ export class UserEditComponent implements OnInit {
   constructor(
     private usersService: UsersService,
     private route: ActivatedRoute,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private router: Router) {
   }
 
   ngOnInit() {
@@ -33,7 +35,7 @@ export class UserEditComponent implements OnInit {
     this.usuarioForm = this.fb.group({
       cpf: [value.Cpf, [Validators.required]],
       nome: [value.Nome, [Validators.required]],
-      dataNascimento: ['12/12/1986', [Validators.required]],
+      dataNascimento: [new DatePipe('pt').transform(value.DataNascimento, 'dd/MM/yyyy'), [Validators.required]],
       email: [value.Email, [Validators.required]],
       id: [value.Id],
       userName: [value.UserName, [Validators.required]]
@@ -47,22 +49,34 @@ export class UserEditComponent implements OnInit {
   get id() { return this.usuarioForm.get('id'); }
   get userName() { return this.usuarioForm.get('userName'); }
 
-  prepareToSave(): any {
+  prepareToSave(): UsuarioEditarModel {
     const formModel = this.usuarioForm.value;
 
-    const usuarioModel = {
+    let dataPartes = formModel.dataNascimento.split('/');
+    let dia = dataPartes[0];
+    let mes = dataPartes[1];
+    let ano = dataPartes[2];
+    let data = `${ano}-${mes}-${dia}`;
+
+    const usuarioModel: UsuarioEditarModel = {
       Cpf: formModel.cpf,
       Nome: formModel.nome,
-      DataNascimento: formModel.dataNascimento,
-      Email: formModel.email,      
-      Id: formModel.id,      
+      DataNascimento: data,
+      Email: formModel.email,
+      Id: formModel.id,
     };
     return usuarioModel;
   }
 
   onSubmit() {
     let usuarioModel = this.prepareToSave();
-    console.log(usuarioModel)    
+    console.log(usuarioModel);
+    this.usersService.put(usuarioModel)
+      .subscribe(res => {
+        if (res == null) {
+          this.router.navigate(['/users']);
+        }
+      });
   }
 
 }

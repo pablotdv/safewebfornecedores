@@ -13,12 +13,13 @@
     <tbody>
       <tr *ngFor="let usuario of usuarios">
         <th>
-          <a [routerLink]="['/user', usuario.Id]" class="btn"><i class="fa fa-edit"></i></a>
+          <a [routerLink]="['/user', usuario.Id]"><i class="fa fa-edit"></i></a>
+          <a [routerLink]="['/user/delete', usuario.Id]"><i class="fa fa-trash"></i></a>
         </th>
         <td>{{ usuario.Nome }}</td>
         <td>{{ usuario.Email }}</td>
         <td>{{ usuario.Cpf }}</td>
-        <td>{{ usuario.DataNascimento }}</td>
+        <td>{{ usuario.DataNascimento | date:'dd/MM/yyyy' }}</td>
         <td>-</td>
       </tr>
     </tbody>
