@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FornecedoresService } from '../../shared/services/fornecedores.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Fornecedor, FornecedorEditar } from '../models/fornecedor.model';
+import { Fornecedor } from '../models/fornecedor.model';
 
 @Component({
   selector: 'app-fornecedor-editar',
@@ -44,10 +44,10 @@ export class FornecedorEditarComponent implements OnInit {
   get telefone() { return this.fornecedorForm.get('telefone'); }
   get email() { return this.fornecedorForm.get('email'); }
 
-  prepareToSave(): FornecedorEditar {
+  prepareToSave(): Fornecedor {
     const formModel = this.fornecedorForm.value;
 
-    const fornecedorModel: FornecedorEditar = {
+    const fornecedorModel: Fornecedor = {
       CpfCnpj: formModel.cpfCnpj,
       Nome: formModel.nome,
       Telefone: formModel.telefone,

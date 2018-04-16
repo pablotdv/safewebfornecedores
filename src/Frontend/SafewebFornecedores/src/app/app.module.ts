@@ -90,7 +90,7 @@ registerLocaleData(localePt, 'pt');
     AuthGuard,
     AuthService,
     UsersService,
-    { provide: LOCALE_ID, useValue: 'pt' },
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
     NotificationService,
     FornecedoresService,
     CategoriasService,

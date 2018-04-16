@@ -31,7 +31,7 @@
           <td>{{ item.Categoria.Descricao }}</td>                    
           <td>{{ item.Fornecedor.Nome }}</td>                    
           <td>{{ item.Data | date:'dd/MM/yyyy' }}</td>                    
-          <td>{{ item.Valor }}</td>                    
+          <td>{{ item.Valor | currency:'BRL' }}</td>                    
           <td>{{ item.Descricao }}</td>                    
         </tr>
       </tbody>

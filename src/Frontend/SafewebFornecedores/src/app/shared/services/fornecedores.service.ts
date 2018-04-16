@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
 import { NotificationService } from '../notification.service';
-import { Fornecedor, FornecedorEditar } from '../../fornecedores/models/fornecedor.model';
+import { Fornecedor } from '../../fornecedores/models/fornecedor.model';
 import { Observable } from 'rxjs/Observable';
 import { catchError, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
@@ -42,12 +42,12 @@ export class FornecedoresService extends BaseService {
       );
   }
 
-  put(fornecedor: FornecedorEditar): Observable<FornecedorEditar> {
-    return this.http.put<FornecedorEditar>(`${this.urlFornecedores}/${fornecedor.FornecedorId}`, fornecedor)
+  put(fornecedor: Fornecedor): Observable<Fornecedor> {
+    return this.http.put<Fornecedor>(`${this.urlFornecedores}/${fornecedor.FornecedorId}`, fornecedor)
       .pipe(
         tap(
           res => this.notificationService.notify('Fornecedor salvo com sucesso!'),
-          error => catchError(this.handleError<FornecedorEditar>('put'))
+          error => catchError(this.handleError<Fornecedor>('put'))
         )
       );
   }

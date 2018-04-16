@@ -47,23 +47,23 @@ export class PropostaCadastrarComponent implements OnInit {
   createForm() {
     this.propostaForm = this.fb.group({
       categoriaId: ['', Validators.required],
-      fornecedorId: ['', Validators.required],      
-      nome: ['', Validators.required],      
+      fornecedorId: ['', Validators.required],
+      nome: ['', Validators.required],
       valor: ['', Validators.required],
-      descricao: ['']      
+      descricao: ['']
     });
   }
 
   get categoriaId() { return this.propostaForm.get('categoriaId'); }
-  get fornecedorId() { return this.propostaForm.get('descricao'); }
+  get fornecedorId() { return this.propostaForm.get('fornecedorId'); }
   get nome() { return this.propostaForm.get('nome'); }
   get valor() { return this.propostaForm.get('valor'); }
-  get descricao() { return this.propostaForm.get('descricao'); }  
+  get descricao() { return this.propostaForm.get('descricao'); }
 
   prepareToSave(): Proposta {
     const formModel = this.propostaForm.value;
 
-    var valor = formModel.valor.replace(/\./g,'').replace(',','.');
+    var valor = formModel.valor.replace(/\./g, '').replace(',', '.');
 
     const propostaModel: Proposta = {
       CategoriaId: formModel.categoriaId,
@@ -83,19 +83,28 @@ export class PropostaCadastrarComponent implements OnInit {
   onSubmit() {
     this.errors = [];
 
-    let proposta = this.prepareToSave();
+    if (this.propostaForm.invalid) {
+      this.errors.push('Existem erros de validação no formulário. Corrija-os submeta novamente.');
+    }
+    else {
+      let proposta = this.prepareToSave();
 
-    console.log(proposta);
-    this.propostasService.post(proposta)
-      .subscribe(res => {
-        this.router.navigate(['/propostas']);
-      }, error => {
-        if (this.propostasService.modelStateErrors && this.propostasService.modelStateErrors.length > 0) {
-          this.errors = this.propostasService.modelStateErrors;
-        }
-        else {
-          console.log(error);
-        }
-      });
+      console.log(proposta);
+      this.propostasService.post(proposta)
+        .subscribe(res => {
+          this.router.navigate(['/propostas']);
+        }, error => {
+          if (this.propostasService.modelStateErrors && this.propostasService.modelStateErrors.length > 0) {
+            this.errors = this.propostasService.modelStateErrors;
+          }
+          else {
+            console.log(error);
+          }
+        });
+    }
+  }
+
+  teste(value) {
+    console.log(value);
   }
 }

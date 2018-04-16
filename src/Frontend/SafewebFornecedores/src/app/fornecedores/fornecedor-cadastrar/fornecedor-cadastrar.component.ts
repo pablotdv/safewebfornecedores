@@ -45,7 +45,8 @@ export class FornecedorCadastrarComponent implements OnInit {
       CpfCnpj: formModel.cpfCnpj,
       Nome: formModel.nome,
       Telefone: formModel.telefone,
-      Email: formModel.email
+      Email: formModel.email,
+      FornecedorId: '00000000-0000-0000-0000-000000000000',
     };
     return fornecedorModel;
   }

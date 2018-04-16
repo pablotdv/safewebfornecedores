@@ -77,6 +77,13 @@ namespace SafewebFornecedores.Controllers
         [ResponseType(typeof(Fornecedor))]
         public async Task<IHttpActionResult> PostFornecedor(Fornecedor fornecedor)
         {
+            var cpfCnpjDuplicado = await db.Fornecedores.AnyAsync(a => a.CpfCnpj == fornecedor.CpfCnpj && a.FornecedorId != fornecedor.FornecedorId);
+
+            if (cpfCnpjDuplicado)
+            {
+                ModelState.AddModelError("", $"O CNPJ/CPF {fornecedor.CpfCnpj} está duplicado!");
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -91,7 +98,7 @@ namespace SafewebFornecedores.Controllers
             {
                 await db.SaveChangesAsync();
             }
-            catch (DbUpdateException)
+            catch (DbUpdateException ex)
             {
                 if (FornecedorExists(fornecedor.FornecedorId))
                 {
@@ -99,7 +106,7 @@ namespace SafewebFornecedores.Controllers
                 }
                 else
                 {
-                    throw;
+                    throw ex;
                 }
             }
 

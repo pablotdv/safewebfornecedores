@@ -27,6 +27,7 @@
           </div>
         </div>
       </div>
+      <button type="button" (click)="teste(categoriaId)">Clique-me</button>
 
       <div class="form-group">
         <label for="fornecedorId">Fornecedor</label>
@@ -39,6 +40,8 @@
           </div>
         </div>
       </div>
+      <button type="button" (click)="teste(fornecedorId)">Clique-me</button>
+      {{ fornecedorId.value }}
 
       <div class="form-group">
         <label for="valor">Valor R$</label>
@@ -51,14 +54,14 @@
       </div>
 
       <div class="form-group">
-          <label for="descricao">Descrição</label>
-          <input id="descricao" class="form-control" formControlName="descricao">
-          <div *ngIf="descricao.invalid && (descricao.dirty || descricao.touched)" class="alert alert-danger">
-            <div *ngIf="descricao.errors.required">
-              O campo Descrição é obrigatório.
-            </div>
+        <label for="descricao">Descrição</label>
+        <input id="descricao" class="form-control" formControlName="descricao">
+        <div *ngIf="descricao.invalid && (descricao.dirty || descricao.touched)" class="alert alert-danger">
+          <div *ngIf="descricao.errors.required">
+            O campo Descrição é obrigatório.
           </div>
         </div>
+      </div>
 
 
       <div *ngIf="errors && errors.length > 0" class="alert alert-danger" role="alert">
