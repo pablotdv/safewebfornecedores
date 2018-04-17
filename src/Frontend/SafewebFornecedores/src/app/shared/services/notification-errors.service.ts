@@ -8,5 +8,4 @@ export class NotificationErrorsService {
   notify(message: string[]) {
     this.notifier.emit(message)
   }
-
 }

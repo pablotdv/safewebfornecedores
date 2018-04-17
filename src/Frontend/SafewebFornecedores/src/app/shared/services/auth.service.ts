@@ -27,7 +27,7 @@ export class AuthService extends BaseService {
       .pipe(
         tap(data => {
           localStorage.setItem('user_token', JSON.stringify(data));
-        }), catchError(this.handleError<UserToken>('login'))
+        }), catchError(this.handleError<UserToken>('account/login'))
       );
   }
 
@@ -39,8 +39,8 @@ export class AuthService extends BaseService {
       .pipe(
         tap(data => {
           localStorage.removeItem('user_token');
-        },
-          error => this.handleError<any>('login')));
+        }),
+      catchError(this.handleError<any>('account/Logout')));
   }
 
   get isLoggedIn(): boolean {
@@ -54,10 +54,7 @@ export class AuthService extends BaseService {
   getToken(): string {
     let user_token = localStorage.getItem('user_token');
 
-
     let userToken: UserToken = JSON.parse(user_token);
     return userToken.access_token;
   }
-
-
 }

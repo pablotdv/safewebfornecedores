@@ -39,8 +39,6 @@ export class BaseService {
                 throw new Error("Falha ao processar solicitação");
             }
 
-
-
             // TODO: send the error to remote logging infrastructure
             console.error(error); // log to console instead
 

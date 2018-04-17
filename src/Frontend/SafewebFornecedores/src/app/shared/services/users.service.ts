@@ -50,9 +50,8 @@ export class UsersService extends BaseService {
   put(usuario: UsuarioEditarModel): Observable<UsuarioEditarModel> {
     return this.http.put<UsuarioEditarModel>(`${this.baseUrl}/api/users/${usuario.Id}`, usuario)
       .pipe(
-        tap(
-          res => this.notificationService.notify('Usuário salvo com sucesso!'),
-          error => catchError(this.handleError<UsuarioEditarModel>('put'))
+        tap(res => this.notificationService.notify('Usuário salvo com sucesso!'),
+          catchError(catchError(this.handleError<UsuarioEditarModel>('put')))
         )
       );
   }
@@ -61,10 +60,9 @@ export class UsersService extends BaseService {
     return this.http.delete<Usuario>(`${this.baseUrl}/api/users/${id}`)
       .pipe(
         tap(
-          res => this.notificationService.notify('Usuário excluído com sucesso!'),
-          error => catchError(this.handleError<UsuarioEditarModel>('put'))
-        )
+          res => this.notificationService.notify('Usuário excluído com sucesso!')
+        ),
+        catchError(this.handleError<Usuario>('put'))
       );
   }
-
 }
