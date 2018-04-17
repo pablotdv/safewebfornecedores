@@ -7,6 +7,7 @@ import { Fornecedor } from '../../fornecedores/models/fornecedor.model';
 import { Categoria } from '../../categorias/models/categoria.model';
 import { FornecedoresService } from '../../shared/services/fornecedores.service';
 import { CategoriasService } from '../../shared/services/categorias.service';
+import { NotificationErrorsService } from '../../shared/services/notification-errors.service';
 
 @Component({
   selector: 'app-proposta-cadastrar',
@@ -27,7 +28,8 @@ export class PropostaCadastrarComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private fornecedoresService: FornecedoresService,
-    private categoriasService: CategoriasService
+    private categoriasService: CategoriasService,
+    private errorsService: NotificationErrorsService,
   ) { }
 
   ngOnInit() {
@@ -62,7 +64,7 @@ export class PropostaCadastrarComponent implements OnInit {
 
   prepareToSave(): Proposta {
     const formModel = this.propostaForm.value;
-    
+
     const propostaModel: Proposta = {
       CategoriaId: formModel.categoriaId,
       FornecedorId: formModel.fornecedorId,
@@ -83,7 +85,7 @@ export class PropostaCadastrarComponent implements OnInit {
     this.errors = [];
 
     if (this.propostaForm.invalid) {
-      this.errors.push('Existem erros de validação no formulário. Corrija-os submeta novamente.');
+      this.errorsService.notify(['Existem erros de validação no formulário. Corrija-os submeta novamente.']);
     }
     else {
       let proposta = this.prepareToSave();

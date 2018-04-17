@@ -6,12 +6,13 @@ import { of } from 'rxjs/observable/of';
 import { catchError, tap } from 'rxjs/operators';
 import { UserToken } from '../models/user-token';
 import { BaseService } from './base.service';
+import { NotificationErrorsService } from './notification-errors.service';
 
 
 @Injectable()
 export class AuthService extends BaseService {
-  constructor(private http: HttpClient) {
-    super();
+  constructor(private http: HttpClient, protected errorsService: NotificationErrorsService) {
+    super(errorsService);
   }
 
   login(loginModel: LoginModel): Observable<UserToken> {

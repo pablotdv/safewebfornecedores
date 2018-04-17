@@ -1,18 +1,21 @@
 import { Observable } from "rxjs/Observable";
 import { of } from "rxjs/observable/of";
 import { HttpErrorResponse } from "@angular/common/http";
+import { NotificationErrorsService } from "./notification-errors.service";
 
 export class BaseService {
     public modelStateErrors: string[] = [];
 
     protected baseUrl: string = 'http://localhost:50343';
 
+    constructor(protected errorsService: NotificationErrorsService) { }
+
     protected handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
-            this.modelStateErrors = [];            
+            this.modelStateErrors = [];
             if (error instanceof HttpErrorResponse) {
                 let er = <HttpErrorResponse>error;
-                
+
                 if (er.status === 401) {
                     this.modelStateErrors.push('Seu usuário não tem permissão de acesso ao recurso selecionado.');
                 } else {
@@ -29,7 +32,7 @@ export class BaseService {
             }
 
             if (this.modelStateErrors.length > 0) {
-                throw new Error("Falha ao processar solicitação");
+                this.errorsService.notify(this.modelStateErrors);
             }
 
 

@@ -5,6 +5,7 @@ import { NotificationService } from '../notification.service';
 import { Observable } from 'rxjs/Observable';
 import { catchError, tap } from 'rxjs/operators';
 import { Configuracao } from '../../configuracoes/models/configuracao.model';
+import { NotificationErrorsService } from './notification-errors.service';
 
 @Injectable()
 export class ConfiguracoesService extends BaseService {
@@ -12,9 +13,9 @@ export class ConfiguracoesService extends BaseService {
   urlConfiguracoes = `${this.baseUrl}/api/configuracoes`;
 
   constructor(private http: HttpClient,
-    private notificationService: NotificationService
+    private notificationService: NotificationService, protected errorsService: NotificationErrorsService
   ) {
-    super();
+    super(errorsService);
   }
 
   get(): Observable<Configuracao> {

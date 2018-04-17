@@ -5,15 +5,16 @@ import { Fornecedor } from '../../fornecedores/models/fornecedor.model';
 import { Observable } from 'rxjs/Observable';
 import { catchError, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { NotificationErrorsService } from './notification-errors.service';
 
 @Injectable()
 export class FornecedoresService extends BaseService {
   urlFornecedores = `${this.baseUrl}/api/fornecedores`;
 
   constructor(private http: HttpClient,
-    private notificationService: NotificationService
+    private notificationService: NotificationService, protected errorsService: NotificationErrorsService
   ) {
-    super();
+    super(errorsService);
   }
 
   getAll(): Observable<Fornecedor[]> {

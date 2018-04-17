@@ -48,6 +48,8 @@ import { PropostaAprovarComponent } from './propostas/proposta-aprovar/proposta-
 import { PropostaReprovarComponent } from './propostas/proposta-reprovar/proposta-reprovar.component';
 import { ConfiguracoesComponent } from './configuracoes/configuracoes.component';
 import { ConfiguracoesService } from './shared/services/configuracoes.service';
+import { ErrorsComponent } from './shared/messages/errors/errors.component';
+import { NotificationErrorsService } from './shared/services/notification-errors.service';
 
 registerLocaleData(localePt, 'pt');
 
@@ -78,6 +80,7 @@ registerLocaleData(localePt, 'pt');
     PropostaAprovarComponent,
     PropostaReprovarComponent,
     ConfiguracoesComponent,
+    ErrorsComponent,
   ],
   imports: [
     HttpClientModule,
@@ -105,7 +108,8 @@ registerLocaleData(localePt, 'pt');
     FornecedoresService,
     CategoriasService,
     PropostasService,
-    ConfiguracoesService
+    ConfiguracoesService,
+    NotificationErrorsService
   ],
   bootstrap: [AppComponent]
 })

@@ -8,6 +8,7 @@ import { AuthService } from './auth.service';
 import { UsuarioEditarModel } from '../../users/models/usuario-editar.model';
 import { RegisterBindingModel } from '../../users/models/register-binding.model';
 import { NotificationService } from '../notification.service';
+import { NotificationErrorsService } from './notification-errors.service';
 
 
 
@@ -15,9 +16,9 @@ import { NotificationService } from '../notification.service';
 export class UsersService extends BaseService {
 
   constructor(private http: HttpClient,
-    private notificationService: NotificationService
+    private notificationService: NotificationService, protected errorsService: NotificationErrorsService
   ) {
-    super();
+    super(errorsService);
   }
 
   register(usuario: RegisterBindingModel): Observable<RegisterBindingModel> {
