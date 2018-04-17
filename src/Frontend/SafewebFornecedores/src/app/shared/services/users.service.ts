@@ -67,4 +67,14 @@ export class UsersService extends BaseService {
         catchError(this.handleError<Usuario>('put'))
       );
   }
+
+  getUserInfo(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/api/account/UserInfo`)
+      .pipe(
+        tap(
+          res => console.log(res)
+        ),
+        catchError(this.handleError<any>('get'))
+      );
+  }
 }

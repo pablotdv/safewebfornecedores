@@ -1,0 +1,16 @@
+<ul class="nav navbar-nav navbar-right" *ngIf="!isLoggedIn; else logout">
+  <li>
+    <a class="nav-link" routerLink="/account/login">Entrar</a>
+  </li>
+</ul>
+
+<ng-template #logout>
+  <ul class="nav navbar-nav navbar-right">
+    <li>
+      Seja bem vindo <strong>{{ usuario }}</strong>
+    </li>    
+    <li>
+      [<a [routerLink]="" (click)="sair()">Sair</a>]
+    </li>
+  </ul>
+</ng-template>

@@ -5,6 +5,7 @@ import { LoginModel } from '../shared/models/login-model';
 import { Router } from '@angular/router';
 import { NotificationErrorsService } from '../shared/services/notification-errors.service';
 import { MensagemFormulario } from '../shared/consts';
+import { UserInfoService } from '../shared/services/user-info.service';
 
 @Component({
   selector: 'app-account-login',
@@ -20,7 +21,8 @@ export class AccountLoginComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private router: Router,
     private authService: AuthService,
-    private errorsService: NotificationErrorsService) { }
+    private errorsService: NotificationErrorsService,
+    private userInfoService: UserInfoService) { }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -39,7 +41,7 @@ export class AccountLoginComponent implements OnInit {
     return loginModel;
   }
 
-  onSubmit() {    
+  onSubmit() {
     if (this.loginForm.invalid) {
       this.errorsService.notify([MensagemFormulario]);
     }
@@ -47,8 +49,10 @@ export class AccountLoginComponent implements OnInit {
       let loginModel = this.prepareToSave();
       this.authService.login(loginModel)
         .subscribe(res => {
-          if (this.authService.isLoggedIn)
+          if (this.authService.isLoggedIn) {            
             this.router.navigate(['/home']);
+            this.userInfoService.notify();
+          }
         });
     }
   }

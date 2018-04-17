@@ -51,6 +51,8 @@ import { ConfiguracoesComponent } from './configuracoes/configuracoes.component'
 import { ConfiguracoesService } from './shared/services/configuracoes.service';
 import { ErrorsComponent } from './shared/messages/errors/errors.component';
 import { NotificationErrorsService } from './shared/services/notification-errors.service';
+import { UserInfoComponent } from './users/user-info/user-info.component';
+import { UserInfoService } from './shared/services/user-info.service';
 
 registerLocaleData(localePt, 'pt');
 
@@ -82,6 +84,7 @@ registerLocaleData(localePt, 'pt');
     PropostaReprovarComponent,
     ConfiguracoesComponent,
     ErrorsComponent,
+    UserInfoComponent,
   ],
   imports: [
     HttpClientModule,
@@ -112,7 +115,8 @@ registerLocaleData(localePt, 'pt');
     CategoriasService,
     PropostasService,
     ConfiguracoesService,
-    NotificationErrorsService
+    NotificationErrorsService,
+    UserInfoService
   ],
   bootstrap: [AppComponent]
 })

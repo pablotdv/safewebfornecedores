@@ -18,14 +18,4 @@ export class HeaderComponent implements OnInit {
   get isLoggedIn(): boolean {
     return this.authService.isLoggedIn;
   }
-
-  sair() {
-    this.authService.logout()
-      .subscribe(res => {
-        if (!this.isLoggedIn) {
-          this.router.navigate(['/account/login']);
-        }
-      });
-  }
-
 }
