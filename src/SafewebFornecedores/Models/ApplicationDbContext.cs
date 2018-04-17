@@ -29,5 +29,6 @@ namespace SafewebFornecedores.Models
         public DbSet<Fornecedor> Fornecedores { get; set; }
         public DbSet<Proposta> Propostas { get; set; }
         public DbSet<PropostaSituacao> PropostasSituacoes { get; set; }
+        public DbSet<Configuracao> Configuracoes { get; set; }
     }
 }

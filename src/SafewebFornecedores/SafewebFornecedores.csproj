@@ -235,6 +235,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoriasController.cs" />
+    <Compile Include="Controllers\ConfiguracoesController.cs" />
     <Compile Include="Controllers\FornecedoresController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PropostasController.cs" />
@@ -250,6 +251,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Categoria.cs" />
+    <Compile Include="Models\Configuracao.cs" />
     <Compile Include="Models\Fornecedor.cs" />
     <Compile Include="Models\Identity\Role.cs" />
     <Compile Include="Models\Identity\Usuario.cs" />
@@ -267,6 +269,7 @@
     <Compile Include="ViewModels\ChangePasswordBindingModel.cs" />
     <Compile Include="ViewModels\ExternalLoginViewModel.cs" />
     <Compile Include="ViewModels\ManageInfoViewModel.cs" />
+    <Compile Include="ViewModels\PropostaAprovarModel.cs" />
     <Compile Include="ViewModels\RegisterBindingModel.cs" />
     <Compile Include="ViewModels\RegisterExternalBindingModel.cs" />
     <Compile Include="ViewModels\RemoveLoginBindingModel.cs" />

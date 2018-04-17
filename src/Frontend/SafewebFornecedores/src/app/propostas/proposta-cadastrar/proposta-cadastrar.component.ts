@@ -62,20 +62,19 @@ export class PropostaCadastrarComponent implements OnInit {
 
   prepareToSave(): Proposta {
     const formModel = this.propostaForm.value;
-
-    var valor = formModel.valor.replace(/\./g, '').replace(',', '.');
-
+    
     const propostaModel: Proposta = {
       CategoriaId: formModel.categoriaId,
       FornecedorId: formModel.fornecedorId,
       Numero: 0,
       Nome: formModel.nome,
       Data: new Date(),
-      Valor: valor,
+      Valor: formModel.valor,
       Descricao: formModel.descricao,
       Arquivo: '',
       DataSituacao: new Date(),
       Situacao: 0,
+      PropostaId: '00000000-0000-0000-0000-000000000000'
     };
     return propostaModel;
   }

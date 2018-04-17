@@ -1,4 +1,5 @@
 export interface Proposta {
+    PropostaId: string;
     CategoriaId: string;
     FornecedorId: string;
     Numero: number;
@@ -9,10 +10,6 @@ export interface Proposta {
     Arquivo: string;
     DataSituacao: Date;
     Situacao: Situacao;
-}
-
-export interface PropostaEditar extends Proposta {
-    PropostaId: string;
 }
 
 export enum Situacao {

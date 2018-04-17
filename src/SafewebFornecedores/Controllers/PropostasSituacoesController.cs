@@ -15,6 +15,7 @@ using SafewebFornecedores.Models;
 namespace SafewebFornecedores.Controllers
 {
     [EnableCors("*", "*", "*")]
+    [Authorize]
     public class PropostasSituacoesController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();

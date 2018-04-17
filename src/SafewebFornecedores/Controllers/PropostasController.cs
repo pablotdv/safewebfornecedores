@@ -12,10 +12,13 @@ using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using Microsoft.AspNet.Identity;
 using SafewebFornecedores.Models;
+using SafewebFornecedores.ViewModels;
 
 namespace SafewebFornecedores.Controllers
 {
     [EnableCors("*", "*", "*")]
+    [Authorize]
+    [RoutePrefix("api/propostas")]
     public class PropostasController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -91,6 +94,7 @@ namespace SafewebFornecedores.Controllers
             proposta.Data = DateTime.Now;
             if (proposta.PropostasSituacoes == null)
                 proposta.PropostasSituacoes = new List<PropostaSituacao>();
+
             proposta.PropostasSituacoes.Add(new PropostaSituacao()
             {
                 PropostaSituacaoId = Guid.NewGuid(),
@@ -120,6 +124,129 @@ namespace SafewebFornecedores.Controllers
             }
 
             return CreatedAtRoute("DefaultApi", new { id = proposta.PropostaId }, proposta);
+        }
+
+        // POST: api/Propostas/Aprovar
+        [ResponseType(typeof(void))]
+        [HttpPut]
+        [Authorize(Roles = "AnalistaFinanceiro,DiretorFinanceiro")]
+        [Route("aprovar")]
+        public async Task<IHttpActionResult> Aprovar(Proposta model)
+        {
+            var proposta = await db.Propostas.Include(a => a.PropostasSituacoes).FirstOrDefaultAsync(a => a.PropostaId == model.PropostaId);
+            if (proposta == null)
+            {
+                return NotFound();
+            }
+            var configuracao = await db.Configuracoes.SingleOrDefaultAsync();
+
+            if (proposta.Situacao == Situacao.Aberto && proposta.Data.AddHours(configuracao.TempoProposta) <= DateTime.Now)
+            {
+                ModelState.AddModelError("", "O prazo de aprovação da proposta expirou");
+                return BadRequest(ModelState);
+            }
+
+            if (proposta.Situacao == Situacao.Aprovada)
+            {
+                ModelState.AddModelError("A", "A proposta já foi aprovada");
+            }
+
+            if (proposta.Situacao == Situacao.Aberto && proposta.Valor > 10000 && !User.IsInRole("DiretorFinanceiro"))
+            {
+                ModelState.AddModelError("A", "A proposta só pode ser aprovada pelo Diretor Financeiro");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var situacao = User.IsInRole("DiretorFinanceiro") ? Situacao.AprovadaDiretoria : Situacao.Aprovada;
+            proposta.PropostasSituacoes.Add(new PropostaSituacao()
+            {
+                PropostaSituacaoId = Guid.NewGuid(),
+                Situacao = situacao,
+                Data = DateTime.Now,
+                UsuarioId = new Guid(User.Identity.GetUserId()),                
+            });
+            proposta.Situacao = situacao;
+            proposta.DataSituacao = DateTime.Now;
+
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                if (PropostaExists(proposta.PropostaId))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        // POST: api/Propostas/reprovar
+        [ResponseType(typeof(void))]
+        [HttpPut]
+        [Authorize(Roles = "AnalistaFinanceiro,DiretorFinanceiro")]
+        [Route("reprovar")]
+        public async Task<IHttpActionResult> Reprovar(Proposta model)
+        {
+            var proposta = await db.Propostas.Include(a => a.PropostasSituacoes).FirstOrDefaultAsync(a => a.PropostaId == model.PropostaId);
+            if (proposta == null)
+            {
+                return NotFound();
+            }
+            
+            if (proposta.Situacao != Situacao.Aberto)
+            {
+                ModelState.AddModelError("A", "A proposta não pode ser mais reprovada");
+            }
+
+            if (proposta.Situacao == Situacao.Aberto && proposta.Valor > 10000 && !User.IsInRole("DiretorFinanceiro"))
+            {
+                ModelState.AddModelError("A", "A proposta só pode ser aprovada pelo Diretor Financeiro");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var situacao = User.IsInRole("DiretorFinanceiro") ? Situacao.AprovadaDiretoria : Situacao.Aprovada;
+            proposta.PropostasSituacoes.Add(new PropostaSituacao()
+            {
+                PropostaSituacaoId = Guid.NewGuid(),
+                Situacao = situacao,
+                Data = DateTime.Now,
+                UsuarioId = new Guid(User.Identity.GetUserId()),
+            });
+            proposta.Situacao = situacao;
+            proposta.DataSituacao = DateTime.Now;
+
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                if (PropostaExists(proposta.PropostaId))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
         // DELETE: api/Propostas/5

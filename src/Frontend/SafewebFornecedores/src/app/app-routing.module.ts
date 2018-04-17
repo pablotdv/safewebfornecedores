@@ -20,6 +20,9 @@ import { PropostasComponent } from "./propostas/propostas.component";
 import { PropostaCadastrarComponent } from "./propostas/proposta-cadastrar/proposta-cadastrar.component";
 import { PropostaEditarComponent } from "./propostas/proposta-editar/proposta-editar.component";
 import { PropostaExcluirComponent } from "./propostas/proposta-excluir/proposta-excluir.component";
+import { PropostaAprovarComponent } from "./propostas/proposta-aprovar/proposta-aprovar.component";
+import { PropostaReprovarComponent } from "./propostas/proposta-reprovar/proposta-reprovar.component";
+import { ConfiguracoesComponent } from "./configuracoes/configuracoes.component";
 
 const appRoutes: Routes = [
     {
@@ -71,9 +74,14 @@ const appRoutes: Routes = [
             { path: ':id', component: PropostaEditarComponent },
             { path: 'editar/:id', component: PropostaEditarComponent },
             { path: 'excluir/:id', component: PropostaExcluirComponent },
+            { path: 'aprovar/:id', component: PropostaAprovarComponent },
+            { path: 'reprovar/:id', component: PropostaReprovarComponent },
         ]
     },
 
+    {
+        path: 'configuracoes', component: ConfiguracoesComponent, canActivate: [AuthGuard]
+    },
 
     { path: 'account/login', component: AccountLoginComponent, },
     { path: 'home', component: HomeComponent },

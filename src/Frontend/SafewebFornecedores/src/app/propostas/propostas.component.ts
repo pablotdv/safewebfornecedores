@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Proposta } from './model/proposta.model';
+import { Proposta, Situacao } from './model/proposta.model';
 import { PropostasService } from '../shared/services/propostas.service';
 
 @Component({
@@ -18,8 +18,11 @@ export class PropostasComponent implements OnInit {
     this.propostasService.getAll()
       .subscribe(propostas => {
         this.propostas = propostas;
-        console.log(this.propostas);
       });
+  }
+
+  getSituacao(value: number): any {
+    return Situacao[value];
   }
 
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PropostasService } from '../../shared/services/propostas.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Proposta, PropostaEditar, Situacao } from '../model/proposta.model';
+import { Proposta, Situacao } from '../model/proposta.model';
 import { Fornecedor } from '../../fornecedores/models/fornecedor.model';
 import { Categoria } from '../../categorias/models/categoria.model';
 import { FornecedoresService } from '../../shared/services/fornecedores.service';
@@ -74,10 +74,10 @@ export class PropostaEditarComponent implements OnInit {
   get dataSituacao() { return this.propostaForm.get('dataSituacao'); }
   get numero() { return this.propostaForm.get('numero'); }
 
-  prepareToSave(): PropostaEditar {
+  prepareToSave(): Proposta {
     const formModel = this.propostaForm.value;
 
-    const propostaModel: PropostaEditar = {
+    const propostaModel: Proposta = {
       CategoriaId: formModel.categoriaId,
       FornecedorId: formModel.fornecedorId,
       Numero: formModel.numero,
@@ -95,23 +95,27 @@ export class PropostaEditarComponent implements OnInit {
 
   onSubmit() {
     this.errors = [];
+    if (this.propostaForm.invalid) {
+      this.errors.push('Existem erros de validação no formulário. Corrija-os submeta novamente.');
+    }
+    else {
+      let proposta = this.prepareToSave();
 
-    let proposta = this.prepareToSave();
-
-    this.propostasService.put(proposta)
-      .subscribe(res => {
-        this.router.navigate(['/propostas']);
-      }, error => {
-        if (this.propostasService.modelStateErrors && this.propostasService.modelStateErrors.length > 0) {
-          this.errors = this.propostasService.modelStateErrors;
-        }
-        else {
-          console.log(error);
-        }
-      });
+      this.propostasService.put(proposta)
+        .subscribe(res => {
+          this.router.navigate(['/propostas']);
+        }, error => {
+          if (this.propostasService.modelStateErrors && this.propostasService.modelStateErrors.length > 0) {
+            this.errors = this.propostasService.modelStateErrors;
+          }
+          else {
+            console.log(error);
+          }
+        });
+    }
   }
 
-  getSituacao(value: number):any{
+  getSituacao(value: number): any {
     return Situacao[value];
   }
 }

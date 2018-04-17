@@ -10,6 +10,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { NgBrToolsModule } from 'ng-br-tools';
 import { TextMaskModule } from 'angular2-text-mask';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
+
 
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./home/home.component";
@@ -42,6 +44,10 @@ import { PropostaCadastrarComponent } from './propostas/proposta-cadastrar/propo
 import { PropostaEditarComponent } from './propostas/proposta-editar/proposta-editar.component';
 import { PropostaExcluirComponent } from './propostas/proposta-excluir/proposta-excluir.component';
 import { PropostasService } from './shared/services/propostas.service';
+import { PropostaAprovarComponent } from './propostas/proposta-aprovar/proposta-aprovar.component';
+import { PropostaReprovarComponent } from './propostas/proposta-reprovar/proposta-reprovar.component';
+import { ConfiguracoesComponent } from './configuracoes/configuracoes.component';
+import { ConfiguracoesService } from './shared/services/configuracoes.service';
 
 registerLocaleData(localePt, 'pt');
 
@@ -69,6 +75,9 @@ registerLocaleData(localePt, 'pt');
     PropostaCadastrarComponent,
     PropostaEditarComponent,
     PropostaExcluirComponent,
+    PropostaAprovarComponent,
+    PropostaReprovarComponent,
+    ConfiguracoesComponent,
   ],
   imports: [
     HttpClientModule,
@@ -78,7 +87,8 @@ registerLocaleData(localePt, 'pt');
     ReactiveFormsModule,
     AppRoutingModule,
     NgBrToolsModule,
-    TextMaskModule
+    TextMaskModule,
+    CurrencyMaskModule
   ],
   providers: [
     {
@@ -94,7 +104,8 @@ registerLocaleData(localePt, 'pt');
     NotificationService,
     FornecedoresService,
     CategoriasService,
-    PropostasService
+    PropostasService,
+    ConfiguracoesService
   ],
   bootstrap: [AppComponent]
 })

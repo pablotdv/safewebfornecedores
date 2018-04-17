@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
 import { HttpClient } from '@angular/common/http';
 import { NotificationService } from '../notification.service';
-import { Proposta, PropostaEditar } from '../../propostas/model/proposta.model';
+import { Proposta } from '../../propostas/model/proposta.model';
 import { Observable } from 'rxjs/Observable';
 import { catchError, tap } from 'rxjs/operators';
+import { PropostaAprovar } from '../../propostas/model/proposta-aprovar.model';
 
 @Injectable()
 export class PropostasService extends BaseService {
@@ -31,24 +32,24 @@ export class PropostasService extends BaseService {
       );
   }
 
-  post(categoria: Proposta): Observable<Proposta> {
-    return this.http.post<Proposta>(this.urlPropostas, categoria)
+  post(proposta: Proposta): Observable<Proposta> {
+    return this.http.post<Proposta>(this.urlPropostas, proposta)
       .pipe(
         tap(
           res => {
-            this.notificationService.notify('Proposta salva com sucesso!');
+            this.notificationService.notify(`Proposta #${res.Numero} salva com sucesso!`);
           }
         ),
-        catchError(this.handleError<Proposta>('account/register'))
+        catchError(this.handleError<Proposta>('post'))
       );
   }
 
-  put(categoria: PropostaEditar): Observable<PropostaEditar> {
-    return this.http.put<PropostaEditar>(`${this.urlPropostas}/${categoria.PropostaId}`, categoria)
+  put(proposta: Proposta): Observable<Proposta> {
+    return this.http.put<Proposta>(`${this.urlPropostas}/${proposta.PropostaId}`, proposta)
       .pipe(
         tap(
-          res => this.notificationService.notify('Proposta salvo com sucesso!'),
-          error => catchError(this.handleError<PropostaEditar>('put'))
+          res => this.notificationService.notify(`Proposta #${proposta.Numero} salva com sucesso!`),
+          error => catchError(this.handleError<Proposta>('put'))
         )
       );
   }
@@ -57,9 +58,36 @@ export class PropostasService extends BaseService {
     return this.http.delete<any>(`${this.urlPropostas}/${id}`)
       .pipe(
         tap(
-          res => this.notificationService.notify('Proposta excluído com sucesso!'),
-          error => catchError(this.handleError<any>('put'))
+          res => {
+            this.notificationService.notify(`Proposta #${res.Numero} excluído com sucesso!`);
+          },
+          error => catchError(this.handleError<any>('delete'))
         )
       );
   }
+
+  aprovar(proposta: Proposta): Observable<Proposta> {
+    return this.http.put<Proposta>(`${this.urlPropostas}/aprovar/`, proposta)
+      .pipe(
+        tap(
+          res => {
+            this.notificationService.notify(`Proposta #${proposta.Numero} aprovada com sucesso!`);
+          }
+        ),
+        catchError(this.handleError<Proposta>('aprovar'))
+      );
+  }
+
+  reprovar(proposta: Proposta): Observable<Proposta> {
+    return this.http.put<Proposta>(`${this.urlPropostas}/reprovar/`, proposta)
+      .pipe(
+        tap(
+          res => {
+            this.notificationService.notify(`Proposta #${proposta.Numero} reprovada com sucesso!`);
+          }
+        ),
+        catchError(this.handleError<Proposta>('reprovar'))
+      );
+  }
+
 }

@@ -8,24 +8,31 @@ export class BaseService {
     protected baseUrl: string = 'http://localhost:50343';
 
     protected handleError<T>(operation = 'operation', result?: T) {
-        return (error: any): Observable<T> => {            
-            this.modelStateErrors = [];
+        return (error: any): Observable<T> => {
+            this.modelStateErrors = [];            
             if (error instanceof HttpErrorResponse) {
                 let er = <HttpErrorResponse>error;
+                
+                if (er.status === 401) {
+                    this.modelStateErrors.push('Seu usuário não tem permissão de acesso ao recurso selecionado.');
+                } else {
 
-                if (er.error.ModelState) {
-                    for (var key in er.error.ModelState) {
-                        var mensagens = er.error.ModelState[key];
-                        for (var k in mensagens) {
-                            this.modelStateErrors.push(mensagens[k]);
+                    if (er.error.ModelState) {
+                        for (var key in er.error.ModelState) {
+                            var mensagens = er.error.ModelState[key];
+                            for (var k in mensagens) {
+                                this.modelStateErrors.push(mensagens[k]);
+                            }
                         }
                     }
                 }
             }
 
             if (this.modelStateErrors.length > 0) {
-                throw new Error("Falha ao processa solicitação");                
+                throw new Error("Falha ao processar solicitação");
             }
+
+
 
             // TODO: send the error to remote logging infrastructure
             console.error(error); // log to console instead
