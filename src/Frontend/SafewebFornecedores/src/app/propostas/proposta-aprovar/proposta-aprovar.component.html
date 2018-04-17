@@ -31,17 +31,11 @@
         
       </dl>
     </div>
-  </div>
-  <div *ngIf="errors && errors.length > 0" class="alert alert-danger" role="alert">
-    <strong>Falha ao processar sua requisição, verifique os erros e tente novamente!</strong>
-    <ul>
-      <li *ngFor="let error of errors">{{ error }}</li>
-    </ul>
-  </div>
+  </div>  
   <div class="row">
     <div class="col-md-6 offset-md-3">
       <div class="form-group">
-        <button type="button" class="btn btn-primary" (click)="excluir()">
+        <button type="button" class="btn btn-primary" (click)="aprovar()">
           <i class="far fa-thumbs-up"></i> Aprovar</button>
         <a [routerLink]="['/propostas']" class="btn">
           <i class="fas fa-arrow-left"></i> Voltar</a>

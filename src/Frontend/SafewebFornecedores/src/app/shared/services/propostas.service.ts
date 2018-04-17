@@ -22,14 +22,14 @@ export class PropostasService extends BaseService {
   getAll(): Observable<Proposta[]> {
     return this.http.get<Proposta[]>(this.urlPropostas)
       .pipe(
-        catchError(this.handleError<Proposta[]>('getAll'))
+        catchError(this.handleError<Proposta[]>('propostas/getAll'))
       );
   }
 
   get(id: string): Observable<Proposta> {
     return this.http.get<Proposta>(`${this.urlPropostas}/${id}`)
       .pipe(
-        catchError(this.handleError<Proposta>('get'))
+        catchError(this.handleError<Proposta>('propostas/get'))
       );
   }
 
@@ -41,7 +41,7 @@ export class PropostasService extends BaseService {
             this.notificationService.notify(`Proposta #${res.Numero} salva com sucesso!`);
           }
         ),
-        catchError(this.handleError<Proposta>('post'))
+        catchError(this.handleError<Proposta>('propostas/post'))
       );
   }
 
@@ -49,9 +49,9 @@ export class PropostasService extends BaseService {
     return this.http.put<Proposta>(`${this.urlPropostas}/${proposta.PropostaId}`, proposta)
       .pipe(
         tap(
-          res => this.notificationService.notify(`Proposta #${proposta.Numero} salva com sucesso!`),
-          error => catchError(this.handleError<Proposta>('put'))
-        )
+          res => this.notificationService.notify(`Proposta #${proposta.Numero} salva com sucesso!`)
+        ),
+        catchError(this.handleError<Proposta>('propostas/put'))
       );
   }
 
@@ -61,9 +61,8 @@ export class PropostasService extends BaseService {
         tap(
           res => {
             this.notificationService.notify(`Proposta #${res.Numero} excluído com sucesso!`);
-          },
-          error => catchError(this.handleError<any>('delete'))
-        )
+          }
+        ), catchError(this.handleError<any>('propostas/delete'))
       );
   }
 
@@ -75,7 +74,7 @@ export class PropostasService extends BaseService {
             this.notificationService.notify(`Proposta #${proposta.Numero} aprovada com sucesso!`);
           }
         ),
-        catchError(this.handleError<Proposta>('aprovar'))
+        catchError(this.handleError<Proposta>('propostas/aprovar'))
       );
   }
 
@@ -87,8 +86,7 @@ export class PropostasService extends BaseService {
             this.notificationService.notify(`Proposta #${proposta.Numero} reprovada com sucesso!`);
           }
         ),
-        catchError(this.handleError<Proposta>('reprovar'))
+        catchError(this.handleError<Proposta>('propostas/reprovar'))
       );
   }
-
 }

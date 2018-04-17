@@ -49,12 +49,12 @@ export class ConfiguracoesComponent implements OnInit {
     return configuracaoModel;
   }
 
-  onSubmit() {
-    let configuracao = this.prepareToSave();
+  onSubmit() {    
     if (this.configuracaoForm.invalid) {
       this.errorsService.notify([MensagemFormulario]);
     }
     else {
+      let configuracao = this.prepareToSave();
       this.configuracoesService.put(configuracao)
         .subscribe(res => {
           this.router.navigate(['/configuracoes']);

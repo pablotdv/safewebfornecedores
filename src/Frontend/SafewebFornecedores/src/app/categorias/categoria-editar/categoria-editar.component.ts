@@ -48,12 +48,12 @@ export class CategoriaEditarComponent implements OnInit {
     return categoriaModel;
   }
 
-  onSubmit() {
-    let categoria = this.prepareToSave();
+  onSubmit() {    
     if (this.categoriaForm.invalid) {
       this.errorsService.notify([MensagemFormulario]);
     }
     else {
+      let categoria = this.prepareToSave();
       this.categoriasService.put(categoria)
         .subscribe(res => {
           this.router.navigate(['/categorias']);

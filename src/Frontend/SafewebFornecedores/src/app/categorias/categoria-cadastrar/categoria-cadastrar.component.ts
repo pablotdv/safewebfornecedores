@@ -43,12 +43,12 @@ export class CategoriaCadastrarComponent implements OnInit {
     return categoriaModel;
   }
 
-  onSubmit() {
-    let categoria = this.prepareToSave();
+  onSubmit() {    
     if (this.categoriaForm.invalid) {
       this.errorsService.notify([MensagemFormulario]);
     }
     else {
+      let categoria = this.prepareToSave();
       this.categoriasService.post(categoria)
         .subscribe(res => {
           this.router.navigate(['/categorias']);

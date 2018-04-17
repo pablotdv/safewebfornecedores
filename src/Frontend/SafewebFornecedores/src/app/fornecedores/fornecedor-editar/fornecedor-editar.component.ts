@@ -59,12 +59,12 @@ export class FornecedorEditarComponent implements OnInit {
     return fornecedorModel;
   }
 
-  onSubmit() {
-    let fornecedor = this.prepareToSave();
+  onSubmit() {    
     if (this.fornecedorForm.invalid) {
       this.errorsService.notify([MensagemFormulario]);
     }
     else {
+      let fornecedor = this.prepareToSave();
       this.fornecedoresService.put(fornecedor)
         .subscribe(res => {
           this.router.navigate(['/fornecedores']);

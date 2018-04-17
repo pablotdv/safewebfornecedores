@@ -39,12 +39,12 @@ export class AccountLoginComponent implements OnInit {
     return loginModel;
   }
 
-  onSubmit() {
-    let loginModel = this.prepareToSave();
+  onSubmit() {    
     if (this.loginForm.invalid) {
       this.errorsService.notify([MensagemFormulario]);
     }
     else {
+      let loginModel = this.prepareToSave();
       this.authService.login(loginModel)
         .subscribe(res => {
           if (this.authService.isLoggedIn)

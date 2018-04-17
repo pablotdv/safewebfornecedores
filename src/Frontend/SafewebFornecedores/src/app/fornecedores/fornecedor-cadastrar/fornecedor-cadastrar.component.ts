@@ -52,12 +52,12 @@ export class FornecedorCadastrarComponent implements OnInit {
     return fornecedorModel;
   }
 
-  onSubmit() {
-    let fornecedor = this.prepareToSave();
+  onSubmit() {    
     if (this.fornecedorForm.invalid) {
       this.errorsService.notify([MensagemFormulario]);
     }
     else {
+      let fornecedor = this.prepareToSave();
       this.fornecedoresService.post(fornecedor)
         .subscribe(res => {
           this.router.navigate(['/fornecedores']);

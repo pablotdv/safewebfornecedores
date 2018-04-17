@@ -5,6 +5,8 @@ import { Usuario } from '../../shared/models/usuario';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { UsuarioEditarModel } from '../models/usuario-editar.model';
+import { MensagemFormulario } from '../../shared/consts';
+import { NotificationErrorsService } from '../../shared/services/notification-errors.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -21,7 +23,8 @@ export class UserEditComponent implements OnInit {
     private usersService: UsersService,
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private router: Router) {
+    private router: Router,
+    private errorsService: NotificationErrorsService) {
   }
 
   ngOnInit() {
@@ -69,14 +72,14 @@ export class UserEditComponent implements OnInit {
   }
 
   onSubmit() {
-    let usuarioModel = this.prepareToSave();
-    console.log(usuarioModel);
-    this.usersService.put(usuarioModel)
-      .subscribe(res => {
-        if (res == null) {
-          this.router.navigate(['/users']);
-        }
-      });
+    if (this.usuarioForm.invalid) {
+      this.errorsService.notify([MensagemFormulario]);
+    }
+    else {
+      let usuarioModel = this.prepareToSave();
+      this.usersService.put(usuarioModel)
+        .subscribe(res => this.router.navigate(['/users']));
+    }
   }
 
 }

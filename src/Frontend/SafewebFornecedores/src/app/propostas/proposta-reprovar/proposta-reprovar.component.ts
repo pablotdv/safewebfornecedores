@@ -11,8 +11,6 @@ import { NotificationService } from '../../shared/notification.service';
 })
 export class PropostaReprovarComponent implements OnInit {
 
-  errors: string[] = [];
-
   proposta: Proposta;
   constructor(
     private route: ActivatedRoute,
@@ -34,8 +32,7 @@ export class PropostaReprovarComponent implements OnInit {
 
   reprovar() {
     this.propostasServices.reprovar(this.proposta)
-      .subscribe(res => this.router.navigate(['/propostas']),
-        error => this.errors = this.propostasServices.modelStateErrors);
+      .subscribe(res => this.router.navigate(['/propostas']));
   }
 
   getSituacao(value: number): any {

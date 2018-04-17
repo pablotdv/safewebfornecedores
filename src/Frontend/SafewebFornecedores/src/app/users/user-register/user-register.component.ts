@@ -4,6 +4,8 @@ import { UsersService } from '../../shared/services/users.service';
 import { Router } from '@angular/router';
 import { RegisterBindingModel } from '../models/register-binding.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MensagemFormulario } from '../../shared/consts';
+import { NotificationErrorsService } from '../../shared/services/notification-errors.service';
 
 @Component({
   selector: 'app-user-register',
@@ -15,14 +17,13 @@ export class UserRegisterComponent implements OnInit {
   mask = [/[0-9]/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/];
   maskDate = [/[0-9]/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
 
-  errors: string[] = [];
-
   registerForm: FormGroup;
 
   constructor(
     private usersService: UsersService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private errorsService: NotificationErrorsService
   ) { }
 
   ngOnInit() {
@@ -84,21 +85,15 @@ export class UserRegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    this.errors = [];
-
-    let usuarioModel = this.prepareToSave();
-    this.usersService.register(usuarioModel)
-      .subscribe(res => {
-        this.router.navigate(['/users']);
-      }, error => {
-        if (this.usersService.modelStateErrors && this.usersService.modelStateErrors.length > 0) {
-          this.errors = this.usersService.modelStateErrors;
-        }
-        else {
-          console.log(error);
-        }
-      });
+    if (this.registerForm.invalid) {
+      this.errorsService.notify([MensagemFormulario]);
+    }
+    else {
+      let usuarioModel = this.prepareToSave();
+      this.usersService.register(usuarioModel)
+        .subscribe(res => {
+          this.router.navigate(['/users']);
+        });
+    }
   }
-
-
 }

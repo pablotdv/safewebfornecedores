@@ -8,6 +8,7 @@ import { Categoria } from '../../categorias/models/categoria.model';
 import { FornecedoresService } from '../../shared/services/fornecedores.service';
 import { CategoriasService } from '../../shared/services/categorias.service';
 import { NotificationErrorsService } from '../../shared/services/notification-errors.service';
+import { MensagemFormulario } from '../../shared/consts';
 
 @Component({
   selector: 'app-proposta-cadastrar',
@@ -18,8 +19,7 @@ export class PropostaCadastrarComponent implements OnInit {
 
   maskDate = [/[0-9]/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
   propostaForm: FormGroup;
-  errors: string[] = [];
-
+  
   fornecedores: Fornecedor[];
   categorias: Categoria[];
 
@@ -35,13 +35,11 @@ export class PropostaCadastrarComponent implements OnInit {
   ngOnInit() {
     this.fornecedoresService.getAll()
       .subscribe(fornecedores => {
-        this.fornecedores = fornecedores;
-        console.log(this.fornecedores);
+        this.fornecedores = fornecedores;        
       });
     this.categoriasService.getAll()
       .subscribe(categorias => {
-        this.categorias = categorias;
-        console.log(this.categorias);
+        this.categorias = categorias;        
       });
     this.createForm();
   }
@@ -82,30 +80,15 @@ export class PropostaCadastrarComponent implements OnInit {
   }
 
   onSubmit() {
-    this.errors = [];
-
     if (this.propostaForm.invalid) {
-      this.errorsService.notify(['Existem erros de validação no formulário. Corrija-os submeta novamente.']);
+      this.errorsService.notify([MensagemFormulario]);
     }
     else {
       let proposta = this.prepareToSave();
-
-      console.log(proposta);
       this.propostasService.post(proposta)
         .subscribe(res => {
           this.router.navigate(['/propostas']);
-        }, error => {
-          if (this.propostasService.modelStateErrors && this.propostasService.modelStateErrors.length > 0) {
-            this.errors = this.propostasService.modelStateErrors;
-          }
-          else {
-            console.log(error);
-          }
         });
     }
-  }
-
-  teste(value) {
-    console.log(value);
   }
 }

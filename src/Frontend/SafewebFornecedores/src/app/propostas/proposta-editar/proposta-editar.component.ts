@@ -7,6 +7,8 @@ import { Fornecedor } from '../../fornecedores/models/fornecedor.model';
 import { Categoria } from '../../categorias/models/categoria.model';
 import { FornecedoresService } from '../../shared/services/fornecedores.service';
 import { CategoriasService } from '../../shared/services/categorias.service';
+import { NotificationErrorsService } from '../../shared/services/notification-errors.service';
+import { MensagemFormulario } from '../../shared/consts';
 
 @Component({
   selector: 'app-proposta-editar',
@@ -16,7 +18,6 @@ import { CategoriasService } from '../../shared/services/categorias.service';
 export class PropostaEditarComponent implements OnInit {
 
   propostaForm: FormGroup;
-  errors: string[] = [];
 
   fornecedores: Fornecedor[];
   categorias: Categoria[];
@@ -27,7 +28,8 @@ export class PropostaEditarComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private fornecedoresService: FornecedoresService,
-    private categoriasService: CategoriasService
+    private categoriasService: CategoriasService,
+    private errorsService: NotificationErrorsService
   ) {
   }
 
@@ -35,12 +37,10 @@ export class PropostaEditarComponent implements OnInit {
     this.fornecedoresService.getAll()
       .subscribe(fornecedores => {
         this.fornecedores = fornecedores;
-        console.log(this.fornecedores);
       });
     this.categoriasService.getAll()
       .subscribe(categorias => {
         this.categorias = categorias;
-        console.log(this.categorias);
       });
 
     this.propostasService.get(this.route.snapshot.params['id'])
@@ -94,23 +94,14 @@ export class PropostaEditarComponent implements OnInit {
   }
 
   onSubmit() {
-    this.errors = [];
     if (this.propostaForm.invalid) {
-      this.errors.push('Existem erros de validação no formulário. Corrija-os submeta novamente.');
+      this.errorsService.notify([MensagemFormulario]);
     }
     else {
       let proposta = this.prepareToSave();
-
       this.propostasService.put(proposta)
         .subscribe(res => {
           this.router.navigate(['/propostas']);
-        }, error => {
-          if (this.propostasService.modelStateErrors && this.propostasService.modelStateErrors.length > 0) {
-            this.errors = this.propostasService.modelStateErrors;
-          }
-          else {
-            console.log(error);
-          }
         });
     }
   }

@@ -11,10 +11,8 @@ import { NotificationService } from '../../shared/notification.service';
   styleUrls: ['./proposta-aprovar.component.css']
 })
 export class PropostaAprovarComponent implements OnInit {
-
-  errors: string[] = [];
-
   proposta: Proposta;
+
   constructor(
     private route: ActivatedRoute,
     private propostasServices: PropostasService,
@@ -33,10 +31,9 @@ export class PropostaAprovarComponent implements OnInit {
       });
   }
 
-  excluir() {
+  aprovar() {    
     this.propostasServices.aprovar(this.proposta)
-      .subscribe(res => this.router.navigate(['/propostas']),
-        error => this.errors = this.propostasServices.modelStateErrors);
+      .subscribe(res => this.router.navigate(['/propostas']));
   }
 
   getSituacao(value: number): any {
