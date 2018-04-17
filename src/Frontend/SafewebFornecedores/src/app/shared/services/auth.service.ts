@@ -18,8 +18,7 @@ export class AuthService extends BaseService {
   login(loginModel: LoginModel): Observable<UserToken> {
     let url = `${this.baseUrl}/token`;
     let body = `password=${loginModel.password}&userName=${loginModel.userName}&grant_type=password`;
-    //console.log(body);
-
+    
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
     };

@@ -22,7 +22,7 @@ export class FornecedorEditarComponent implements OnInit {
     private route: ActivatedRoute,
     private errorsService: NotificationErrorsService
   ) {
-    console.log('editar');
+    
   }
 
   ngOnInit() {

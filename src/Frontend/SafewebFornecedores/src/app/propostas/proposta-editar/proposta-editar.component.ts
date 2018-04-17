@@ -49,8 +49,7 @@ export class PropostaEditarComponent implements OnInit {
       });
   }
 
-  createForm(proposta: Proposta) {
-    console.log(proposta);
+  createForm(proposta: Proposta) {    
     this.propostaForm = this.fb.group({
       categoriaId: [proposta.CategoriaId, Validators.required],
       fornecedorId: [proposta.FornecedorId, Validators.required],
