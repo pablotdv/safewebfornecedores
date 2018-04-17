@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CategoriasService } from '../../shared/services/categorias.service';
 import { Router } from '@angular/router';
 import { Categoria } from '../models/categoria.model';
+import { NotificationErrorsService } from '../../shared/services/notification-errors.service';
+import { MensagemFormulario } from '../../shared/consts';
 
 @Component({
   selector: 'app-categoria-cadastrar',
@@ -12,12 +14,12 @@ import { Categoria } from '../models/categoria.model';
 export class CategoriaCadastrarComponent implements OnInit {
 
   categoriaForm: FormGroup;
-  errors: string[] = [];
 
   constructor(
     private categoriasService: CategoriasService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private errorsService: NotificationErrorsService
   ) { }
 
   ngOnInit() {
@@ -26,12 +28,12 @@ export class CategoriaCadastrarComponent implements OnInit {
 
   createForm() {
     this.categoriaForm = this.fb.group({
-      descricao: ['123123', Validators.required],      
+      descricao: ['', Validators.required],
     });
   }
 
   get descricao() { return this.categoriaForm.get('descricao'); }
-  
+
   prepareToSave(): Categoria {
     const formModel = this.categoriaForm.value;
 
@@ -42,22 +44,16 @@ export class CategoriaCadastrarComponent implements OnInit {
   }
 
   onSubmit() {
-    this.errors = [];
-
     let categoria = this.prepareToSave();
-
-    console.log(categoria);
-    this.categoriasService.post(categoria)
-      .subscribe(res => {
-        this.router.navigate(['/categorias']);
-      }, error => {
-        if (this.categoriasService.modelStateErrors && this.categoriasService.modelStateErrors.length > 0) {
-          this.errors = this.categoriasService.modelStateErrors;
-        }
-        else {
-          console.log(error);
-        }
-      });
+    if (this.categoriaForm.invalid) {
+      this.errorsService.notify([MensagemFormulario]);
+    }
+    else {
+      this.categoriasService.post(categoria)
+        .subscribe(res => {
+          this.router.navigate(['/categorias']);
+        });
+    }
   }
 
 

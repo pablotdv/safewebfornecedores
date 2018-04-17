@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { trigger, state, style, transition, animate } from "@angular/animations"
 import { Observable } from 'rxjs/Observable'
+import * as $ from 'jquery';
+
 
 import 'rxjs/add/observable/timer'
 import 'rxjs/add/operator/do'
 import 'rxjs/add/operator/switchMap'
 
 import { NotificationErrorsService } from '../../services/notification-errors.service';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-errors',
@@ -15,16 +18,19 @@ import { NotificationErrorsService } from '../../services/notification-errors.se
 })
 export class ErrorsComponent implements OnInit {
 
-  errors: string[]
+  errors: string[];
+  @ViewChild('content') contentModal: ElementRef;
 
-  constructor(private notificationErrorsService: NotificationErrorsService) { }
+  closeResult: string;
+
+  constructor(private notificationErrorsService: NotificationErrorsService,
+    private modalService: NgbModal) { }
 
   ngOnInit() {
     this.notificationErrorsService.notifier
-      .do(errors => {                
-        this.errors = errors;
-        console.log(this.errors);
-      }).subscribe(res => console.log(this.errors));
+      .subscribe(res => {
+        this.errors = res;
+        this.modalService.open(this.contentModal);
+      });
   }
-
 }

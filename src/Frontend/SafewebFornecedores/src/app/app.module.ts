@@ -11,6 +11,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgBrToolsModule } from 'ng-br-tools';
 import { TextMaskModule } from 'angular2-text-mask';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 import { AppComponent } from "./app.component";
@@ -91,7 +92,8 @@ registerLocaleData(localePt, 'pt');
     AppRoutingModule,
     NgBrToolsModule,
     TextMaskModule,
-    CurrencyMaskModule
+    CurrencyMaskModule,
+    NgbModule.forRoot()
   ],
   providers: [
     {

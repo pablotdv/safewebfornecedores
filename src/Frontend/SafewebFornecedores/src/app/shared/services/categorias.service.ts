@@ -21,14 +21,14 @@ export class CategoriasService extends BaseService {
   getAll(): Observable<Categoria[]> {
     return this.http.get<Categoria[]>(this.urlCategorias)
       .pipe(
-        catchError(this.handleError<Categoria[]>('getAll'))
+        catchError(this.handleError<Categoria[]>('categorias/getAll'))
       );
   }
 
   get(id: string): Observable<Categoria> {
     return this.http.get<Categoria>(`${this.urlCategorias}/${id}`)
       .pipe(
-        catchError(this.handleError<Categoria>('get'))
+        catchError(this.handleError<Categoria>('categorias/get'))
       );
   }
 
@@ -40,7 +40,7 @@ export class CategoriasService extends BaseService {
             this.notificationService.notify('Categoria salva com sucesso!');
           }
         ),
-        catchError(this.handleError<Categoria>('account/register'))
+        catchError(this.handleError<Categoria>('categorias/post'))
       );
   }
 
@@ -48,9 +48,9 @@ export class CategoriasService extends BaseService {
     return this.http.put<CategoriaEditar>(`${this.urlCategorias}/${categoria.CategoriaId}`, categoria)
       .pipe(
         tap(
-          res => this.notificationService.notify('Categoria salvo com sucesso!'),
-          error => catchError(this.handleError<CategoriaEditar>('put'))
-        )
+          res => this.notificationService.notify('Categoria salvo com sucesso!')
+        ),
+        catchError(this.handleError<CategoriaEditar>('categorias/put'))
       );
   }
 
@@ -58,9 +58,8 @@ export class CategoriasService extends BaseService {
     return this.http.delete<any>(`${this.urlCategorias}/${id}`)
       .pipe(
         tap(
-          res => this.notificationService.notify('Categoria excluído com sucesso!'),
-          error => catchError(this.handleError<any>('put'))
-        )
+          res => this.notificationService.notify('Categoria excluído com sucesso!')
+        ), catchError(this.handleError<any>('categorias/put'))
       );
   }
 }

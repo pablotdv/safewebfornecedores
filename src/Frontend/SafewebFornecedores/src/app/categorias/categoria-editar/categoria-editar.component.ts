@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CategoriasService } from '../../shared/services/categorias.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Categoria, CategoriaEditar } from '../models/categoria.model';
+import { MensagemFormulario } from '../../shared/consts';
+import { NotificationErrorsService } from '../../shared/services/notification-errors.service';
 
 @Component({
   selector: 'app-categoria-editar',
@@ -11,13 +13,13 @@ import { Categoria, CategoriaEditar } from '../models/categoria.model';
 })
 export class CategoriaEditarComponent implements OnInit {
   categoriaForm: FormGroup;
-  errors: string[] = [];
 
   constructor(
     private categoriasService: CategoriasService,
     private fb: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private errorsService: NotificationErrorsService
   ) {
   }
 
@@ -30,7 +32,7 @@ export class CategoriaEditarComponent implements OnInit {
 
   createForm(categoria: Categoria) {
     this.categoriaForm = this.fb.group({
-      descricao: [categoria.Descricao, Validators.required],      
+      descricao: [categoria.Descricao, Validators.required],
     });
   }
 
@@ -47,21 +49,16 @@ export class CategoriaEditarComponent implements OnInit {
   }
 
   onSubmit() {
-    this.errors = [];
-
     let categoria = this.prepareToSave();
-
-    this.categoriasService.put(categoria)
-      .subscribe(res => {
-        this.router.navigate(['/categorias']);
-      }, error => {
-        if (this.categoriasService.modelStateErrors && this.categoriasService.modelStateErrors.length > 0) {
-          this.errors = this.categoriasService.modelStateErrors;
-        }
-        else {
-          console.log(error);
-        }
-      });
+    if (this.categoriaForm.invalid) {
+      this.errorsService.notify([MensagemFormulario]);
+    }
+    else {
+      this.categoriasService.put(categoria)
+        .subscribe(res => {
+          this.router.navigate(['/categorias']);
+        });
+    }
   }
 
 

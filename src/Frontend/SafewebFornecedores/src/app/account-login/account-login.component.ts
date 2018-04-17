@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../shared/services/auth.service';
 import { LoginModel } from '../shared/models/login-model';
 import { Router } from '@angular/router';
+import { NotificationErrorsService } from '../shared/services/notification-errors.service';
+import { MensagemFormulario } from '../shared/consts';
 
 @Component({
   selector: 'app-account-login',
@@ -10,7 +12,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./account-login.component.css']
 })
 export class AccountLoginComponent implements OnInit {
-  errors: string[] = [];
   loginForm: FormGroup;
 
   get email() { return this.loginForm.get('email'); }
@@ -18,7 +19,8 @@ export class AccountLoginComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private router: Router,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private errorsService: NotificationErrorsService) { }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -39,23 +41,16 @@ export class AccountLoginComponent implements OnInit {
 
   onSubmit() {
     let loginModel = this.prepareToSave();
-    this.errors = [];
-    this.authService.login(loginModel)
-      .subscribe(res => {
-        if (this.authService.isLoggedIn)
-          this.router.navigate(['/home']);
-      }, error => {
-        if (error.error.error === 'invalid_grant') {
-          this.errors.push('Email ou senha estão incorretos.');
-        }
-        else
-          if (this.authService.modelStateErrors && this.authService.modelStateErrors.length > 0) {
-            this.errors = this.authService.modelStateErrors;
-          }
-          else {
-            console.log(error);
-          }
-      });
+    if (this.loginForm.invalid) {
+      this.errorsService.notify([MensagemFormulario]);
+    }
+    else {
+      this.authService.login(loginModel)
+        .subscribe(res => {
+          if (this.authService.isLoggedIn)
+            this.router.navigate(['/home']);
+        });
+    }
   }
 
 }

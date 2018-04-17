@@ -1,0 +1,1 @@
+export const MensagemFormulario: string = 'Existem erros de validação no formulário. Corrija-os e submeta o novamente.';

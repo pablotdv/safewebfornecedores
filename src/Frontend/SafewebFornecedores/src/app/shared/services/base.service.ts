@@ -16,6 +16,9 @@ export class BaseService {
             if (error instanceof HttpErrorResponse) {
                 let er = <HttpErrorResponse>error;
 
+                if (er.status === 400 && er.error.error === 'invalid_grant') {
+                    this.modelStateErrors.push('Seu usuário ou senha estão incorretos.');
+                }
                 if (er.status === 401) {
                     this.modelStateErrors.push('Seu usuário não tem permissão de acesso ao recurso selecionado.');
                 } else {
@@ -33,6 +36,7 @@ export class BaseService {
 
             if (this.modelStateErrors.length > 0) {
                 this.errorsService.notify(this.modelStateErrors);
+                throw new Error("Falha ao processar solicitação");
             }
 
 

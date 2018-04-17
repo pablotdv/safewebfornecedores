@@ -28,8 +28,7 @@ export class AuthService extends BaseService {
       .pipe(
         tap(data => {
           localStorage.setItem('user_token', JSON.stringify(data));
-        },
-          error => this.handleError<UserToken>('login'))
+        }), catchError(this.handleError<UserToken>('login'))
       );
   }
 
