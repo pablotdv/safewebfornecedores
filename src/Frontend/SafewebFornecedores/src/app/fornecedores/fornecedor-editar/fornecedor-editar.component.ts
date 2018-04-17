@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FornecedoresService } from '../../shared/services/fornecedores.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Fornecedor } from '../models/fornecedor.model';
+import { MensagemFormulario } from '../../shared/consts';
+import { NotificationErrorsService } from '../../shared/services/notification-errors.service';
 
 @Component({
   selector: 'app-fornecedor-editar',
@@ -12,13 +14,13 @@ import { Fornecedor } from '../models/fornecedor.model';
 export class FornecedorEditarComponent implements OnInit {
 
   fornecedorForm: FormGroup;
-  errors: string[] = [];
 
   constructor(
     private fornecedoresService: FornecedoresService,
     private fb: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private errorsService: NotificationErrorsService
   ) {
     console.log('editar');
   }
@@ -58,25 +60,15 @@ export class FornecedorEditarComponent implements OnInit {
   }
 
   onSubmit() {
-    this.errors = [];
-
     let fornecedor = this.prepareToSave();
-
-    this.fornecedoresService.put(fornecedor)
-      .subscribe(res => {
-        this.router.navigate(['/fornecedores']);
-      }, error => {
-        if (this.fornecedoresService.modelStateErrors && this.fornecedoresService.modelStateErrors.length > 0) {
-          this.errors = this.fornecedoresService.modelStateErrors;
-        }
-        else {
-          console.log(error);
-        }
-      });
+    if (this.fornecedorForm.invalid) {
+      this.errorsService.notify([MensagemFormulario]);
+    }
+    else {
+      this.fornecedoresService.put(fornecedor)
+        .subscribe(res => {
+          this.router.navigate(['/fornecedores']);
+        });
+    }
   }
-
-
-
-
-
 }

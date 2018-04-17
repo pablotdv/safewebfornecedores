@@ -3,6 +3,8 @@ import { FornecedoresService } from '../../shared/services/fornecedores.service'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Fornecedor } from '../models/fornecedor.model';
 import { Router } from '@angular/router';
+import { MensagemFormulario } from '../../shared/consts';
+import { NotificationErrorsService } from '../../shared/services/notification-errors.service';
 
 @Component({
   selector: 'app-fornecedor-cadastrar',
@@ -10,14 +12,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./fornecedor-cadastrar.component.css']
 })
 export class FornecedorCadastrarComponent implements OnInit {
-
   fornecedorForm: FormGroup;
-  errors: string[] = [];
 
   constructor(
     private fornecedoresService: FornecedoresService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private errorsService: NotificationErrorsService
   ) { }
 
   ngOnInit() {
@@ -26,10 +27,10 @@ export class FornecedorCadastrarComponent implements OnInit {
 
   createForm() {
     this.fornecedorForm = this.fb.group({
-      cpfCnpj: ['123123', Validators.required],
-      nome: ['Pablo', Validators.required],
-      telefone: ['123123', Validators.required],
-      email: ['pablotdvsm@gmail.com', [Validators.required, Validators.email]]
+      cpfCnpj: ['', Validators.required],
+      nome: ['', Validators.required],
+      telefone: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]]
     });
   }
 
@@ -52,26 +53,15 @@ export class FornecedorCadastrarComponent implements OnInit {
   }
 
   onSubmit() {
-    this.errors = [];
-
     let fornecedor = this.prepareToSave();
-
-    console.log(fornecedor);
-    this.fornecedoresService.post(fornecedor)
-      .subscribe(res => {
-        this.router.navigate(['/fornecedores']);
-      }, error => {
-        if (this.fornecedoresService.modelStateErrors && this.fornecedoresService.modelStateErrors.length > 0) {
-          this.errors = this.fornecedoresService.modelStateErrors;
-        }
-        else {
-          console.log(error);
-        }
-      });
+    if (this.fornecedorForm.invalid) {
+      this.errorsService.notify([MensagemFormulario]);
+    }
+    else {
+      this.fornecedoresService.post(fornecedor)
+        .subscribe(res => {
+          this.router.navigate(['/fornecedores']);
+        });
+    }
   }
-
-
-
-
-
 }

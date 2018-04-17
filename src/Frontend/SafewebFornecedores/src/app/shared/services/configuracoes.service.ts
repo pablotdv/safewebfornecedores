@@ -21,7 +21,7 @@ export class ConfiguracoesService extends BaseService {
   get(): Observable<Configuracao> {
     return this.http.get<Configuracao>(`${this.urlConfiguracoes}`)
       .pipe(
-        catchError(this.handleError<Configuracao>('get'))
+        catchError(this.handleError<Configuracao>('configuracoes/get'))
       );
   }
 
@@ -29,9 +29,9 @@ export class ConfiguracoesService extends BaseService {
     return this.http.put<Configuracao>(`${this.urlConfiguracoes}/${configuracao.ConfiguracaoId}`, configuracao)
       .pipe(
         tap(
-          res => this.notificationService.notify('Configuracao salvo com sucesso!'),
-          error => catchError(this.handleError<Configuracao>('put'))
-        )
+          res => this.notificationService.notify('Configuracao salvo com sucesso!')
+        ),
+        catchError(this.handleError<Configuracao>('configuracoes/put'))
       );
   }
 }

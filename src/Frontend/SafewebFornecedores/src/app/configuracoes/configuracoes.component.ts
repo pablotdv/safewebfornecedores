@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConfiguracoesService } from '../shared/services/configuracoes.service';
 import { Router } from '@angular/router';
 import { Configuracao } from './models/configuracao.model';
+import { MensagemFormulario } from '../shared/consts';
+import { NotificationErrorsService } from '../shared/services/notification-errors.service';
 
 @Component({
   selector: 'app-configuracoes',
@@ -12,12 +14,12 @@ import { Configuracao } from './models/configuracao.model';
 export class ConfiguracoesComponent implements OnInit {
 
   configuracaoForm: FormGroup;
-  errors: string[] = [];
 
   constructor(
     private configuracoesService: ConfiguracoesService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private errorsService: NotificationErrorsService
   ) {
   }
 
@@ -48,20 +50,15 @@ export class ConfiguracoesComponent implements OnInit {
   }
 
   onSubmit() {
-    this.errors = [];
-
     let configuracao = this.prepareToSave();
-
-    this.configuracoesService.put(configuracao)
-      .subscribe(res => {
-        this.router.navigate(['/configuracoes']);
-      }, error => {
-        if (this.configuracoesService.modelStateErrors && this.configuracoesService.modelStateErrors.length > 0) {
-          this.errors = this.configuracoesService.modelStateErrors;
-        }
-        else {
-          console.log(error);
-        }
-      });
+    if (this.configuracaoForm.invalid) {
+      this.errorsService.notify([MensagemFormulario]);
+    }
+    else {
+      this.configuracoesService.put(configuracao)
+        .subscribe(res => {
+          this.router.navigate(['/configuracoes']);
+        });
+    }
   }
 }

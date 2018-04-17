@@ -18,16 +18,16 @@ export class FornecedoresService extends BaseService {
   }
 
   getAll(): Observable<Fornecedor[]> {
-    return this.http.get<Fornecedor[]>(`${this.baseUrl}/api/fornecedores`)
+    return this.http.get<Fornecedor[]>(this.urlFornecedores)
       .pipe(
-        catchError(this.handleError<Fornecedor[]>('getAll'))
+        catchError(this.handleError<Fornecedor[]>('fornecedores/getAll'))
       );
   }
 
   get(id: string): Observable<Fornecedor> {
     return this.http.get<Fornecedor>(`${this.urlFornecedores}/${id}`)
       .pipe(
-        catchError(this.handleError<Fornecedor>('get'))
+        catchError(this.handleError<Fornecedor>('fornecedores/get'))
       );
   }
 
@@ -39,7 +39,7 @@ export class FornecedoresService extends BaseService {
             this.notificationService.notify('Fornecedor salvo com sucesso!');
           }
         ),
-        catchError(this.handleError<Fornecedor>('account/register'))
+        catchError(this.handleError<Fornecedor>('fornecedores/post'))
       );
   }
 
@@ -47,9 +47,9 @@ export class FornecedoresService extends BaseService {
     return this.http.put<Fornecedor>(`${this.urlFornecedores}/${fornecedor.FornecedorId}`, fornecedor)
       .pipe(
         tap(
-          res => this.notificationService.notify('Fornecedor salvo com sucesso!'),
-          error => catchError(this.handleError<Fornecedor>('put'))
-        )
+          res => this.notificationService.notify('Fornecedor salvo com sucesso!')
+        ),
+        catchError(this.handleError<Fornecedor>('fornecedores/put'))
       );
   }
 
@@ -57,9 +57,9 @@ export class FornecedoresService extends BaseService {
     return this.http.delete<any>(`${this.urlFornecedores}/${id}`)
       .pipe(
         tap(
-          res => this.notificationService.notify('Fornecedor excluído com sucesso!'),
-          error => catchError(this.handleError<any>('put'))
-        )
+          res => this.notificationService.notify('Fornecedor excluído com sucesso!')
+        ),
+        catchError(this.handleError<any>('fornecedores/delete'))
       );
   }
 }
