@@ -29,3 +29,46 @@ Com o projeto backend e frontend abertos
 usuário: administrador@swf.com.br
 senha: Admin123@
 perfíl: Administradores
+
+# RF01 - Gerenciar o cadastro de usuário
+1. Acesse o menu `Usuários`.
+2. Clique no sinal de `+`
+3. Preencha os campos obrigatórios
+4. Não esqueça de selecionar o Perfíl do usuário
+5. Clique em Salvar
+- Para editar um usuário, basta clicar no icone de edição (papel com um lapis)
+- Para excluir um usuário, basta clicar no icone de exclução (lixeira)
+
+# RF02 - Gerenciar o cadastro de fornecedores
+1. Acesse o menu `Fornecedores`.
+2. Clique no sinal de `+`
+3. Preencha os campos obrigatórios
+4. Clique em Salvar
+- Para editar um fornecedor, basta clicar no icone de edição (papel com um lapis)
+- Para excluir um fornecedor, basta clicar no icone de exclução (lixeira)
+
+# RF03 - Gerenciar o cadastro de categorias
+1. Acesse o menu `Categorias`.
+2. Clique no sinal de `+`
+3. Preencha os campos obrigatórios
+4. Clique em Salvar
+- Para editar um categoria, basta clicar no icone de edição (papel com um lapis)
+- Para excluir um categoria, basta clicar no icone de exclução (lixeira)
+- 
+# RF04 - Gerenciar o cadastro de propostas de fornecedores
+1. Acesse o menu `Propostas`.
+2. Clique no sinal de `+`
+3. Preencha os campos obrigatórios
+4. Clique em Salvar
+- Para editar um proposta, basta clicar no icone de edição (papel com um lapis)
+- Para excluir um proposta, basta clicar no icone de exclução (lixeira)
+
+# RF04.01 - Possibilitar o cadastro do arquivo da proposta
+
+# RF04.02 - Possibilitar a análise do arquivo da proposta
+
+# RF05 - Gerenciar o status das propostas de fornecedores
+
+# RF06 - Pesquisar propostas de fornecedores
+
+# RF07 - Manter histórico do status das propostas
