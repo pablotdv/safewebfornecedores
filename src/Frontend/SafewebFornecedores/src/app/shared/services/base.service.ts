@@ -3,11 +3,12 @@ import { of } from "rxjs/observable/of";
 import { HttpErrorResponse } from "@angular/common/http";
 import { NotificationErrorsService } from "./notification-errors.service";
 import { Location } from "@angular/common";
+import { environment } from "../../../environments/environment";
 
 export class BaseService {
     public modelStateErrors: string[] = [];
 
-    protected baseUrl: string = 'http://localhost:50343';
+    protected baseUrl: string = environment.baseUrl;
 
     constructor(protected errorsService: NotificationErrorsService,
         protected location: Location
