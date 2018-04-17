@@ -12,7 +12,7 @@ import { NgBrToolsModule } from 'ng-br-tools';
 import { TextMaskModule } from 'angular2-text-mask';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./home/home.component";
@@ -93,7 +93,8 @@ registerLocaleData(localePt, 'pt');
     NgBrToolsModule,
     TextMaskModule,
     CurrencyMaskModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    LoadingBarHttpClientModule
   ],
   providers: [
     {

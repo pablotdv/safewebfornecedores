@@ -6,6 +6,7 @@ import { Categoria, CategoriaEditar } from '../../categorias/models/categoria.mo
 import { Observable } from 'rxjs/Observable';
 import { catchError, tap } from 'rxjs/operators';
 import { NotificationErrorsService } from './notification-errors.service';
+import { Location } from '@angular/common';
 
 @Injectable()
 export class CategoriasService extends BaseService {
@@ -13,9 +14,10 @@ export class CategoriasService extends BaseService {
   urlCategorias = `${this.baseUrl}/api/categorias`;
 
   constructor(private http: HttpClient,
-    private notificationService: NotificationService, protected errorsService: NotificationErrorsService
+    private notificationService: NotificationService, protected errorsService: NotificationErrorsService,
+    protected location: Location
   ) {
-    super(errorsService);
+    super(errorsService, location);
   }
 
   getAll(): Observable<Categoria[]> {

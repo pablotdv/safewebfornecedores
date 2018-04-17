@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { catchError, tap } from 'rxjs/operators';
 import { PropostaAprovar } from '../../propostas/model/proposta-aprovar.model';
 import { NotificationErrorsService } from './notification-errors.service';
+import { Location } from '@angular/common';
 
 @Injectable()
 export class PropostasService extends BaseService {
@@ -14,9 +15,10 @@ export class PropostasService extends BaseService {
   urlPropostas = `${this.baseUrl}/api/propostas`;
 
   constructor(private http: HttpClient,
-    private notificationService: NotificationService, protected errorsService: NotificationErrorsService
+    private notificationService: NotificationService, protected errorsService: NotificationErrorsService,
+    protected location: Location
   ) {
-    super(errorsService);
+    super(errorsService, location);
   }
 
   getAll(): Observable<Proposta[]> {

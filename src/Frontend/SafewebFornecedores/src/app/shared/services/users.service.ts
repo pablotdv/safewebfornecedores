@@ -9,6 +9,7 @@ import { UsuarioEditarModel } from '../../users/models/usuario-editar.model';
 import { RegisterBindingModel } from '../../users/models/register-binding.model';
 import { NotificationService } from '../notification.service';
 import { NotificationErrorsService } from './notification-errors.service';
+import { Location } from '@angular/common';
 
 
 
@@ -16,9 +17,10 @@ import { NotificationErrorsService } from './notification-errors.service';
 export class UsersService extends BaseService {
 
   constructor(private http: HttpClient,
-    private notificationService: NotificationService, protected errorsService: NotificationErrorsService
+    private notificationService: NotificationService, protected errorsService: NotificationErrorsService,
+    protected location: Location
   ) {
-    super(errorsService);
+    super(errorsService, location);
   }
 
   register(usuario: RegisterBindingModel): Observable<RegisterBindingModel> {

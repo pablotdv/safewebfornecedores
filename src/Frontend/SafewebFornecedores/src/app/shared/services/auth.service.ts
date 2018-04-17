@@ -7,18 +7,20 @@ import { catchError, tap } from 'rxjs/operators';
 import { UserToken } from '../models/user-token';
 import { BaseService } from './base.service';
 import { NotificationErrorsService } from './notification-errors.service';
+import { Location } from '@angular/common';
 
 
 @Injectable()
 export class AuthService extends BaseService {
-  constructor(private http: HttpClient, protected errorsService: NotificationErrorsService) {
-    super(errorsService);
+  constructor(private http: HttpClient, protected errorsService: NotificationErrorsService,
+    protected location: Location) {
+    super(errorsService, location);
   }
 
   login(loginModel: LoginModel): Observable<UserToken> {
     let url = `${this.baseUrl}/token`;
     let body = `password=${loginModel.password}&userName=${loginModel.userName}&grant_type=password`;
-    
+
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
     };
@@ -40,7 +42,7 @@ export class AuthService extends BaseService {
         tap(data => {
           localStorage.removeItem('user_token');
         }),
-      catchError(this.handleError<any>('account/Logout')));
+        catchError(this.handleError<any>('account/Logout')));
   }
 
   get isLoggedIn(): boolean {

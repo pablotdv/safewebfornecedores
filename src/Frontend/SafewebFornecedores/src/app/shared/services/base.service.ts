@@ -2,13 +2,16 @@ import { Observable } from "rxjs/Observable";
 import { of } from "rxjs/observable/of";
 import { HttpErrorResponse } from "@angular/common/http";
 import { NotificationErrorsService } from "./notification-errors.service";
+import { Location } from "@angular/common";
 
 export class BaseService {
     public modelStateErrors: string[] = [];
 
     protected baseUrl: string = 'http://localhost:50343';
 
-    constructor(protected errorsService: NotificationErrorsService) { }
+    constructor(protected errorsService: NotificationErrorsService,
+        protected location: Location
+    ) { }
 
     protected handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
@@ -20,7 +23,8 @@ export class BaseService {
                     this.modelStateErrors.push('Seu usuário ou senha estão incorretos.');
                 }
                 if (er.status === 401) {
-                    this.modelStateErrors.push('Seu usuário não tem permissão de acesso ao recurso selecionado.');
+                    this.modelStateErrors.push('Seu usuário não tem permissão de acesso ao recurso selecionado.');   
+                    this.location.back();
                 } else {
 
                     if (er.error.ModelState) {
