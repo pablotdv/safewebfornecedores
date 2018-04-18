@@ -64,11 +64,15 @@ perfíl: Administradores
 - Para excluir um proposta, basta clicar no icone de exclução (lixeira)
 
 # RF04.01 - Possibilitar o cadastro do arquivo da proposta
+OK
 
 # RF04.02 - Possibilitar a análise do arquivo da proposta
+OK
 
 # RF05 - Gerenciar o status das propostas de fornecedores
+OK
 
 # RF06 - Pesquisar propostas de fornecedores
 
 # RF07 - Manter histórico do status das propostas
+OK
