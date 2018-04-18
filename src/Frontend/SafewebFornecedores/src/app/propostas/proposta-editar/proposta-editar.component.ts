@@ -53,8 +53,8 @@ export class PropostaEditarComponent implements OnInit {
     this.propostaForm = this.fb.group({
       categoriaId: [proposta.CategoriaId, Validators.required],
       fornecedorId: [proposta.FornecedorId, Validators.required],
-      nome: [proposta.Nome, Validators.required],
-      valor: [proposta.Valor, Validators.required],
+      nome: [proposta.Nome, [Validators.required, Validators.maxLength(200)]],
+      valor: [proposta.Valor, [Validators.required, Validators.min(0)]],
       descricao: [proposta.Descricao],
       data: [proposta.Data],
       situacao: [proposta.Situacao],

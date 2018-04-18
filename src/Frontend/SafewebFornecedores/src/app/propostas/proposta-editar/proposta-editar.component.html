@@ -26,9 +26,12 @@
             <div *ngIf="nome.errors.required">
               O campo Nome é obrigatório.
             </div>
+            <div *ngIf="nome.errors.maxlength">
+              O campo Nome deve ter no máximo 200 caractêres.
+            </div>
           </div>
         </div>
-
+  
         <div class="form-group">
           <label for="categoriaId">Categoria</label>
           <select id="categoriaId" class="form-control" formControlName="categoriaId" required>
@@ -40,7 +43,7 @@
             </div>
           </div>
         </div>
-
+        
         <div class="form-group">
           <label for="fornecedorId">Fornecedor</label>
           <select id="fornecedorId" class="form-control" formControlName="fornecedorId" required>
@@ -52,7 +55,7 @@
             </div>
           </div>
         </div>
-
+  
         <div class="form-group">
           <label for="valor">Valor R$</label>
           <input id="valor" class="form-control" formControlName="valor" required currencyMask [options]="{ align :'left', prefix: '', thousands: '.', decimal: ',' }">
@@ -60,9 +63,12 @@
             <div *ngIf="valor.errors.required">
               O campo Valor R$ é obrigatório.
             </div>
+            <div *ngIf="valor.errors.min">
+              O campo Valor R$ deve ser maior que zero.
+            </div>
           </div>
         </div>
-
+  
         <div class="form-group">
           <label for="descricao">Descrição</label>
           <input id="descricao" class="form-control" formControlName="descricao">

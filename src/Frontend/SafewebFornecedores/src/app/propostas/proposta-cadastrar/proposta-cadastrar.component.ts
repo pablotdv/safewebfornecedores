@@ -48,8 +48,8 @@ export class PropostaCadastrarComponent implements OnInit {
     this.propostaForm = this.fb.group({
       categoriaId: ['', Validators.required],
       fornecedorId: ['', Validators.required],
-      nome: ['', Validators.required],
-      valor: ['', Validators.required],
+      nome: ['', [Validators.required, Validators.maxLength(200)]],
+      valor: ['', [Validators.required, Validators.min(0)]],
       descricao: ['']
     });
   }
