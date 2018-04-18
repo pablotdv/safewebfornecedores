@@ -28,7 +28,7 @@ export class CategoriaCadastrarComponent implements OnInit {
 
   createForm() {
     this.categoriaForm = this.fb.group({
-      descricao: ['', Validators.required],
+      descricao: ['', [Validators.required, Validators.maxLength(200)]],
     });
   }
 

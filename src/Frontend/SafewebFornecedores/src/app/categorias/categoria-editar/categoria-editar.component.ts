@@ -32,7 +32,7 @@ export class CategoriaEditarComponent implements OnInit {
 
   createForm(categoria: Categoria) {
     this.categoriaForm = this.fb.group({
-      descricao: [categoria.Descricao, Validators.required],
+      descricao: [categoria.Descricao, [Validators.required, Validators.maxLength(200)]],
     });
   }
 

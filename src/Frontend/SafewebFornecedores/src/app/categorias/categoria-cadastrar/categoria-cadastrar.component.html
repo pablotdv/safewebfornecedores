@@ -13,6 +13,9 @@
             <div *ngIf="descricao.errors.required">
               O campo Descrição é obrigatório.
             </div>
+            <div *ngIf="descricao.errors.maxlength">
+              O campo Descrição deve ter no máximo 200 caractêres.
+            </div>
           </div>
         </div>
           
