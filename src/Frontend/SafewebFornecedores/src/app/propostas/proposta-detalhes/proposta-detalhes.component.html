@@ -53,7 +53,7 @@
       </div>
       <ng-template #upload>
         <div class="form-group">
-          <app-upload-file [propostaId]="proposta.PropostaId"></app-upload-file>
+          <app-upload-file [propostaId]="proposta.PropostaId" (uploadStatus)="refreshUpload($event)"></app-upload-file>
         </div>
       </ng-template>
 
@@ -84,7 +84,7 @@
           <i class="fa fa-edit"></i> Editar
         </a>
 
-        <button type="button" class="btn btn-secondary" (click)="pdf()">
+        <button type="button" class="btn btn-secondary" (click)="download()">
           <i class="fa fa-file"></i> PDF</button>
 
         <button type="button" class="btn btn-info" (click)="aprovar()">

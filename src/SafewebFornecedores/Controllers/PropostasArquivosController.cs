@@ -29,7 +29,7 @@ namespace SafewebFornecedores.Controllers
             PropostaArquivo propostaArquivo = await db.PropostasArquivos.FindAsync(id);
             if (propostaArquivo == null)
             {
-                return NotFound();
+                return StatusCode(HttpStatusCode.NoContent);
             }
 
             var result = new HttpResponseMessage(HttpStatusCode.OK)

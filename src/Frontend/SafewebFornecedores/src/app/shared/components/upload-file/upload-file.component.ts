@@ -10,7 +10,7 @@ export class UploadFileComponent implements OnInit {
 
   errors: Array<string> = [];
   dragAreaClass: string = 'dragarea';
-  @Input() propostaId: string;  
+  @Input() propostaId: string;
   @Input() fileExt: string = "PDF";
   @Input() maxFiles: number = 1;
   @Input() maxSize: number = 5; // 5MB
@@ -66,7 +66,7 @@ export class UploadFileComponent implements OnInit {
       for (var j = 0; j < files.length; j++) {
         formData.append("file[]", files[j], files[j].name);
       }
-      
+
       var parameters = {
         PropostaId: this.propostaId,
       }
@@ -75,7 +75,7 @@ export class UploadFileComponent implements OnInit {
       this.fileService.upload(formData)
         .subscribe(
           success => {
-            this.uploadStatus.emit(true);            
+            this.uploadStatus.emit(true);                    
           },
           error => {
             this.uploadStatus.emit(true);

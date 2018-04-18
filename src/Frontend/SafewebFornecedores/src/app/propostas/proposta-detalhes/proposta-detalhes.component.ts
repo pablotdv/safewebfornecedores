@@ -4,6 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PropostasService } from '../../shared/services/propostas.service';
 import { NotificationService } from '../../shared/notification.service';
 
+import { saveAs } from 'file-saver/FileSaver';
+import { HttpErrorResponse } from '@angular/common/http';
+
 @Component({
   selector: 'app-proposta-detalhes',
   templateUrl: './proposta-detalhes.component.html',
@@ -11,8 +14,9 @@ import { NotificationService } from '../../shared/notification.service';
 })
 export class PropostaDetalhesComponent implements OnInit {
 
+  
   proposta: Proposta;
-  propostaArquivo: string;
+  propostaArquivo: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -22,11 +26,14 @@ export class PropostaDetalhesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getProposta();
+  }
+
+  getProposta() {
     this.propostasServices.get(this.route.snapshot.params['id'])
       .subscribe(proposta => {
         this.proposta = proposta;
-        console.log(this.proposta);
-      });   
+      });
   }
 
   aprovar() {
@@ -45,13 +52,33 @@ export class PropostaDetalhesComponent implements OnInit {
   }
 
   pdf() {
+    if (!this.propostaArquivo) {
+      this.propostasServices.pdf(this.proposta.PropostaId)
+        .subscribe(
+          res => {
+
+            if (res) {
+              var blob = new Blob([res], { type: 'application/pdf' });
+              var url = window.URL.createObjectURL(blob);
+              this.propostaArquivo = url;
+              console.log(this.propostaArquivo);
+            }
+          },
+          error => console.log(error)
+        );
+    }
+  }
+
+  download() {
     this.propostasServices.pdf(this.proposta.PropostaId)
       .subscribe(
         res => {
-          debugger;
-          var blob = new Blob([res], { type: 'application/pdf' });
-          var url = window.URL.createObjectURL(blob);
-          this.propostaArquivo = url;
+          if (res) {
+            var blob = new Blob([res], { type: 'application/pdf' });
+            var url = window.URL.createObjectURL(blob);
+            this.propostaArquivo = url;
+            saveAs(blob, `${this.proposta.Nome}.pdf`);
+          }
         }
       );
   }
@@ -59,4 +86,14 @@ export class PropostaDetalhesComponent implements OnInit {
   getSituacao(value: number): any {
     return Situacao[value];
   }
+
+  refreshUpload(event) {
+    console.log(event);
+    if (event) {
+      this.pdf();
+      //this.getProposta();
+      //this.router.navigate([`/proposta/detalhes/${this.proposta.PropostaId}`]);
+    }
+  }
+
 }

@@ -111,6 +111,12 @@ export class PropostasService extends BaseService {
   pdf(propostaId: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/api/PropostasArquivos/${propostaId}`,{
       responseType: "blob"
-    });
+    })
+    .pipe(
+      tap(res => {
+        console.log(res);
+      }),
+      catchError(this.handleError<any>('PropostasArquivos/upload'))
+    );
   }
 }
