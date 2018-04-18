@@ -19,10 +19,9 @@ import { CategoriaExcluirComponent } from "./categorias/categoria-excluir/catego
 import { PropostasComponent } from "./propostas/propostas.component";
 import { PropostaCadastrarComponent } from "./propostas/proposta-cadastrar/proposta-cadastrar.component";
 import { PropostaEditarComponent } from "./propostas/proposta-editar/proposta-editar.component";
-import { PropostaExcluirComponent } from "./propostas/proposta-excluir/proposta-excluir.component";
-import { PropostaAprovarComponent } from "./propostas/proposta-aprovar/proposta-aprovar.component";
-import { PropostaReprovarComponent } from "./propostas/proposta-reprovar/proposta-reprovar.component";
 import { ConfiguracoesComponent } from "./configuracoes/configuracoes.component";
+import { PropostaUploadComponent } from "./propostas/proposta-upload/proposta-upload.component";
+import { PropostaDetalhesComponent } from "./propostas/proposta-detalhes/proposta-detalhes.component";
 
 const appRoutes: Routes = [
     {
@@ -73,9 +72,8 @@ const appRoutes: Routes = [
             { path: 'cadastrar', component: PropostaCadastrarComponent },
             { path: ':id', component: PropostaEditarComponent },
             { path: 'editar/:id', component: PropostaEditarComponent },
-            { path: 'excluir/:id', component: PropostaExcluirComponent },
-            { path: 'aprovar/:id', component: PropostaAprovarComponent },
-            { path: 'reprovar/:id', component: PropostaReprovarComponent },
+            { path: 'upload/:id', component: PropostaUploadComponent },
+            { path: 'detalhes/:id', component: PropostaDetalhesComponent },
         ]
     },
 

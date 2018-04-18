@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NgModule, LOCALE_ID } from "@angular/core";
 import { RouterModule, Routes } from '@angular/router';
 import localePt from '@angular/common/locales/pt';
-import { registerLocaleData } from '@angular/common';
+import { registerLocaleData, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { FormBuilder, FormsModule, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -43,16 +43,16 @@ import { CategoriasService } from './shared/services/categorias.service';
 import { PropostasComponent } from './propostas/propostas.component';
 import { PropostaCadastrarComponent } from './propostas/proposta-cadastrar/proposta-cadastrar.component';
 import { PropostaEditarComponent } from './propostas/proposta-editar/proposta-editar.component';
-import { PropostaExcluirComponent } from './propostas/proposta-excluir/proposta-excluir.component';
 import { PropostasService } from './shared/services/propostas.service';
-import { PropostaAprovarComponent } from './propostas/proposta-aprovar/proposta-aprovar.component';
-import { PropostaReprovarComponent } from './propostas/proposta-reprovar/proposta-reprovar.component';
 import { ConfiguracoesComponent } from './configuracoes/configuracoes.component';
 import { ConfiguracoesService } from './shared/services/configuracoes.service';
 import { ErrorsComponent } from './shared/messages/errors/errors.component';
 import { NotificationErrorsService } from './shared/services/notification-errors.service';
 import { UserInfoComponent } from './users/user-info/user-info.component';
 import { UserInfoService } from './shared/services/user-info.service';
+import { UploadFileComponent } from './shared/components/upload-file/upload-file.component';
+import { PropostaUploadComponent } from './propostas/proposta-upload/proposta-upload.component';
+import { PropostaDetalhesComponent } from './propostas/proposta-detalhes/proposta-detalhes.component';
 
 registerLocaleData(localePt, 'pt');
 
@@ -79,12 +79,12 @@ registerLocaleData(localePt, 'pt');
     PropostasComponent,
     PropostaCadastrarComponent,
     PropostaEditarComponent,
-    PropostaExcluirComponent,
-    PropostaAprovarComponent,
-    PropostaReprovarComponent,
     ConfiguracoesComponent,
     ErrorsComponent,
     UserInfoComponent,
+    UploadFileComponent,
+    PropostaUploadComponent,
+    PropostaDetalhesComponent,
   ],
   imports: [
     HttpClientModule,
@@ -116,7 +116,8 @@ registerLocaleData(localePt, 'pt');
     PropostasService,
     ConfiguracoesService,
     NotificationErrorsService,
-    UserInfoService
+    UserInfoService,
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   bootstrap: [AppComponent]
 })

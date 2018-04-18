@@ -8,7 +8,7 @@ using System.Web;
 
 namespace SafewebFornecedores.Models
 {
-    [Table("Proposta")]
+    [Table("Propostas")]
     public class Proposta
     {
         [Key]
@@ -43,6 +43,8 @@ namespace SafewebFornecedores.Models
 
         [ForeignKey(nameof(FornecedorId))]        
         public virtual Fornecedor Fornecedor { get; set; }
+
+        public virtual PropostaArquivo PropostaArquivo { get; set; }
 
         public virtual ICollection<PropostaSituacao> PropostasSituacoes { get; set; }
     }

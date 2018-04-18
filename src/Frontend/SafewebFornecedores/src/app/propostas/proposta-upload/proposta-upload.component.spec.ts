@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PropostaExcluirComponent } from './proposta-excluir.component';
+import { PropostaUploadComponent } from './proposta-upload.component';
 
-describe('PropostaExcluirComponent', () => {
-  let component: PropostaExcluirComponent;
-  let fixture: ComponentFixture<PropostaExcluirComponent>;
+describe('PropostaUploadComponent', () => {
+  let component: PropostaUploadComponent;
+  let fixture: ComponentFixture<PropostaUploadComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PropostaExcluirComponent ]
+      declarations: [ PropostaUploadComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PropostaExcluirComponent);
+    fixture = TestBed.createComponent(PropostaUploadComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

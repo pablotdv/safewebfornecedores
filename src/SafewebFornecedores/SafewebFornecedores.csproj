@@ -238,6 +238,7 @@
     <Compile Include="Controllers\ConfiguracoesController.cs" />
     <Compile Include="Controllers\FornecedoresController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PropostasArquivosController.cs" />
     <Compile Include="Controllers\PropostasController.cs" />
     <Compile Include="Controllers\PropostasSituacoesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -259,6 +260,7 @@
     <Compile Include="Models\Identity\UsuarioLogin.cs" />
     <Compile Include="Models\Identity\UsuarioRole.cs" />
     <Compile Include="Models\Proposta.cs" />
+    <Compile Include="Models\PropostaArquivo.cs" />
     <Compile Include="Models\PropostaSituacao.cs" />
     <Compile Include="Models\Situacao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

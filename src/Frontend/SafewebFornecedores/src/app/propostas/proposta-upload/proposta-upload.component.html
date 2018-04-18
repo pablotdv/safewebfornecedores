@@ -1,7 +1,7 @@
 <div *ngIf="proposta">
   <div class="row">
     <div class="col-md-6 offset-md-3">
-      <h3>Reprovar a proposta #{{ proposta.Numero }}?
+      <h3>Aprovar a proposta #{{ proposta.Numero }}?
       </h3>
     </div>
   </div>
@@ -12,35 +12,36 @@
         <dd> {{ proposta.Data | date:'dd/MM/yyyy HH:mm' }} </dd>
 
         <dt> Situacao </dt>
-        <dd> {{ getSituacao(proposta.Situacao) }} </dd> 
+        <dd> {{ getSituacao(proposta.Situacao) }} </dd>
 
         <dt> Nome </dt>
-        <dd> {{ proposta.Nome }} </dd> 
+        <dd> {{ proposta.Nome }} </dd>
 
         <dt> Categoria </dt>
-        <dd> {{ proposta.Categoria.Descricao }} </dd> 
+        <dd> {{ proposta.Categoria.Descricao }} </dd>
 
         <dt> Fornecedor </dt>
-        <dd> {{ proposta.Fornecedor.Nome }} </dd> 
+        <dd> {{ proposta.Fornecedor.Nome }} </dd>
 
         <dt> Valor R$ </dt>
-        <dd> {{ proposta.Valor | currency:'BRL' }} </dd> 
+        <dd> {{ proposta.Valor | currency:'BRL' }} </dd>
 
         <dt> Descrição </dt>
-        <dd> {{ proposta.Descricao }} </dd> 
-        
+        <dd> {{ proposta.Descricao }} </dd>
+
       </dl>
     </div>
   </div>
-  
+  <div class="form-group">
+    <app-upload-file [propostaId]="proposta.PropostaId"></app-upload-file>
+  </div>
   <div class="row">
     <div class="col-md-6 offset-md-3">
       <div class="form-group">
-        <button type="button" class="btn btn-primary" (click)="reprovar()">
-          <i class="fa fa-thumbs-down"></i> Reprovar</button>
         <a [routerLink]="['/propostas']" class="btn">
           <i class="fas fa-arrow-left"></i> Voltar</a>
       </div>
     </div>
   </div>
 </div>
+

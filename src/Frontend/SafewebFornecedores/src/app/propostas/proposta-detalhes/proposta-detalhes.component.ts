@@ -5,13 +5,14 @@ import { PropostasService } from '../../shared/services/propostas.service';
 import { NotificationService } from '../../shared/notification.service';
 
 @Component({
-  selector: 'app-proposta-reprovar',
-  templateUrl: './proposta-reprovar.component.html',
-  styleUrls: ['./proposta-reprovar.component.css']
+  selector: 'app-proposta-detalhes',
+  templateUrl: './proposta-detalhes.component.html',
+  styleUrls: ['./proposta-detalhes.component.css']
 })
-export class PropostaReprovarComponent implements OnInit {
+export class PropostaDetalhesComponent implements OnInit {
 
   proposta: Proposta;
+
   constructor(
     private route: ActivatedRoute,
     private propostasServices: PropostasService,
@@ -22,12 +23,13 @@ export class PropostaReprovarComponent implements OnInit {
   ngOnInit() {
     this.propostasServices.get(this.route.snapshot.params['id'])
       .subscribe(proposta => {
-        if (proposta.Situacao != Situacao.Aberto) {
-          this.notificationService.notify(`A proposta #${proposta.Numero} não pode ser mais reprovada.`);
-          this.router.navigate(['/propostas']);
-        } else
-          this.proposta = proposta;
+        this.proposta = proposta;
       });
+  }
+
+  aprovar() {
+    this.propostasServices.aprovar(this.proposta)
+      .subscribe(res => this.router.navigate(['/propostas']));
   }
 
   reprovar() {
@@ -35,8 +37,12 @@ export class PropostaReprovarComponent implements OnInit {
       .subscribe(res => this.router.navigate(['/propostas']));
   }
 
+  excluir() {
+    this.propostasServices.delete(this.proposta.PropostaId)
+      .subscribe(res => this.router.navigate(['/propostas']));
+  }
+
   getSituacao(value: number): any {
     return Situacao[value];
   }
-
 }

@@ -74,7 +74,8 @@ export class PropostaCadastrarComponent implements OnInit {
       Arquivo: '',
       DataSituacao: new Date(),
       Situacao: 0,
-      PropostaId: '00000000-0000-0000-0000-000000000000'
+      PropostaId: '00000000-0000-0000-0000-000000000000',
+      PropostaArquivo: null,
     };
     return propostaModel;
   }

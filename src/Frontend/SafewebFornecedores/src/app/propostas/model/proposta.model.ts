@@ -10,8 +10,14 @@ export interface Proposta {
     Arquivo: string;
     DataSituacao: Date;
     Situacao: Situacao;
+    PropostaArquivo: PropostaArquivo
 }
 
+export interface PropostaArquivo {
+    PropostaId: string;
+    Caminho: string;
+    Nome: string;
+}
 export enum Situacao {
     Aberto = 1,
     Aprovada = 2,

@@ -20,17 +20,8 @@
     <tbody>
       <tr *ngFor="let item of propostas">
         <th>
-          <a [routerLink]="['/proposta', item.PropostaId]" title="Editar a proposta">
-            <i class="fa fa-edit"></i>
-          </a>
-          <a [routerLink]="['/proposta/excluir', item.PropostaId]" title="Excluir a proposta">
-            <i class="fa fa-trash"></i>
-          </a>
-          <a [routerLink]="['/proposta/aprovar', item.PropostaId]" title="Aprovar a proposta">
-            <i class="far fa-thumbs-up"></i>
-          </a>
-          <a [routerLink]="['/proposta/reprovar', item.PropostaId]" title="Reprovar a proposta">
-            <i class="fa fa-thumbs-down"></i>
+          <a [routerLink]="['/proposta/detalhes', item.PropostaId]" title="Visualizar detalhes da proposta">
+            <i class="fa fa-eye"></i>
           </a>
         </th>
         <td>{{ item.Numero }}</td>

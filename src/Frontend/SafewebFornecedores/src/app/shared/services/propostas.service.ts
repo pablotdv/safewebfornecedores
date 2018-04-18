@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { NotificationService } from '../notification.service';
 import { Proposta } from '../../propostas/model/proposta.model';
 import { Observable } from 'rxjs/Observable';
@@ -90,5 +90,20 @@ export class PropostasService extends BaseService {
         ),
         catchError(this.handleError<Proposta>('propostas/reprovar'))
       );
+  }
+
+  upload(formData: FormData): Observable<any> {
+
+    console.log(formData);
+
+     return this.http.post(`${this.baseUrl}/api/PropostasArquivos/upload/`, formData).pipe(
+      tap(
+        res => {
+          this.notificationService.notify(`Upload realizado com sucesso!`);
+        }
+      ),
+      catchError(this.handleError<any>('propostas/reprovar'))
+    );
+
   }
 }

@@ -87,7 +87,8 @@ export class PropostaEditarComponent implements OnInit {
       Arquivo: '',
       DataSituacao: new Date(),
       Situacao: formModel.situacao,
-      PropostaId: this.route.snapshot.params['id']
+      PropostaId: this.route.snapshot.params['id'],
+      PropostaArquivo: null,
     };
     return propostaModel;
   }
