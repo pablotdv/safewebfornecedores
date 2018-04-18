@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { NotificationService } from '../notification.service';
-import { Proposta } from '../../propostas/model/proposta.model';
+import { Proposta, PropostaFiltro } from '../../propostas/model/proposta.model';
 import { Observable } from 'rxjs/Observable';
 import { catchError, tap } from 'rxjs/operators';
 import { PropostaAprovar } from '../../propostas/model/proposta-aprovar.model';
@@ -12,7 +12,7 @@ import { Location } from '@angular/common';
 @Injectable()
 export class PropostasService extends BaseService {
 
-  
+
   urlPropostas = `${this.baseUrl}/api/propostas`;
 
   constructor(private http: HttpClient,
@@ -22,8 +22,13 @@ export class PropostasService extends BaseService {
     super(errorsService, location);
   }
 
-  getAll(): Observable<Proposta[]> {
-    return this.http.get<Proposta[]>(this.urlPropostas)
+  getAll(filtros: PropostaFiltro): Observable<Proposta[]> {
+
+    let params = new HttpParams();
+    params = params.append('nome', filtros.Nome);
+    params = params.append('fornecedor', filtros.Fornecedor);
+
+    return this.http.get<Proposta[]>(this.urlPropostas, {params: params})
       .pipe(
         catchError(this.handleError<Proposta[]>('propostas/getAll'))
       );
@@ -97,7 +102,7 @@ export class PropostasService extends BaseService {
 
     console.log(formData);
 
-     return this.http.post(`${this.baseUrl}/api/PropostasArquivos/upload/`, formData).pipe(
+    return this.http.post(`${this.baseUrl}/api/PropostasArquivos/upload/`, formData).pipe(
       tap(
         res => {
           this.notificationService.notify(`Upload realizado com sucesso!`);
@@ -109,14 +114,14 @@ export class PropostasService extends BaseService {
   }
 
   pdf(propostaId: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/api/PropostasArquivos/${propostaId}`,{
+    return this.http.get(`${this.baseUrl}/api/PropostasArquivos/${propostaId}`, {
       responseType: "blob"
     })
-    .pipe(
-      tap(res => {
-        console.log(res);
-      }),
-      catchError(this.handleError<any>('PropostasArquivos/upload'))
-    );
+      .pipe(
+        tap(res => {
+          console.log(res);
+        }),
+        catchError(this.handleError<any>('PropostasArquivos/upload'))
+      );
   }
 }

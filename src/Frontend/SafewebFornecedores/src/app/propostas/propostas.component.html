@@ -1,3 +1,56 @@
+<form [formGroup]="pesquisarForm" #formDir="ngForm">
+  <div class="form-group">
+    <div class="col-md-12">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Nome</span>
+        </div>
+        <input type="text" class="form-control" placeholder="Escreva para pesquisar" aria-label="Search" aria-describedby="basic-addon1" formControlName="nome">
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Datas</span>
+        </div>
+        <input type="text" class="form-control" placeholder="Data inicial" aria-label="Search" aria-describedby="basic-addon1" formControlName="dataInicial">
+        <input type="text" class="form-control" placeholder="Data final" aria-label="Search" aria-describedby="basic-addon1" formControlName="dataFinal">
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Fornecedor</span>
+        </div>
+        <input type="text" class="form-control" placeholder="Escreva para pesquisar" aria-label="Search" aria-describedby="basic-addon1" formControlName="fornecedor">
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Categoria</span>
+        </div>
+        <input type="text" class="form-control" placeholder="Escreva para pesquisar" aria-label="Search" aria-describedby="basic-addon1" formControlName="categoria">
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Status</span>
+        </div>
+        <select class="form-control" formControlName="situacao">
+          <option>-</option>
+          <option value="1">Aberto</option>
+          <option value="2">Aprovada</option>
+          <option value="3">Reprovada</option>
+          <option value="5">Aprovada diretoria</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</form>
+
 <div class="table-responsive">
   <table class="table table-striped table-bordered table-hover table-sm">
     <thead class="thead-dark">

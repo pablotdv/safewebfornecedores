@@ -25,3 +25,12 @@ export enum Situacao {
     PendenteDiretoria = 4,
     AprovadaDiretoria = 5
 }
+
+export interface PropostaFiltro {
+    Nome: string;
+    DataInicial: Date;
+    DataFinal: Date;
+    Fornecedor: string;
+    Categoria: string;
+    Situacao: number;
+}

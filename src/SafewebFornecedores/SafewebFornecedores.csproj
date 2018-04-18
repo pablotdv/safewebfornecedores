@@ -273,6 +273,7 @@
     <Compile Include="ViewModels\ExternalLoginViewModel.cs" />
     <Compile Include="ViewModels\ManageInfoViewModel.cs" />
     <Compile Include="ViewModels\PropostaAprovarModel.cs" />
+    <Compile Include="ViewModels\PropostaFiltroModel.cs" />
     <Compile Include="ViewModels\RegisterBindingModel.cs" />
     <Compile Include="ViewModels\RegisterExternalBindingModel.cs" />
     <Compile Include="ViewModels\RemoveLoginBindingModel.cs" />

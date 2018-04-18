@@ -27,13 +27,19 @@ namespace SafewebFornecedores.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/Propostas
-        public async Task<IList<Proposta>> GetPropostas()
+        public async Task<IList<Proposta>> GetPropostas(string nome, string fornecedor)
         {
-            return await db.Propostas
+            var query = db.Propostas
                 .Include(a => a.Fornecedor)
                 .Include(a => a.Categoria)
-                .Include(a => a.PropostaArquivo)
-                .OrderBy(a => a.Numero).ToListAsync();
+                .Include(a => a.PropostaArquivo);
+
+            if (!string.IsNullOrWhiteSpace(nome))
+                query = query.Where(a => a.Nome.Contains(nome));
+
+            return await query
+                .OrderBy(a => a.Numero)
+                .ToListAsync();
         }
 
         // GET: api/Propostas/5
@@ -217,7 +223,7 @@ namespace SafewebFornecedores.Controllers
             {
                 ModelState.AddModelError("A", $"A proposta #{proposta.Numero} não pode ser mais reprovada");
             }
-            
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -257,7 +263,7 @@ namespace SafewebFornecedores.Controllers
         [ResponseType(typeof(Proposta))]
         public async Task<IHttpActionResult> DeleteProposta(Guid id)
         {
-            Proposta proposta = await db.Propostas.FindAsync(id);            
+            Proposta proposta = await db.Propostas.FindAsync(id);
 
             if (proposta == null)
             {
@@ -269,7 +275,7 @@ namespace SafewebFornecedores.Controllers
                 ModelState.AddModelError("", $"A proposta {proposta.Numero} não pode ser mais excluída.");
             }
 
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
