@@ -36,10 +36,10 @@ export class UserEditComponent implements OnInit {
 
   createForm(value: Usuario) {
     this.usuarioForm = this.fb.group({
-      cpf: [value.Cpf, [Validators.required]],
-      nome: [value.Nome, [Validators.required]],
+      cpf: [value.Cpf, [Validators.required, Validators.maxLength(11)]],
+      nome: [value.Nome, [Validators.required, Validators.maxLength(200)]],
       dataNascimento: [new DatePipe('pt').transform(value.DataNascimento, 'dd/MM/yyyy'), [Validators.required]],
-      email: [value.Email, [Validators.required]],
+      email: [value.Email, [Validators.required, Validators.email]],
       id: [value.Id],
       userName: [value.UserName, [Validators.required]]
     });

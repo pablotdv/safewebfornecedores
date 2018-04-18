@@ -7,15 +7,17 @@
     <div class="col-md-6 offset-md-3">
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" #formDir="ngForm">
             <div class="form-group">
-                <label for="cpf">CPF</label>
-                <input id="cpf" class="form-control" formControlName="cpf" [textMask]="{mask: mask}" ngBrToolsCpfPattern ngBrToolsCpfValidator
-                    required>
+                <label for="cpf">CPF (Somente números)</label>
+                <input id="cpf" class="form-control" formControlName="cpf" required>
                 <div *ngIf="cpf.invalid && (cpf.dirty || cpf.touched)" class="alert alert-danger">
                     <div *ngIf="cpf.errors.required">
                         O campo CPF é obrigatório.
                     </div>
                     <div *ngIf="!cpf.errors.CPFValidator?.valid">
                         O campo CPF {{ cpf.value }} não é válido.
+                    </div>
+                    <div *ngIf="cpf.errors.maxlength">
+                        O campo CPF deve ter no máximo 11 caractêres.
                     </div>
                 </div>
             </div>
@@ -25,6 +27,9 @@
                 <div *ngIf="nome.invalid && (nome.dirty || nome.touched)" class="alert alert-danger">
                     <div *ngIf="nome.errors.required">
                         O campo Nome é obrigatório.
+                    </div>
+                    <div *ngIf="nome.errors.maxlength">
+                        O campo Nome deve ter no máximo 200 caractêres.
                     </div>
                 </div>
             </div>
@@ -47,7 +52,7 @@
                     </div>
                     <div *ngIf="email.errors.email">
                         O email {{ email.value }} não é válido.
-                    </div>
+                    </div>                                   
                 </div>
             </div>
             <div class="form-group">
@@ -96,7 +101,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">
                     <i class="fa fa-save"></i> Salvar</button>

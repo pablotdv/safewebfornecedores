@@ -35,8 +35,8 @@ export class UserRegisterComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required],
-      nome: ['', Validators.required],
-      cpf: ['', Validators.required],
+      nome: ['', [Validators.required, Validators.maxLength(200)]],
+      cpf: ['', [Validators.required, Validators.maxLength(11)]],
       dataNascimento: ['', Validators.required],
       perfil: ['', Validators.required],
     }, { validator: UserRegisterComponent.equalsTo });

@@ -10,15 +10,17 @@
         <div class="col-md-6 offset-md-3">
             <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
                 <div class="form-group">
-                    <label for="cpf">CPF</label>
-                    <input id="cpf" class="form-control" formControlName="cpf" [textMask]="{mask: mask}" ngBrToolsCpfPattern ngBrToolsCpfValidator
-                        required>
+                    <label for="cpf">CPF (Somente números)</label>
+                    <input id="cpf" class="form-control" formControlName="cpf" required>
                     <div *ngIf="cpf.invalid && (cpf.dirty || cpf.touched)" class="alert alert-danger">
                         <div *ngIf="cpf.errors.required">
                             O campo CPF é obrigatório.
                         </div>
                         <div *ngIf="!cpf.errors.CPFValidator?.valid">
                             O campo CPF {{ cpf.value }} não é válido.
+                        </div>
+                        <div *ngIf="cpf.errors.maxlength">
+                            O campo CPF deve ter no máximo 11 caractêres.
                         </div>
                     </div>
                 </div>
@@ -29,12 +31,15 @@
                         <div *ngIf="nome.errors.required">
                             O campo Nome é obrigatório.
                         </div>
+                        <div *ngIf="nome.errors.maxlength">
+                            O campo Nome deve ter no máximo 200 caractêres.
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="dataNascimento">Data de nascimento</label>
-                    <input type="text" [textMask]="{mask: maskDate}" class="form-control" id="dataNascimento" placeholder="Data de nascimento" name="dataNascimento" formControlName="dataNascimento"
-                        required>                    
+                    <input type="text" [textMask]="{mask: maskDate}" class="form-control" id="dataNascimento" placeholder="Data de nascimento"
+                        name="dataNascimento" formControlName="dataNascimento" required>
                     <div *ngIf="dataNascimento.invalid && (dataNascimento.dirty || dataNascimento.touched)" class="alert alert-danger">
                         <div *ngIf="dataNascimento.errors.required">
                             O campo Data de nascimento é obrigatório.
@@ -56,7 +61,8 @@
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">
                         <i class="fa fa-save"></i> Salvar</button>
-                        <a [routerLink]="['/users']" class="btn"><i class="fas fa-arrow-left"></i> Voltar</a>
+                    <a [routerLink]="['/users']" class="btn">
+                        <i class="fas fa-arrow-left"></i> Voltar</a>
                 </div>
             </form>
         </div>

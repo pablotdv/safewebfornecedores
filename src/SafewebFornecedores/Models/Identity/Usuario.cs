@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Newtonsoft.Json;
+using SafewebFornecedores.Infraestrutura;
 
 namespace SafewebFornecedores.Models
 {
@@ -21,6 +22,7 @@ namespace SafewebFornecedores.Models
         [Required]
         [Index(IsUnique = true)]
         [StringLength(11)]
+        [CpfCnpj]
         public string Cpf { get; set; }
 
         [Required]
