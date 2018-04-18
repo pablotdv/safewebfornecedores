@@ -25,10 +25,26 @@ export class PropostasService extends BaseService {
   getAll(filtros: PropostaFiltro): Observable<Proposta[]> {
 
     let params = new HttpParams();
-    params = params.append('nome', filtros.Nome);
-    params = params.append('fornecedor', filtros.Fornecedor);
+    if (filtros.Nome)
+      params = params.append('nome', filtros.Nome);
+    else params = params.append('nome', '');
+    if (filtros.DataInicial)
+      params = params.append('dataInicial', filtros.DataInicial);
+    else params = params.append('dataInicial', null);
+    if (filtros.DataFinal)
+      params = params.append('dataFinal', filtros.DataFinal);
+    else params = params.append('dataFinal', null);
+    if (filtros.Fornecedor)
+      params = params.append('fornecedor', filtros.Fornecedor);
+    else params = params.append('fornecedor', '');
+    if (filtros.Categoria)
+      params = params.append('categoria', filtros.Categoria);
+    else params = params.append('categoria', '');
+    if (filtros.Situacao)
+      params = params.append('situacao', filtros.Situacao.toString());
+    else params = params.append('situacao', null);
 
-    return this.http.get<Proposta[]>(this.urlPropostas, {params: params})
+    return this.http.get<Proposta[]>(this.urlPropostas, { params: params })
       .pipe(
         catchError(this.handleError<Proposta[]>('propostas/getAll'))
       );
@@ -99,9 +115,6 @@ export class PropostasService extends BaseService {
   }
 
   upload(formData: FormData): Observable<any> {
-
-    console.log(formData);
-
     return this.http.post(`${this.baseUrl}/api/PropostasArquivos/upload/`, formData).pipe(
       tap(
         res => {

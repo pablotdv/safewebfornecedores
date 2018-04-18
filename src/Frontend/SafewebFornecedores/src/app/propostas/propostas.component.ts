@@ -13,6 +13,7 @@ export class PropostasComponent implements OnInit {
   propostas: Proposta[];
 
   pesquisarForm: FormGroup;
+  maskDate = [/[0-9]/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
 
   constructor(
     private propostasService: PropostasService,
@@ -40,43 +41,52 @@ export class PropostasComponent implements OnInit {
 
   ngOnInit() {
     this.getPropostas();
-    this.onChanges();
   }
 
   getSituacao(value: number): any {
     return Situacao[value];
   }
 
+  getDataString(value): string{
+    let data: string = null;
+    if (value) {
+      var dataPartes: string[] = value.split('/');
+      if (dataPartes.length === 3) {
+        let dia = dataPartes[0];
+        let mes = dataPartes[1];
+        let ano = dataPartes[2];
+        data = `${ano}-${mes}-${dia}`;
+      }
+    }
+    return data;
+  }
+
   prepareToSearch(): PropostaFiltro {
     const formModel = this.pesquisarForm.value;
-
+    
     const model: PropostaFiltro = {
       Nome: formModel.nome,
-      DataInicial: null,
-      DataFinal: null,
+      DataInicial: this.getDataString(formModel.dataInicial),
+      DataFinal: this.getDataString(formModel.dataFinal),
       Fornecedor: formModel.fornecedor,
-      Categoria: formModel.Categoria,
+      Categoria: formModel.categoria,
       Situacao: formModel.situacao
-      
+
     };
     return model;
   }
 
   getPropostas() {
     var filtros = this.prepareToSearch();
-    
+
     this.propostasService.getAll(filtros)
       .subscribe(propostas => {
         this.propostas = propostas;
       });
   }
 
-  onChanges() {
-    this.pesquisarForm.valueChanges.subscribe(val => {
-      this.getPropostas();
-      console.log('Form Change');
-      console.log(val);
-    });
+  resetar() {
+    this.createForm();
+    this.getPropostas();
   }
-
 }

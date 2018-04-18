@@ -60,8 +60,7 @@ export class PropostaDetalhesComponent implements OnInit {
             if (res) {
               var blob = new Blob([res], { type: 'application/pdf' });
               var url = window.URL.createObjectURL(blob);
-              this.propostaArquivo = url;
-              console.log(this.propostaArquivo);
+              this.propostaArquivo = url;              
             }
           },
           error => console.log(error)
@@ -87,12 +86,9 @@ export class PropostaDetalhesComponent implements OnInit {
     return Situacao[value];
   }
 
-  refreshUpload(event) {
-    console.log(event);
+  refreshUpload(event) {    
     if (event) {
-      this.pdf();
-      //this.getProposta();
-      //this.router.navigate([`/proposta/detalhes/${this.proposta.PropostaId}`]);
+      this.pdf();      
     }
   }
 

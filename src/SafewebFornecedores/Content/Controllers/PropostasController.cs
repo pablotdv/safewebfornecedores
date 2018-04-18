@@ -27,7 +27,7 @@ namespace SafewebFornecedores.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/Propostas
-        public async Task<IList<Proposta>> GetPropostas(string nome, string fornecedor)
+        public async Task<IList<Proposta>> GetPropostas(string nome, DateTime? dataInicial, DateTime? dataFinal, string fornecedor, string categoria, Situacao? situacao)
         {
             var query = db.Propostas
                 .Include(a => a.Fornecedor)
@@ -36,6 +36,33 @@ namespace SafewebFornecedores.Controllers
 
             if (!string.IsNullOrWhiteSpace(nome))
                 query = query.Where(a => a.Nome.Contains(nome));
+
+            if (dataInicial.HasValue)
+            {
+                dataInicial = dataInicial.Value.Date;
+                query = query.Where(a => DbFunctions.TruncateTime(a.Data) >= dataInicial);
+            }
+
+            if (dataFinal.HasValue)
+            {
+                dataFinal = dataFinal.Value.Date;
+                query = query.Where(a => DbFunctions.TruncateTime(a.Data) <= dataFinal);
+            }
+
+            if (!string.IsNullOrWhiteSpace(fornecedor))
+            {
+                query = query.Where(a => a.Fornecedor.Nome.Contains(fornecedor));
+            }
+
+            if (!string.IsNullOrWhiteSpace(categoria))
+            {
+                query = query.Where(a => a.Categoria.Descricao.Contains(categoria));
+            }
+
+            if (situacao.HasValue)
+            {
+                query = query.Where(a => a.Situacao == situacao.Value);
+            }
 
             return await query
                 .OrderBy(a => a.Numero)

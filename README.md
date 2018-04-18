@@ -101,7 +101,10 @@ OBS: proposta já cadastrada e upload do pdf já realizado.
 OBS: proposta já cadastrada
 
 # RF06 - Pesquisar propostas de fornecedores
-Estou finalizando 
+1. Acessar o menu `Propostas`
+2. Preencher os filtros desejados
+3. Clicar no botão filtrar
+OBS: proposta já cadastrada 
 
 # RF07 - Manter histórico do status das propostas
 1. Acessar o menu `Propostas`

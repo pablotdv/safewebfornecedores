@@ -38,8 +38,7 @@ export class UserInfoComponent implements OnInit {
     if (this.isLoggedIn) {
       this.usersService.getUserInfo()
         .subscribe(res => {
-          this.usuario = res.Email;
-          console.log(this.usuario);
+          this.usuario = res.Email;          
         });
     }
   }

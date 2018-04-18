@@ -28,8 +28,8 @@ export enum Situacao {
 
 export interface PropostaFiltro {
     Nome: string;
-    DataInicial: Date;
-    DataFinal: Date;
+    DataInicial: string;
+    DataFinal: string;
     Fornecedor: string;
     Categoria: string;
     Situacao: number;

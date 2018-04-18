@@ -5,8 +5,7 @@ export class UserInfoService {
 
   notifier = new EventEmitter<any>()
 
-  notify() {
-    console.log('UserInfoService/notify');
+  notify() {    
     this.notifier.emit();
   }
 
