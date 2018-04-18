@@ -10,6 +10,8 @@ using System.Web;
 using System.Web.Http;
 using System.Data.Entity;
 using System.Web.Http.Cors;
+using System.Web.Http.Description;
+using System.Net.Http.Headers;
 
 namespace SafewebFornecedores.Controllers
 {
@@ -19,6 +21,31 @@ namespace SafewebFornecedores.Controllers
     public class PropostasArquivosController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        // GET: api/PropostasArquivos/5
+        [HttpGet]
+        public async Task<IHttpActionResult> GetPropostaArquivo(Guid id)
+        {
+            PropostaArquivo propostaArquivo = await db.PropostasArquivos.FindAsync(id);
+            if (propostaArquivo == null)
+            {
+                return NotFound();
+            }
+
+            var result = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new ByteArrayContent(File.ReadAllBytes(HttpContext.Current.Server.MapPath(propostaArquivo.Caminho)))
+            };
+            result.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment")
+            {
+                FileName = propostaArquivo.Nome
+            };
+            result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
+
+            var response = ResponseMessage(result);
+
+            return response;
+        }
 
         [HttpPost]
         [Route("upload")]

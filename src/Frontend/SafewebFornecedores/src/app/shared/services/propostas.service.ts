@@ -12,6 +12,7 @@ import { Location } from '@angular/common';
 @Injectable()
 export class PropostasService extends BaseService {
 
+  
   urlPropostas = `${this.baseUrl}/api/propostas`;
 
   constructor(private http: HttpClient,
@@ -102,8 +103,14 @@ export class PropostasService extends BaseService {
           this.notificationService.notify(`Upload realizado com sucesso!`);
         }
       ),
-      catchError(this.handleError<any>('propostas/reprovar'))
+      catchError(this.handleError<any>('PropostasArquivos/upload'))
     );
 
+  }
+
+  pdf(propostaId: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/api/PropostasArquivos/${propostaId}`,{
+      responseType: "blob"
+    });
   }
 }

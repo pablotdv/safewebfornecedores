@@ -13,6 +13,8 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { Ng2OrderModule } from 'ng2-order-pipe';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./home/home.component";
@@ -53,6 +55,7 @@ import { UserInfoService } from './shared/services/user-info.service';
 import { UploadFileComponent } from './shared/components/upload-file/upload-file.component';
 import { PropostaUploadComponent } from './propostas/proposta-upload/proposta-upload.component';
 import { PropostaDetalhesComponent } from './propostas/proposta-detalhes/proposta-detalhes.component';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 registerLocaleData(localePt, 'pt');
 
@@ -84,7 +87,7 @@ registerLocaleData(localePt, 'pt');
     UserInfoComponent,
     UploadFileComponent,
     PropostaUploadComponent,
-    PropostaDetalhesComponent,
+    PropostaDetalhesComponent,    
   ],
   imports: [
     HttpClientModule,
@@ -97,7 +100,9 @@ registerLocaleData(localePt, 'pt');
     TextMaskModule,
     CurrencyMaskModule,
     NgbModule.forRoot(),
-    LoadingBarHttpClientModule
+    LoadingBarHttpClientModule,
+    Ng2OrderModule,
+    PdfViewerModule
   ],
   providers: [
     {

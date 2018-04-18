@@ -12,6 +12,7 @@ import { NotificationService } from '../../shared/notification.service';
 export class PropostaDetalhesComponent implements OnInit {
 
   proposta: Proposta;
+  propostaArquivo: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,7 +25,8 @@ export class PropostaDetalhesComponent implements OnInit {
     this.propostasServices.get(this.route.snapshot.params['id'])
       .subscribe(proposta => {
         this.proposta = proposta;
-      });
+        console.log(this.proposta);
+      });   
   }
 
   aprovar() {
@@ -40,6 +42,18 @@ export class PropostaDetalhesComponent implements OnInit {
   excluir() {
     this.propostasServices.delete(this.proposta.PropostaId)
       .subscribe(res => this.router.navigate(['/propostas']));
+  }
+
+  pdf() {
+    this.propostasServices.pdf(this.proposta.PropostaId)
+      .subscribe(
+        res => {
+          debugger;
+          var blob = new Blob([res], { type: 'application/pdf' });
+          var url = window.URL.createObjectURL(blob);
+          this.propostaArquivo = url;
+        }
+      );
   }
 
   getSituacao(value: number): any {
