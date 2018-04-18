@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SafewebFornecedores.Infraestrutura;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -17,6 +18,7 @@ namespace SafewebFornecedores.Models
         [Required]
         [Index(IsUnique = true)]
         [StringLength(14)]
+        [CpfCnpj]
         public string CpfCnpj { get; set; }
 
         [Required]

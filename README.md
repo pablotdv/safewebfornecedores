@@ -30,7 +30,7 @@ Com o projeto backend e frontend abertos
 1. No Visual Studio, aperte a tecla `F5` ou acesse o menu `Debug | Start Debugging`
 2. No VS Code, abra o terminal `Ctrl + '` ou `View | Integrated Terminal`
 3. Rode o comando `ng serve` no terminal do VS Code
-4. Abra no navegador a url http://localhost:4402
+4. Abra no navegador a url http://localhost:4200
 - Versão de demonstração publicada no [Azure](https://azure.microsoft.com/pt-br/): http://safewebfornecedores.azurewebsites.net/
 
 # Login no sistema

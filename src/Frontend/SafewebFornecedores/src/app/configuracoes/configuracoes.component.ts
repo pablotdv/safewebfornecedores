@@ -32,7 +32,7 @@ export class ConfiguracoesComponent implements OnInit {
 
   createForm(configuracao: Configuracao) {
     this.configuracaoForm = this.fb.group({
-      tempoProposta: [configuracao.TempoProposta, Validators.required],
+      tempoProposta: [configuracao.TempoProposta, [Validators.required, Validators.min(0)]],
       configuracaoId: [configuracao.ConfiguracaoId]
     });
   }

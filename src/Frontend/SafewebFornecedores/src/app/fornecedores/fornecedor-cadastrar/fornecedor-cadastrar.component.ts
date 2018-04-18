@@ -5,6 +5,7 @@ import { Fornecedor } from '../models/fornecedor.model';
 import { Router } from '@angular/router';
 import { MensagemFormulario } from '../../shared/consts';
 import { NotificationErrorsService } from '../../shared/services/notification-errors.service';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-fornecedor-cadastrar',
@@ -27,10 +28,10 @@ export class FornecedorCadastrarComponent implements OnInit {
 
   createForm() {
     this.fornecedorForm = this.fb.group({
-      cpfCnpj: ['', Validators.required],
-      nome: ['', Validators.required],
-      telefone: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]]
+      cpfCnpj: ['', [Validators.required, Validators.maxLength(14)]],
+      nome: ['', [Validators.required, Validators.maxLength(200)]],
+      telefone: ['', [Validators.required, Validators.maxLength(11)]],
+      email: ['', [Validators.required, Validators.email, Validators.maxLength(254)]]
     });
   }
 
@@ -52,7 +53,7 @@ export class FornecedorCadastrarComponent implements OnInit {
     return fornecedorModel;
   }
 
-  onSubmit() {    
+  onSubmit() {
     if (this.fornecedorForm.invalid) {
       this.errorsService.notify([MensagemFormulario]);
     }

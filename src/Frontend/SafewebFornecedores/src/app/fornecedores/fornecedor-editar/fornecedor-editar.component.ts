@@ -34,10 +34,10 @@ export class FornecedorEditarComponent implements OnInit {
 
   createForm(fornecedor: Fornecedor) {
     this.fornecedorForm = this.fb.group({
-      cpfCnpj: [fornecedor.CpfCnpj, Validators.required],
-      nome: [fornecedor.Nome, Validators.required],
-      telefone: [fornecedor.Telefone, Validators.required],
-      email: [fornecedor.Email, [Validators.required, Validators.email]]
+      cpfCnpj: [fornecedor.CpfCnpj, [Validators.required, Validators.maxLength(14)]],
+      nome: [fornecedor.Nome, [Validators.required, Validators.maxLength(200)]],
+      telefone: [fornecedor.Telefone, [Validators.required, Validators.maxLength(11)]],
+      email: [fornecedor.Email, [Validators.required, Validators.email, Validators.maxLength(254)]]
     });
   }
 

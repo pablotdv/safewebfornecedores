@@ -8,11 +8,14 @@
     <div class="col-md-6 offset-md-3">
       <form [formGroup]="fornecedorForm" (ngSubmit)="onSubmit()" #formDir="ngForm">
         <div class="form-group">
-          <label for="cpfCnpj">CNPJ/CPF</label>
+          <label for="cpfCnpj">CNPJ/CPF (Somente números)</label>
           <input id="cpfCnpj" class="form-control" formControlName="cpfCnpj" required>
           <div *ngIf="cpfCnpj.invalid && (cpfCnpj.dirty || cpfCnpj.touched)" class="alert alert-danger">
             <div *ngIf="cpfCnpj.errors.required">
               O campo CNPJ/CPF é obrigatório.
+            </div>
+            <div *ngIf="cpfCnpj.errors.maxlength">
+              O campo CNPJ/CPF deve ter no máximo 14 caractêres.
             </div>
           </div>
         </div>
@@ -24,15 +27,21 @@
             <div *ngIf="nome.errors.required">
               O campo Nome é obrigatório.
             </div>
+            <div *ngIf="nome.errors.maxlength">
+              O campo Nome deve ter no máximo 200 caractêres.
+            </div>
           </div>
         </div>
 
         <div class="form-group">
-          <label for="telefone">Telefone</label>
+          <label for="telefone">Telefone (Somente números)</label>
           <input id="telefone" class="form-control" formControlName="telefone" required>
           <div *ngIf="telefone.invalid && (telefone.dirty || telefone.touched)" class="alert alert-danger">
             <div *ngIf="telefone.errors.required">
               O campo Telefone é obrigatório.
+            </div>
+            <div *ngIf="telefone.errors.maxlength">
+              O campo Telefone deve ter no máximo 11 caractêres.
             </div>
           </div>
         </div>
@@ -45,14 +54,14 @@
               O campo Email é obrigatório.
             </div>
             <div *ngIf="email.errors.email">
-              O campo Email é obrigatório.
-            </div>
-            <div *ngIf="email.errors.email">
               O email {{ email.value }} não é válido.
+            </div>
+            <div *ngIf="email.errors.maxlength">
+              O campo Email deve ter no máximo 254 caractêres.
             </div>
           </div>
         </div>
-        
+
         <div class="form-group">
           <button type="submit" class="btn btn-primary">
             <i class="fa fa-save"></i> Salvar</button>
