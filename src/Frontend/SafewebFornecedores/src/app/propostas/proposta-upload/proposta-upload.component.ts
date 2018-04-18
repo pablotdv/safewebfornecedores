@@ -12,7 +12,7 @@ import { NotificationService } from '../../shared/notification.service';
 export class PropostaUploadComponent implements OnInit {
 
   proposta: Proposta;
-
+  
   constructor(
     private route: ActivatedRoute,
     private propostasServices: PropostasService,
