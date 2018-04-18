@@ -4,7 +4,7 @@ Projeto desenvolvido como parte do processo seletivo da vaga de programador sên
 # Tecnologias utilizadas
 - Visual Studio Community 2017 Versão 15.6.6 [[download](https://www.visualstudio.com/pt-br/downloads/)]
 - Visual Studio Code Versão 1.22.2 - Arquitetura x64 [[download](https://code.visualstudio.com/download)]
-- Node: 9.8.0 [[download](https://nodejs.org/en/download/releases/)]
+- Node: >=9.8.0 [[download](https://nodejs.org/en/download/releases/)]
 - Angular CLI: 1.7.3 [[instalação](https://cli.angular.io/)]
 - Microsoft SQL Server 2017 (RTM) - 14.0.1000.169 (X64)   Aug 22 2017 17:04:49   Copyright (C) 2017 Microsoft Corporation  Developer Edition (64-bit) on Windows 10 Pro 10.0 <X64> (Build 16299: )  [[download](https://www.microsoft.com/pt-br/sql-server/sql-server-downloads)]
 - OS: Windows 10 Versão 1709
@@ -31,7 +31,7 @@ Com o projeto backend e frontend abertos
 2. No VS Code, abra o terminal `Ctrl + '` ou `View | Integrated Terminal`
 3. Rode o comando `ng serve` no terminal do VS Code
 4. Abra no navegador a url http://localhost:4200
-- Versão de demonstração publicada no [Azure](https://azure.microsoft.com/pt-br/): http://safewebfornecedores.azurewebsites.net/
+- Versão de demonstração publicada no Azure: http://safewebfornecedores.azurewebsites.net/
 
 # Login no sistema
 - usuário: administrador@swf.com.br
@@ -69,19 +69,33 @@ Com o projeto backend e frontend abertos
 2. Clique no sinal de `+`
 3. Preencha os campos obrigatórios
 4. Clique em Salvar
-- Para editar um proposta, basta clicar no icone de edição (papel com um lapis)
-- Para excluir um proposta, basta clicar no icone de exclução (lixeira)
+- Para editar um proposta, acesse os detalhes da proposta (ícone olho) e clique no editar
+- Para excluir um proposta, acesse os detalhes da proposta (ícone olho) e clicar no excluir
 
 # RF04.01 - Possibilitar o cadastro do arquivo da proposta
-OK
+1. Acesse o menu `Propostas`
+2. Clique nos detalhes da proposta
+3. Vá na aba `PDF`
+4. Selecione um arquivo PDF ou arraste o mesmo do Windows Explorer
+5. Ao final do Upload o arquivo irá aparecer na aba PDF
+OBS: proposta já cadastradada
 
 # RF04.02 - Possibilitar a análise do arquivo da proposta
-OK
+1. Acesse o menu `Propostas`
+2. Clique nos detalhes da proposta
+3. Clique no botão PDF
+OBS: proposta já cadastrada e upload do pdf já realizado
 
 # RF05 - Gerenciar o status das propostas de fornecedores
-OK
+1. Acesse o menu `Propostas`
+2. Clique nos detalhes da proposta
+3. Para aprovar/reprovar a proposta clique no respectivo botão
+OBS: proposta já cadastrada
 
 # RF06 - Pesquisar propostas de fornecedores
 
 # RF07 - Manter histórico do status das propostas
-OK
+1. Acesse o menu `Propostas`
+2. Clique nos detalhes da proposta
+3. Aba `Histórico`
+OBS: proposta já cadastrada
