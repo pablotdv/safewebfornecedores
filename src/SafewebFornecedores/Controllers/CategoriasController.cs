@@ -23,7 +23,7 @@ namespace SafewebFornecedores.Controllers
         // GET: api/Categorias
         public async Task<IList<Categoria>> GetCategorias()
         {
-            return await db.Categorias.OrderBy(a=>a.Descricao).ToListAsync();
+            return await db.Categorias.OrderByDescending(a=>a.Descricao).ToListAsync();
         }
 
         // GET: api/Categorias/5
